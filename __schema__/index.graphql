@@ -584,6 +584,11 @@ type Mutation {
   "Suspends a single `GlobalBudgetContract` using its globally unique ID."
   suspendGlobalBudgetContract(input: SuspendGlobalBudgetContractInput!): SuspendGlobalBudgetContractPayload
 
+"Creates a person_request record with the status SIGNED (in il.person_request) with following update of a person record (in mpi.persons)."
+  createPersonRequest(
+    input: createPersonRequestInput!
+  ): createPersonRequestPayload
+
   "Creates a single `ContractRequest`."
   createContractRequest(
     input: CreateContractRequestInput!
