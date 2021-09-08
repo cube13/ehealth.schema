@@ -202,7 +202,7 @@ type Person implements Node {
   ): DeclarationConnection!
     "Person's secret word for voice authentification"
   secretWord: String!
-  comment: {
+  nhsComment: {
     "internal NHS number of Requests written by Person. 15-20 symbols"
     RequestNumber: String
     "Description of request - either title of paper Request or descrption of requested changes. Up to 300 symbols"
@@ -321,7 +321,7 @@ User must have a scope **person_request:write_nhs**
 input createPersonRequestInput {
   "Signed data to create Person_Request for update of a person record in mpi.persons"
   signedContent: SignedContent!
-  "This parameters is MPI.person.(id of edited person).inserted_at, saved in FE at the beginning of editing process and should transferred to BE for validation of parallel editing"
+  "This parameters is MPI.person.(id of edited person).inserted_at, saved in FE at the beginning of editing process and should be transferred to BE for validation of parallel editing"
   updatedAtForValidation: DateTime!
 }
 
