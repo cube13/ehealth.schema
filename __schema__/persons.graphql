@@ -321,6 +321,8 @@ User must have a scope **person_request:write_nhs**
 input createPersonRequestInput {
   "Signed data to create Person_Request for update of a person record in mpi.persons"
   signedContent: SignedContent!
+  "This parameters is MPI.person.(id of edited person).inserted_at, saved in FE at the beginning of editing process and should transferred to BE for validation of parallel editing"
+  updatedAtForValidation: DateTime!
 }
 
 """
