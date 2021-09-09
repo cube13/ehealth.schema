@@ -666,6 +666,9 @@ type Mutation {
   "Merges a pair of `LegalEntity` using signed content."
   mergeLegalEntities(input: MergeLegalEntitiesInput!): MergeLegalEntitiesPayload
 
+  "Create/Update/Deactivate an authentication method for a single `Person` using its globally unique ID. IL.Authentication_method_requests entity is used"
+  createAuthMethRequestForPerson(input: createAuthMethRequestForPersonInput!): createAuthMethRequestForPersonPayload
+  
   "Resets an authentication method for a single `Person` using its globally unique ID."
   resetPersonAuth(input: ResetPersonAuthInput!): ResetPersonAuthPayload
 

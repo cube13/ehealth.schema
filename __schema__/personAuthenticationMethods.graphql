@@ -67,3 +67,59 @@ type PersonAuthenticationMethod implements Node {
   "Date and time when record was updated."
   updatedAt: DateTime!
 }
+  
+"""
+Input for `createAuthMethRequestForPerson` mutation.
+
+In order to Create/Update/Deactivate patient authentication methods user must have a scope `authentication_method_request:write_nhs`
+"""
+input createAuthMethRequestForPersonInput {
+  "Primary key identifier from the database"
+  personId: ID!
+  "The ID of an authentication method."
+  id: ID!
+  "Action"
+  action: AuthMethRequestAction!
+  "Alias name. I.e. Father, Mother"
+  alias: String
+  "ID of Third Person. Mandatory for creation of a THIRD_PERSON authentication method. For INSERT and UPDATE it should not be defined"
+  value: ID
+  type: AuthMethType!
+}
+
+"""
+Actions which user can use to Create/Update/Deactivate authenticatin methods of a Person
+"""
+
+enum AuthMethRequestAction {
+  "Action for Creation of an auth method"
+  INSERT
+  "Action for Update of a certain auth method"
+  UPDATE
+  "Action for Deactivation of a certain auth method"
+  DEACTIVATE
+
+}
+
+"""
+Type of authentication/authorisation methods which Person can use.
+This types exist in the `AUTHENTICATION_METHOD` dictionary.
+"""
+
+enum AuthMethType {
+  "Online authentication method. OTP and OFFLINE cannot be togeather "
+  OTP
+  "Offline authentication method. OTP and OFFLINE cannot be togeather"
+  OFFLINE
+  "Authentication using authentication methods of a Third person"
+  THIRD_PERSON
+
+}
+
+"""
+Return type for `createAuthMethRequestForPerson` mutation. User must have a scope `authentication_method_request:read
+"""
+type createAuthMethRequestForPersonPayload {
+  "Authentication method of a Person"
+  authenticationMethod: PersonAuthenticationMethod!
+}
