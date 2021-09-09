@@ -76,15 +76,18 @@ In order to Create/Update/Deactivate patient authentication methods user must ha
 input createAuthMethRequestForPersonInput {
   "Primary key identifier from the database"
   personId: ID!
-  "The ID of an authentication method."
+  "The ID of an authentication method (mandatory when action `\"UPDATE\"` and `\"DEACTIVATE\"`, for `\"INSERT\"` - absent)"
   id: ID!
   "Action"
   action: AuthMethRequestAction!
-  "Alias name. I.e. Father, Mother"
+  "Alias name. I.e. `\"Father\"`, `\"Mother\"`"
   alias: String
-  "ID of Third Person. Mandatory for creation of a THIRD_PERSON authentication method. For INSERT and UPDATE it should not be defined"
+  "Phone number of person (mandatory for action `\"INSERT\"` and when `type` is `\"OTP\"`)."
+  phoneNumber: String
+  "ID of a Third Person (mandatory for action `\"INSERT\"`. when `type` is `\"THIRD_PERSON\"` authentication method. For types `\"OTP\"` and `\"OFFLINE\"` it should not be defined"
   value: ID
-  type: AuthMethType!
+  "Type of authentication method created (mandatory when action is `\"INSERT\"`)."
+  type: AuthMethType
 }
 
 """
