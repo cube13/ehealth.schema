@@ -83,7 +83,7 @@ input createAuthMethRequestInput {
     id: ID!
     "Alias name. I.e. `\"Father\"`, `\"Mother\"`"
     alias: String
-    "Phone number of a person (mandatory for action `\"INSERT\"` and when `type` is `\"OTP\"`)."
+    "Phone number of a person (mandatory for action `\"INSERT\"` and when `type` is `\"OTP\"` or `\"THIRD_PERSON\"`)."
     phoneNumber: String
     "ID of a Third Person (mandatory for action `\"INSERT\"`. when `type` is `\"THIRD_PERSON\"` authentication method. For types `\"OTP\"` and `\"OFFLINE\"` it should not be defined"
     value: ID
