@@ -69,11 +69,11 @@ type PersonAuthenticationMethod implements Node {
 }
   
 """
-Input for `createAuthMethRequestForPerson` mutation.
+Input for `createAuthMethRequest` mutation.
 
 In order to Create/Update/Deactivate patient authentication methods user must have a scope `authentication_method_request:write_nhs`
 """
-input createAuthMethRequestForPersonInput {
+input createAuthMethRequestInput {
   "Primary key identifier from the database"
   personId: ID!
   "The ID of an authentication method (mandatory when action `\"UPDATE\"` and `\"DEACTIVATE\"`, for `\"INSERT\"` - absent)"
@@ -120,9 +120,9 @@ enum AuthMethType {
 }
 
 """
-Return type for `createAuthMethRequestForPerson` mutation. User must have a scope `authentication_method_request:read
+Return type for `createAuthMethRequest` mutation. User must have a scope `authentication_method_request:read
 """
-type createAuthMethRequestForPersonPayload {
+type createAuthMethRequestPayload {
   "Authentication method of a Person"
   authenticationMethod: PersonAuthenticationMethod!
 }
