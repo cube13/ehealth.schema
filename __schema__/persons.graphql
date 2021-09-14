@@ -289,36 +289,18 @@ type ConfidantPerson {
   preferredWayCommunication: PersonPreferredWayCommunication
 }
 
-
 """
 Input for `deactivatePerson` mutation.
 """
 input DeactivatePersonInput {
-  "Parameters for `Person` deactivation."
-  deactivationParams: singlePersonDeactivationParams!
-  nhsComment: {
-     "internal NHS number of Requests written by Person. 15-20 symbols"
-     RequestNumber: String!
-     "Description of request - either title of paper Request or descrption of requested changes. Up to 300 symbols"
-     RequestDescription: String!
-   } 
-}
-
-
-"""
-Parameters to identify a `Person` to deactivate.
-"""
-input singlePersonDeactivationParams {
-  "Person's ID"
-  id: ID!
-  "Person's date of death."
-  deathDate: Date
+  "Signed data (RequestNumber, RequestDescription, deathDate and id) to deactivate Person in mpi.persons"
+  signedContent: SignedContent!
 }
 
 """
 Return type for `deactivatePerson` mutation.
 """
 type DeactivatePersonPayload {
-  "`Person` is returned."
-  person: Person
+  "`Person` from mpi.persons is returned"
+  person: Person!
 }
