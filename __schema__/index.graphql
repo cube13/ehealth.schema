@@ -672,6 +672,9 @@ type Mutation {
   "Resets an authentication method for a list of `Person` using its Database IDs."
   resetPersonsAuth(input: ResetPersonsAuthInput!): ResetPersonsAuthPayload
 
+ "Deactivates a `Person` using it's unique parameter and with/wo setting death date."
+  deactivatePerson(input: DeactivatePersonInput!): DeactivatePersonPayload
+
   "Deactivates a list of `Person` using their unique parameters."
   deactivatePersons(input: DeactivatePersonsInput!): DeactivatePersonsPayload
 
