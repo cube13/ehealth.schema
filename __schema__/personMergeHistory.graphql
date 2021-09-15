@@ -1,0 +1,71 @@
+"""
+A condition to be used against `personMergeHistoryRecord` object types. 
+"""
+input personMergeHistoryRecordFilter {
+  ""
+  personId: ID!
+  "Select either subordinate branches or superior branch or both"
+  treeType: mergeBranchesSelection 
+}
+
+enum mergeBranchesSelection {
+"Select only subordinate branches"
+SUBORDINATE_BRANCHES
+"Select only superior branch"
+SUPERIOR_BRANCH
+"Select subordinate and superior altogeather"
+WHOLE_TREE
+}
+
+"""
+Methods to use when ordering `personMergeHistoryRecord`.
+"""
+enum personMergeHistoryRecordOrderBy {
+  "Sort MergeRecords by inserted at in ascending order."
+  INSERTED_AT_ASC
+  "Sort MergeRecords by inserted at in descending order."
+  INSERTED_AT_DESC
+ 
+}
+
+"""
+A connection to a list of `personMergeHistoryRecord` values.
+"""
+type personMergeHistoryRecordConnection {
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "A list of nodes."
+  nodes: [personMergeHistoryRecord]
+  "A list of edges."
+  edges: [personMergeHistoryRecordEdge]
+}
+
+"""
+Reads and enables pagination through a set of `personMergeHistoryRecord`.
+"""
+type personMergeHistoryRecordEdge {
+  "The item at the end of the edge."
+  node: personMergeHistoryRecord!
+  "A cursor for use in pagination."
+  cursor: String!
+}
+
+"""
+One merge record contains: `master id` and `merge id` (subordinated/deactivated).
+"""
+type personMergeHistoryRecord implements Node {
+  "The ID of an object."
+  id: ID!
+  "Primary key identifier from the database."
+  databaseId: UUID!
+  "Id of a person which was used as Master"
+  masterPersonId: UUID!
+  "Id of a person which was used as Subordinated/merged"
+  mergePersonId: UUID!
+  "Date and time when record was inserted."
+  insertedAt: DateTime!
+  "Date and time when record was updated."
+  updatedAt: DateTime!
+
+}
+
