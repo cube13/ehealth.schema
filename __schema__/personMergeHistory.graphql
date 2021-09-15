@@ -2,7 +2,7 @@
 A condition to be used against `personMergeHistoryRecord` object types. 
 """
 input personMergeHistoryRecordFilter {
-  ""
+  "Person Id for which it is necessary to collect from MPI.merged_pairs subordinate and superior merge records"
   personId: ID!
   "Select either subordinate branches or superior branch or both"
   treeType: mergeBranchesSelection 
