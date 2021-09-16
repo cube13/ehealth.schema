@@ -69,6 +69,8 @@ type personDataHistoryRecord implements Node {
   databaseId: UUID!
   "Id of a person who conducted changes with the resource"
   actorId: UUID!
+  "Name of a person who conducted changes with the resource"
+  actorName: String!
   "type of resource - person_authentication_methods, person_documents, persons, person_phones, person_addresses"
   resourceType: personDataHistoryResourceType!
   "id of a resource which was created/changed"
