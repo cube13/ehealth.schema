@@ -1,0 +1,15 @@
+"""
+Payload that is signed by digital sign and is converted to base64.
+"""
+input nonSignedContent {
+  "Simple content"
+  content: String!
+  "Denotes the encoding scheme for non-signed content."
+  encoding: nonSignedContentEncoding!
+}
+
+"List of signed content encoding"
+enum nonSignedContentEncoding {
+  "Is encoded in the [Base64](https://en.wikipedia.org/wiki/Base64) encoding scheme."
+  BASE64
+}

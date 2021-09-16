@@ -1,0 +1,106 @@
+"""
+A condition to be used against `personDataHistoryRecord` object types. 
+"""
+input personDataHistoryRecordFilter {
+  "Person Id for which it is necessary to collect from  5 tables: person, auth, docs, phones, addresses"
+  personId: ID!
+  "Select either subordinate branches or superior branch or both"
+  resourceType: personDataHistoryRecordSelection 
+}
+
+enum personDataHistoryRecordSelection {
+"Changes related to resource out of MPI.PERSON_AUTHENTICATION_METHODS table"
+PERSON_AUTHENTICATION_METHODS
+"Changes related to resource out of MPI.PERSON_DOCUMENTS table"
+PERSON_DOCUMENTS
+"Changes related to resource out of MPI.PERSONS table"
+PERSONS
+"Changes related to resource out of MPI.PERSON_PHONES table"
+PERSON_PHONES
+"Changes related to resource out of MPI.PERSON_ADDRESSES table"
+PERSON_ADDRESSES
+"Changes related to resource out of all 5 tables"
+ALL
+}
+
+"""
+Methods to use when ordering `personDataHistoryRecord`.
+"""
+enum personDataHistoryRecordOrderBy {
+  "Sort HistoryRecords by inserted at in ascending order."
+  INSERTED_AT_ASC
+  "Sort HistoryRecords by inserted at in descending order."
+  INSERTED_AT_DESC
+  "Sort HistoryRecords by RESOURCE and then by inserted at in ascending order."
+  RESOURCE_AND_INSERTED_AT_ASC
+  "Sort HistoryRecords by RESOURCE and then by inserted at in descending order."
+  RESOURCE_AND_INSERTED_AT_DESC
+}
+
+"""
+A connection to a list of `personDataHistoryRecord` values.
+"""
+type personDataHistoryRecordConnection {
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "A list of nodes."
+  nodes: [personDataHistoryRecord]
+  "A list of edges."
+  edges: [personDataHistoryRecordEdge]
+}
+
+"""
+Reads and enables pagination through a set of `personDataHistoryRecord`.
+"""
+type personDataHistoryRecordEdge {
+  "The item at the end of the edge."
+  node: personDataHistoryRecord!
+  "A cursor for use in pagination."
+  cursor: String!
+}
+
+"""
+
+"""
+type personDataHistoryRecord implements Node {
+  "The ID of an object."
+  id: ID!
+  "Primary key identifier from the database."
+  databaseId: UUID!
+  "Id of a person who conducted changes with the resource"
+  actorId: UUID!
+  "type of resource - person_authentication_methods, person_documents, persons, person_phones, person_addresses"
+  resourceType: personDataHistoryResourceType!
+  "id of a resource which was created/changed"
+  resourceId: UUID!
+  "Date and time when record was inserted."
+  insertedAt: DateTime!
+  "Data in form of JSON"
+  changeSet: NonSigned_Content!
+  "Operation"
+  operationType: operationType!  
+
+}
+
+"""
+Operation type is identified indirectly, by lookup in MPI.audit_log_mpi.changeset field for `id` parameter. If it is present - then it is a create operation
+"""
+enum operationType {
+"Update operation"
+UPDATE_OPERATION
+"Create of a resource operation"
+CREATE_OPERATION
+}
+
+enum personDataHistoryResourceType {
+"Resource out of MPI.PERSON_AUTHENTICATION_METHODS table"
+PERSON_AUTHENTICATION_METHODS
+"Resource out of MPI.PERSON_DOCUMENTS table"
+PERSON_DOCUMENTS
+"Resource out of MPI.PERSONS table"
+PERSONS
+"Resource out of MPI.PERSON_PHONES table"
+PERSON_PHONES
+"Resource out of MPI.PERSON_ADDRESSES table"
+PERSON_ADDRESSES
+}

@@ -37,6 +37,7 @@
 # import * from "declarationsTerminationJobs.graphql"
 # import * from "divisions.graphql"
 # import * from "forbiddenGroups.graphql"
+# import * from "personDataHistory.graphql"
 
 """
 The query root of e-Health GraphQL interface.
@@ -566,6 +567,27 @@ type Query {
 
   "Reads a single `ForbiddenGroup` using its globally unique ID."
   forbiddenGroup(id: ID!): ForbiddenGroup
+
+  "Reads and enables pagination through a set of `personDataHistoryRecord`."
+  personMergeHistoryRecords(
+    "A condition to be used in determining which values should be returned by the collection."
+    filter: personDataHistoryRecordFilter
+    "The method to use when ordering collection items."
+    orderBy: personDataHistoryRecordOrderBy
+    "Read all values in the set after (below) this cursor."
+    after: String
+    "Read all values in the set before (above) this cursor."
+    before: String
+    "Only read the first _n_ values of the set."
+    first: Int
+    "Only read the last _n_ values of the set."
+    last: Int
+  ): personDataHistoryRecordConnection!
+
+  "Reads a single `personMergeHistoryRecord` using its globally unique ID."
+  personMergeHistoryRecord(id: ID!): personDataHistoryRecord
+
+
 }
 
 """
