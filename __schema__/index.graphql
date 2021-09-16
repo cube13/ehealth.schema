@@ -569,7 +569,7 @@ type Query {
   forbiddenGroup(id: ID!): ForbiddenGroup
 
   "Reads and enables pagination through a set of `personDataHistoryRecord`."
-  personMergeHistoryRecords(
+  personDataeHistoryRecords(
     "A condition to be used in determining which values should be returned by the collection."
     filter: personDataHistoryRecordFilter
     "The method to use when ordering collection items."
@@ -584,8 +584,8 @@ type Query {
     last: Int
   ): personDataHistoryRecordConnection!
 
-  "Reads a single `personMergeHistoryRecord` using its globally unique ID."
-  personMergeHistoryRecord(id: ID!): personDataHistoryRecord
+  "Reads a single `personDataHistoryRecord` using its globally unique ID."
+  personDataHistoryRecord(id: ID!): personDataHistoryRecord
 
 
 }
