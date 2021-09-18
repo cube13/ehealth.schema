@@ -25,7 +25,6 @@ enum personMergeHistoryRecordOrderBy {
   INSERTED_AT_ASC
   "Sort MergeRecords by inserted at in descending order."
   INSERTED_AT_DESC
- 
 }
 
 """
