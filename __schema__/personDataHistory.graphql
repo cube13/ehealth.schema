@@ -14,7 +14,7 @@ PERSON_AUTHENTICATION_METHODS
 "Changes related to resource out of MPI.PERSON_DOCUMENTS table"
 PERSON_DOCUMENTS
 "Changes related to resource out of MPI.PERSONS table"
-PERSONS
+PERSON
 "Changes related to resource out of MPI.PERSON_PHONES table"
 PERSON_PHONES
 "Changes related to resource out of MPI.PERSON_ADDRESSES table"
@@ -100,7 +100,7 @@ PERSON_AUTHENTICATION_METHODS
 "Resource out of MPI.PERSON_DOCUMENTS table"
 PERSON_DOCUMENTS
 "Resource out of MPI.PERSONS table"
-PERSONS
+PERSON
 "Resource out of MPI.PERSON_PHONES table"
 PERSON_PHONES
 "Resource out of MPI.PERSON_ADDRESSES table"
