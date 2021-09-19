@@ -204,9 +204,9 @@ type Person implements Node {
   secretWord: String!
   nhsComment: {
     "internal NHS number of Requests written by Person. 15-20 symbols"
-    RequestNumber: String
+    requestNumber: String
     "Description of request - either title of paper Request or descrption of requested changes. Up to 300 symbols"
-    RequestDescription: String
+    requestDescription: String
   }
 }
 
