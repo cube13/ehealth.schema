@@ -130,6 +130,28 @@ type ResetPersonAuthPayload {
 }
 
 """
+Input for `updatePersonVerificationStatus` mutation.
+"""
+input UpdatePersonVerificationStatusInput {
+  "Person unique identifier."
+  personId: ID!
+  "Person verification status"
+  verificationStatus: PersonVerificationStatus!
+  "Description about person verification status"
+  verificationStatusComment: String
+}
+
+"""
+Return type for `updatePersonVerificationStatus` mutation.
+
+In order to verify person user must have a scope `person:verify`.
+"""
+type UpdatePersonVerificationStatusPayload {
+  "Payload for person."
+  person: Person!
+}
+
+"""
 This is Person (MPI) details. In order to obtain details user must have a scope **person:read**
 """
 type Person implements Node {

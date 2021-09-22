@@ -885,6 +885,11 @@ type Mutation {
   createJustification(
     input: CreateJustificationInput!
   ): CreateJustificationPayload
+  
+  "Updates verification status for a single `Person` by NHS using its globally unique ID."
+  updatePersonVerificationStatus(
+    input: UpdatePersonVerificationStatusInput!
+  ): UpdatePersonVerificationStatusPayload
 }
 
 """
