@@ -9,6 +9,8 @@ input PersonFilter {
   personal: PersonPersonalFilter
   "Person identity information."
   identity: PersonIdentityFilter
+  "Person verification infirmation"
+  verification: PersonVerificationFilter
   "Person status."
   status: PersonStatus
   "National person identifier."
@@ -54,6 +56,14 @@ input PersonPersonalFilter {
 }
 
 """
+Information about person verification
+"""
+input PersonVerificationFilter {
+  "Person verification status"
+  verificationStatus: PersonVerificationStatus
+}
+
+"""
 Methods to use when ordering `Person`.
 """
 enum PersonOrderBy {
@@ -73,6 +83,10 @@ enum PersonOrderBy {
   UNZR_ASC
   "Sort Person by unzr in descending order."
   UNZR_DESC
+  "Sort Person by updated at in ascending order."
+  UPDATED_AT_ASC
+  "Sort Person by updated at in descending order."
+  UPDATED_AT_DESC
 }
 
 """
@@ -196,6 +210,12 @@ type Person implements Node {
     "Only read the last _n_ values of the set."
     last: Int
   ): DeclarationConnection!
+  "Person verification status"
+  verificationStatus: PersonVerificationStatus
+  "Description about person verification status"
+  verificationStatusComment: String
+  "Date when person will be deactivated automatically"
+  deactivatesAt: Date
 }
 
 """
@@ -287,4 +307,15 @@ type ConfidantPerson {
   phones: [Phone]
   "Preferred way to communicate with the confident person."
   preferredWayCommunication: PersonPreferredWayCommunication
+}
+
+enum PersonVerificationStatus {
+  "Status `VERIFICATION_NEEDED` for a person."
+  VERIFICATION_NEEDED
+  "Status `IN_REVIEW` for a person."
+  IN_REVIEW
+  "Status `NOT_VERIFIED` for a person."
+  NOT_VERIFIED
+  "Status `VERIFIED` for a person."
+  VERIFIED
 }
