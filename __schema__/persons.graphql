@@ -138,7 +138,7 @@ input UpdatePersonVerificationStatusInput {
   "Person verification status"
   verificationStatus: PersonVerificationStatus!
   "Description about person verification status"
-  verificationStatusComment: String
+  verificationComment: String
 }
 
 """
@@ -235,7 +235,7 @@ type Person implements Node {
   "Person verification status"
   verificationStatus: PersonVerificationStatus
   "Description about person verification status"
-  verificationStatusComment: String
+  verificationComment: String
   "Date when person will be deactivated automatically"
   deactivatesAt: Date
 }
