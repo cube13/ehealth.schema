@@ -43,7 +43,7 @@ type ForbiddenGroupConnection {
 }
 
 """
-An edge in a connection of `MedicalProgram`.
+An edge in a connection of `ForbiddenGroup`.
 """
 type ForbiddenGroupEdge {
   "The item at the end of the edge."

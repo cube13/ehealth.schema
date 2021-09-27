@@ -1,0 +1,118 @@
+# import Coding, CodeableConcept, StatusHistory, Diagnosis, Period from "medicalEvents.graphql"
+
+"""
+Fields to filter Episode in the system.
+"""
+input EpisodeFilter {
+  "Person identifier from MPI database"
+  personId: ID!
+  "Episode status"
+  status: EpisodeStatus
+  "Current diagnosis code"
+  code: String
+  "Legal entity identifier"
+  managingOrganizationId: ID
+  "The interval for serching episode by period"
+  period: DateInterval
+}
+
+"""
+Methods to use when ordering `Episode`.
+"""
+enum EpisodeOrderBy {
+  "Sort by inserted_at in ascending order."
+  INSERTED_AT_ASC
+  "Sort by inserted_at in descending order."
+  INSERTED_AT_DESC
+  "Sort by status in ascending order."
+  STATUS_ASC
+  "Sort by status in descending order."
+  STATUS_DESC
+}
+
+"""
+A connection to a list of `Episode` values.
+"""
+type EpisodeConnection {
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "A list of nodes."
+  nodes: [Episode]
+  "A list of edges."
+  edges: [EpisodeEdge]
+}
+
+"""
+An edge in a connection of `Episode`.
+"""
+type EpisodeEdge {
+  "The item at the end of the edge."
+  node: Episode!
+  "A cursor for use in pagination."
+  cursor: String!
+}
+
+"""
+Episode data contains all information about the episode. Described by https://www.hl7.org/fhir/episodeofcare.html
+In order to obtain this data user must have a scopes: **episode:practical_monitor**, **episode:clinical_monitor**
+"""
+type Episode implements Node {
+  "The ID of an object."
+  id: ID!
+  "Primary key identifier from the database."
+  databaseId: UUID!
+  "Name of the Episode"
+  name: String!
+  "Episode status"
+  status: EpisodeStatus!
+  "Reason the status was set"
+  statusReason: CodeableConcept
+  "Reason in case episode was canacelled"
+  explanatoryLetter: String
+  "Reason in case episode was closed"
+  closingSummary: String
+  "History of the episode status"
+  statusHistory: [StatusHistory!]!
+  "Episode type"
+  type: Coding!
+  "The list of current diagnosis relevant to this Episode"
+  currentDiagnoses: [Diagnosis!]!
+  "History of episode diagnosis"
+  diagnosesHistory: [DiagnosesHistory!]!
+  "Reference on Legal entity resource"
+  managingOrganization: Reference!
+  "Interval during responsibility is assumed"
+  period: Period!
+  "Reference on Employee resource"
+  careManager: Reference!
+  "Date and time when record was inserted"
+  insertedAt: DateTime!
+  "Date and time when record was updated"
+  updatedAt: DateTime!
+}
+
+"""
+List of episode statuses. According to 'eHealth/episode_statuses' dictionary
+"""
+enum EpisodeStatus {
+  "Status `ACTIVE` for an episode"
+  ACTIVE
+  "Status `CLOSED` for an episode"
+  CLOSED
+  "Status `ENTERED_IN_ERROR` for an episode"
+  ENTERED_IN_ERROR
+}
+
+"""
+Episode diagnoses history.
+"""
+type DiagnosesHistory {
+    "Date and tome diagnosis was set"
+    date: DateTime!
+    "Diagnosis status"
+    isActive: Boolean!
+    "Reference to medical event that represent the diagnosis (Encounter resource)."
+    evidence: Reference!
+    "List of diagnosis was set"
+    diagnoses: [Diagnosis]!
+}

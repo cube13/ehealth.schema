@@ -18,4 +18,6 @@ type PageInfo {
   startCursor: String
   "When paginating forwards, the cursor to continue."
   endCursor: String
+  "Total entries found"
+  totalEntries: Int
 }
