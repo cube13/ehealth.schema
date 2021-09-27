@@ -9,7 +9,7 @@ input EncounterFilter {
   "Encounter status"
   status: EncounterStatus
   "Episode identifier"
-  episodeId: ID!
+  episodeId: ID
   "Service request identifier"
   incomingReferralId: ID
   "The interval for searching encounter by date"
