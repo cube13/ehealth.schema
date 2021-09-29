@@ -85,6 +85,8 @@ input CreateJustificationInput {
   personId: ID!
   "The reason of monitoring patiet's data"
   reason: String!
+  "Justification reason type. According to `eHealth/justification_reason_types` dictionary"
+  reasonType: CodeableConcept!
 }
 
 """
