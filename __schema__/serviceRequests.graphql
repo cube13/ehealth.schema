@@ -1,0 +1,176 @@
+# import CodeableConcept, Reference, StatusHistory, Period from "medicalEvents.graphql"
+
+"""
+Fields to filter ServiceRequest in the system.
+"""
+input ServiceRequestFilter {
+  "Person identifier from MPI database"
+  personId: ID!
+  "Service request status"
+  status: ServiceRequestStatus
+  "Service identifier"
+  code: ID
+  "Service request number"
+  requisition: String
+  "Identifier of Legal Entity that requests service"
+  requesterLegalEntityId: ID
+  "Identifier of Legal Entity used service request"
+  usedByLegalEntityId: ID
+}
+
+"""
+Methods to use when ordering `ServiceRequest`.
+"""
+enum ServiceRequestOrderBy {
+  "Sort by inserted_at in ascending order."
+  INSERTED_AT_ASC
+  "Sort by inserted_at in descending order."
+  INSERTED_AT_DESC
+  "Sort by status in ascending order."
+  STATUS_ASC
+  "Sort by status in descending order."
+  STATUS_DESC
+}
+
+"""
+A connection to a list of `ServiceRequest` values.
+"""
+type ServiceRequestConnection {
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "A list of nodes."
+  nodes: [ServiceRequest]
+  "A list of edges."
+  edges: [ServiceRequestEdge]
+}
+
+"""
+An edge in a connection of `ServiceRequest`.
+"""
+type ServiceRequestEdge {
+  "The item at the end of the edge."
+  node: ServiceRequest!
+  "A cursor for use in pagination."
+  cursor: String!
+}
+
+"""
+ServiceRequest data contains all information about the service request. Described by https://www.hl7.org/fhir/servicerequest.html
+In order to obtain this data user must have a scopes: **service_request:practical_monitor**, **service_request:clinical_monitor**
+"""
+type ServiceRequest implements Node {
+  "The ID of an object."
+  id: ID!
+  "Primary key identifier from the database."
+  databaseId: UUID!
+  "Service request number"
+  requisition: String!
+  "Service request status"
+  status: ServiceRequestStatus!
+  "Reason if ServiceRequest was cancelled/recalled"
+  statusReason: CodeableConcept
+  "Explanatory letter if ServiceRequest was cancelled/recalled"
+  explanatoryLetter: String
+  "History of service request status"
+  statusHistory: [StatusHistory!]!
+  "The kind of service request"
+  intent: ServiceRequestIntent!
+  "Identifies the level of importance to be assigned to actioning the request."
+  priority: ServiceRequestPriority
+  "Classification of the requested service."
+  category: CodeableConcept!
+  "Reference on Service or ServiceGroup resource"
+  code: Reference!
+  "Reference on Encounter resource"
+  context: Reference!
+  "When service should occur"
+  occurrence: Occurrence
+  "Reference on Employee resource who is requesting service"
+  requesterEmployee: Reference!
+  "Reference on LegalEntity resource where service is requested"
+  requesterLegalEntity: Reference!
+  "Performer speciality"
+  performerType: CodeableConcept
+  "Requested performer as reference on LegalEntity resource"
+  performer: Reference
+  "Requested location as reference on Division resource"
+  locationReference: Reference
+  "Explanation/Justification for service as list of references on Observation or Condition resources"
+  reasonReferences: [Reference]
+  "Reference on supporting Observation, DiagnosticReport, Condition, Episode, AllergyIntolerance or Immunization resources"
+  supportingInfo: [Reference]
+  "Comments"
+  note: String
+  "Patient or consumer-oriented instructions"
+  patientInstruction: String
+  "List of references on permitted Episode or DiagnosticReport resources"
+  permittedResources: [Reference]
+  "Reference on Employee resource who used the service request"
+  usedByEmployee: Reference
+  "Reference on Legal Entity resource where the service request is used"
+  usedByLegalEntity: Reference
+  "Reference on MedicalProgram resource used in the service request"
+  program: Reference
+  "Date when the service request expires"
+  expirationDate: DateTime
+  "Program processing status in service request. Fills if program was set"
+  programProcessingStatus: ProgramProcessingStatus
+  "Date and time when record was inserted"
+  insertedAt: DateTime!
+  "Date and time when record was updated"
+  updatedAt: DateTime!
+}
+
+"""
+List of service request statuses. According to `service_request_statuses` dictionary
+"""
+enum ServiceRequestStatus {
+  "Status `ACTIVE` for a service request"
+  ACTIVE
+  "Status `ENTERED_IN_ERROR` for a service request"
+  ENTERED_IN_ERROR
+  "Status `RECALLED` for a service request"
+  RECALLED
+}
+
+"""
+List of program processing statuses in service request. According to `service_request_processing_statuses` dictionary
+"""
+enum ProgramProcessingStatus {
+  "Program processing status `COMPLETED` for a service request"
+  COMPLETED
+  "Program processing status `IN_PROGRESS` for a service request"
+  IN_PROGRESS
+  "Program processing status `IN_QUEUE` for a service request"
+  IN_QUEUE
+  "Program processing status `NEW` for a service request"
+  NEW
+}
+
+"""
+List of service request kinds. According to `SERVICE_REQUEST_INTENT` dictionary
+"""
+enum ServiceRequestIntent {
+  "Kind `ORDER` of service request"
+  ORDER
+  "Kind `PLAN` of service request"
+  PLAN
+  "Kind `PROPOSAL` of service request"
+  PROPOSAL
+}
+
+"""
+List of service request priorities. According to `SERVICE_REQUEST_PRIORITY` dictionary
+"""
+enum ServiceRequestPriority {
+  "Priority `ROUTINE` for a service request"
+  ROUTINE
+  "Priority `URGENT` for a service request"
+  URGENT
+}
+
+"""
+This union represents two posible format of occurrence field: occurrenceDateTime, occurrencePeriod
+Value can be returned in different data type format.
+"""
+union Occurrence = DateTime | Period
