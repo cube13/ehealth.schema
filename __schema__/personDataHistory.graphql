@@ -5,7 +5,7 @@ input personDataHistoryRecordFilter {
   "Person Id for which it is necessary to collect from  5 tables: person, auth, docs, phones, addresses"
   personId: ID!
   "Select either subordinate branches or superior branch or both"
-  resourceType: personDataHistoryRecordSelection 
+  resourceType: personDataHistoryRecordSelection!
 }
 
 enum personDataHistoryRecordSelection {
