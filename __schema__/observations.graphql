@@ -95,6 +95,10 @@ type Observation implements Node {
   components: [Component]
   "Actual result"
   value: ObservationValue!
+  "Date and time when record was inserted"
+  insertedAt: DateTime!
+  "Date and time when record was updated"
+  updatedAt: DateTime!
 }
 
 """
