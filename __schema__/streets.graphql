@@ -1,0 +1,65 @@
+"""
+A condition to be used against `Street` object types. All fields are tested for equality and combined with a logical ‘and.’
+"""
+input StreetFilter {
+ "Checks for equality with the object’s `name` field."
+  settlementId: UUID
+  "Checks for equality with the object’s `streetName` field."
+  Name: String
+  "Checks for equality with the object’s `streetType` field."
+  Type: String
+
+}
+
+"""
+Methods to use when ordering `Street`.
+"""
+enum StreetOrderBy {
+  "Orders by the object’s `name` field in the ascending order."
+  NAME_ASC
+  "Orders by the object’s `name` field in the descending order."
+  NAME_DESC
+}
+
+"""
+A connection to a list of `Street` values.
+"""
+type StreetConnection {
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "A list of nodes."
+  nodes: [Street]
+  "A list of edges."
+  edges: [StreetEdge]
+}
+
+"""
+Reads and enables pagination through a set of `Street`.
+"""
+type StreetEdge {
+  "The item at the end of the edge."
+  node: Street!
+  "A cursor for use in pagination."
+  cursor: String!
+}
+
+"""
+A second-level administrative division of Ukraine.
+"""
+type Street implements Node {
+  "The ID of an object."
+  id: ID!
+  "Primary key identifier from the database."
+  databaseId: ID!
+  "Street name."
+  streetName: String!
+  "Street type"
+  streetType: String!
+  "Settlement name"
+  settlementName: String!
+  "Date and time when record was inserted."
+  insertedAt: DateTime!
+  "Date and time when record was updated."
+  updatedAt: DateTime!
+
+}

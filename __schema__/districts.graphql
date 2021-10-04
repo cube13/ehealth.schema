@@ -7,6 +7,20 @@ input DistrictFilter {
 }
 
 """
+A condition to be used against `District` object types within Main query. All fields are tested for equality and combined with a logical ‘and.’
+"""
+input DistrictFilterMain {
+  "Checks for equality with the object’s `name` field."
+  name: String
+  "Checks for equality with the object’s `regionID` field."
+  regionId: UUID
+  "Checks for equality with the object’s `region` field."
+  region: String
+  "Checks for equality with the object’s `koatuu` field."
+  koatuu: String
+}
+
+"""
 Methods to use when ordering `District`.
 """
 enum DistrictOrderBy {

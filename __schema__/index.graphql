@@ -28,6 +28,7 @@
 # import * from "regions.graphql"
 # import * from "districts.graphql"
 # import * from "settlements.graphql"
+# import * from "streets.graphql"
 # import * from "services.graphql"
 # import * from "serviceGroup.graphql"
 # import * from "programServices.graphql"
@@ -469,6 +470,38 @@ type Query {
   "Reads a single `Person` using its globally unique ID."
   person(id: ID!): Person
 
+  "Reads and enables pagination through a set of `Region`."
+  regions(
+    "A condition to be used in determining which values should be returned by the collection."
+    filter: RegionFilter
+    "The method to use when ordering collection items."
+    orderBy: RegionOrderBy
+    "Read all values in the set after (below) this cursor."
+    after: String
+    "Read all values in the set before (above) this cursor."
+    before: String
+    "Only read the first _n_ values of the set."
+    first: Int
+    "Only read the last _n_ values of the set."
+    last: Int
+  ): RegionConnection!
+
+  "Reads and enables pagination through a set of `District`."
+  districts(
+    "A condition to be used in determining which values should be returned by the collection."
+    filter: DistrictFilterMain
+    "The method to use when ordering collection items."
+    orderBy: DistrictOrderBy
+    "Read all values in the set after (below) this cursor."
+    after: String
+    "Read all values in the set before (above) this cursor."
+    before: String
+    "Only read the first _n_ values of the set."
+    first: Int
+    "Only read the last _n_ values of the set."
+    last: Int
+  ): DistrictConnection!
+
   "Reads and enables pagination through a set of `Settlement`."
   settlements(
     "A condition to be used in determining which values should be returned by the collection."
@@ -484,6 +517,22 @@ type Query {
     "Only read the last _n_ values of the set."
     last: Int
   ): SettlementConnection!
+
+  "Reads and enables pagination through a set of `Street`."
+  streets(
+    "A condition to be used in determining which values should be returned by the collection."
+    filter: StreetFilter
+    "The method to use when ordering collection items."
+    orderBy: StreetOrderBy
+    "Read all values in the set after (below) this cursor."
+    after: String
+    "Read all values in the set before (above) this cursor."
+    before: String
+    "Only read the first _n_ values of the set."
+    first: Int
+    "Only read the last _n_ values of the set."
+    last: Int
+  ): StreetConnection!
 
   "Reads and enables pagination through a set of `Service`."
   services(
