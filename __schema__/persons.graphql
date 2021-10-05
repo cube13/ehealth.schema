@@ -204,10 +204,40 @@ type Person implements Node {
   nhsRequestNumber: String
   "Description of request - either title of paper Request or description of requested changes. Up to 300 symbols"
   nhsRequestComment: String
-  "Date and time of creation of a latest Person Request which was used for creation/update"
-  latestPersonRequestInsertedAt: DateTime!
+  "Scan files of Person's documents, located in Bucket, where name = latest Person_request.ID identifier. person_documents:read scope is needed to get this parameter"
+  personrequestAttachedDocuments: {
+    "List of scan copies of Person's documents"
+    documents: [personrequestAttachedDocument]
+    "List of scan copies of documents, related to Confidant persons"
+    confidantPersons: [confidantPersonAttachedDocuments] }
+    "Date and time of creation of a latest Person Request"
+    latestPersonRequestInsertedAt: DateTime!
+    "Channel, which was used for creation of a latest Person Request"
+    latestPersonRequestChannel: String!
 }
 
+"""
+     Scan files of Confidant persons' documents, located in Bucket
+"""
+"Scan files of Person's documents, located in Bucket, where name = latest Person_request.ID identifier"
+type confidantPersonAttachedDocuments {
+  "Priority of persons. The value is present in the `CONFIDANT_PERSON_TYPE` dictionary."
+  relationType: String!
+  "ConfidantPerson identification documents."
+  documents: [personRequestAttachedDocument]!
+  "Documents which prove relationship with the patient"
+  relationshipDocuments: [personRequestAttachedDocument]!
+}
+
+ """
+     Scan files of documents, located in Bucket
+ """
+ type personRequestAttachedDocument {
+ "The type of document."
+ type: String!
+ "Person's scan files of documents, located in Bucket, in latest Person_request.id folder."
+ url: String!
+ }
 
 """
 List of person statuses.
@@ -243,8 +273,6 @@ type PersonDocument {
   issuedAt: Date
   "document expiration date"
   expirationDate: Date
-  "person's scan files of documents, located in Bucket, in latest Person_request.id folder. person_documents:read scope is needed to get this parameter"
-  url: String!
 }
 
 """
