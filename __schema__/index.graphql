@@ -489,7 +489,7 @@ type Query {
   "Reads and enables pagination through a set of `District`."
   districts(
     "A condition to be used in determining which values should be returned by the collection."
-    filter: DistrictFilterMain
+    filter: DistrictFilter
     "The method to use when ordering collection items."
     orderBy: DistrictOrderBy
     "Read all values in the set after (below) this cursor."

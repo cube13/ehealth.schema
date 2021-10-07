@@ -1,21 +1,9 @@
 """
 A condition to be used against `Settlement` object types. All fields are tested for equality and combined with a logical ‘and.’
 """
-input SettlementFilter {
+input SettlementFilterSubDistrict {
   "Checks for equality with the object’s `name` field."
   name: String
-  "SHOULD IT BE SEPARATE? SettlementFilter2:"
-  "Checks for equality with the object’s `region` field. Region to which settlement belongs."
-  region: String
-  "Checks for equality with the object’s `district` field. District to which settlement belongs."
-  district: String
-  "Checks for equality with the object’s `koatuu` field. State Classifier of Objects of the Administrative-Territorial Order of Ukraine."
-  koatuu: String
-  "Checks for equality with the object’s `mountainGroup` field. Whether the village belongs to the mountain group?"
-  mountainGroup: String
-  "Checks for equality with the object’s `type` field. Settlement type. The value should be present in the `SETTLEMENT_TYPE` dictionary."
-  type: String
-
 }
 
 """
@@ -24,7 +12,6 @@ A condition to be used against `Settlement` object types. All fields are tested 
 input SettlementFilter {
   "Checks for equality with the object’s `name` field."
   name: String
-  "SHOULD IT BE SEPARATE? SettlementFilter2:"
   "Checks for equality with the object’s `region` field. Region to which settlement belongs."
   region: String
   "Checks for equality with the object’s `district` field. District to which settlement belongs."
