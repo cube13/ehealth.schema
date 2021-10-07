@@ -1,0 +1,148 @@
+# import CodeableConcept, Reference, Quantity from "medicalEvents.graphql"
+
+"""
+Fields to filter Immunization in the system.
+"""
+input ImmunizationFilter {
+  "Person identifier from MPI database"
+  personId: ID!
+  "Episode status"
+  status: ImmunizationStatus
+  "Encounter identifier from Immunization context"
+  encounterId: ID
+  "The interval to search by Immunization date"
+  date: DateInterval
+  "Immunization vaccine code"
+  vaccineCode: String
+}
+
+"""
+Methods to use when ordering `Immunization`.
+"""
+enum ImmunizationOrderBy {
+  "Sort by inserted_at in ascending order."
+  INSERTED_AT_ASC
+  "Sort by inserted_at in descending order."
+  INSERTED_AT_DESC
+  "Sort by status in ascending order."
+  STATUS_ASC
+  "Sort by status in descending order."
+  STATUS_DESC
+}
+
+"""
+A connection to a list of `Immunization` values.
+"""
+type ImmunizationConnection {
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "A list of nodes."
+  nodes: [Immunization]
+  "A list of edges."
+  edges: [ImmunizationEdge]
+}
+
+"""
+An edge in a connection of `Immunization`.
+"""
+type ImmunizationEdge {
+  "The item at the end of the edge."
+  node: Immunization!
+  "A cursor for use in pagination."
+  cursor: String!
+}
+
+"""
+Immunization data contains all information about patient's immunization. Described by https://www.hl7.org/fhir/immunization.html
+In order to obtain this data user must have a scopes: **immunization:practical_monitor**, **immunization:clinical_monitor**
+"""
+type Immunization implements Node {
+  "The ID of an object."
+  id: ID!
+  "Primary key identifier from the database."
+  databaseId: UUID!
+  "Immunization status"
+  status: ImmunizationStatus!
+  "If immunization performed or not"
+  notGiven: Boolean!
+  "The code for vaccine product administered."
+  vaccineCode: CodeableConcept!
+  "Reference on Encounter resource"
+  context: CodeableConcept!
+  "Immunization date"
+  date: DateTime!
+  "Source of immunization information. True - the immunization is done by current doctor, false - according to someone"
+  primarySource: Boolean!
+  "Reference on Employee resource who performed the Immunization.  Fills if primary_source=true"
+  performer: Reference
+  "Immunization report origin. Fills if primary_source=false"
+  reportOrigin: CodeableConcept
+  "Vaccine manufacturer"
+  manufacturer: String
+  "Vaccine lot number"
+  lotNumber: String
+  "Vaccine expiration date"
+  expirationDate: DateTime
+  "Body site vaccine was administered"
+  site: CodeableConcept
+  "How vaccine entered body"
+  route: CodeableConcept
+  "Amount of vaccine administered"
+  doseQuantity: Quantity
+  "Explanation about immunization"
+  explanation: Explanation
+  "Reactions on the immunization"
+  reactions: [Reaction]
+  "Protocols followed by the provider"
+  vaccinationProtocols: [VaccinationProtocol]
+  "Date and time when record was inserted"
+  insertedAt: DateTime!
+  "Date and time when record was updated"
+  updatedAt: DateTime!
+}
+
+"""
+List of immunization statuses. According to `eHealth/immunization_statuses` dictionary
+"""
+enum ImmunizationStatus {
+  "Status `COMPLETED` for an immunization"
+  COMPLETED
+  "Status `ENTERED_IN_ERROR` for an immunization"
+  ENTERED_IN_ERROR
+}
+
+"""
+Explanation of immunization
+"""
+type Explanation {
+  "Why immunization occurred."
+  reasons: [CodeableConcept]
+  "Why immunization did not occur."
+  reasonsNotGiven: [CodeableConcept]
+}
+
+"""
+Reaction on immunization
+"""
+type Reaction {
+  "Detail about the reaction as reference on Observation resource"
+  detail: Reference
+}
+
+"""
+Vaccination protocol description
+"""
+type VaccinationProtocol {
+  "Dose number within series"
+  doseSequence: Int
+  "Details of vaccine protocol"
+  description: String
+  "Who is responsible for protocol"
+  authority: CodeableConcept
+  "Name of vaccine series"
+  series: String
+  "Recommended number of doses for immunity"
+  seriesDoses: Int
+  "Disease immunized against"
+  targetDiseases: [CodeableConcept]
+}
