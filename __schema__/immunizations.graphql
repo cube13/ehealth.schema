@@ -6,7 +6,7 @@ Fields to filter Immunization in the system.
 input ImmunizationFilter {
   "Person identifier from MPI database"
   personId: ID!
-  "Episode status"
+  "Immunization status"
   status: ImmunizationStatus
   "Encounter identifier from Immunization context"
   encounterId: ID
@@ -68,7 +68,7 @@ type Immunization implements Node {
   "The code for vaccine product administered."
   vaccineCode: CodeableConcept!
   "Reference on Encounter resource"
-  context: CodeableConcept!
+  context: Reference!
   "Immunization date"
   date: DateTime!
   "Source of immunization information. True - the immunization is done by current doctor, false - according to someone"
