@@ -42,6 +42,7 @@
 # import * from "encounters.graphql"
 # import * from "observations.graphql"
 # import * from "conditions.graphql"
+# import * from "immunizations.graphql"
 
 """
 The query root of e-Health GraphQL interface.
@@ -679,6 +680,25 @@ type Query {
 
   "Reads a single `Condition` using its globally unique ID and person's mpi id."
   condition(personId: ID!, id: ID!): Condition
+
+  "Reads and enables pagination through a set of `Immunization`"
+  immunizations(
+    "A condition to be used in determining which values should be returned by the collection."
+    filter: ImmunizationFilter!
+    "The method to use when ordering collection items."
+    orderBy: ImmunizationOrderBy
+    "Read all values in the set after (below) this cursor."
+    after: String
+    "Read all values in the set before (above) this cursor."
+    before: String
+    "Only read the first _n_ values of the set."
+    first: Int
+    "Only read the last _n_ values of the set."
+    last: Int
+  ): ImmunizationConnection!
+
+  "Reads a single `Immunization` using its globally unique ID and person's mpi id."
+  immunization(personId: ID!, id: ID!): Immunization
 }
 
 """
