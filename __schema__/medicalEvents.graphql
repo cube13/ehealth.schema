@@ -98,13 +98,37 @@ type Quantity {
 }
 
 """
-FHIR type that represent a set of ordered Quantity values defined by a low and high limit. Described at https://www.hl7.org/fhir/datatypes.html#Range
+FHIR type that represent a measured amount without comparator. Described at https://www.hl7.org/fhir/datatypes.html#SimpleQuantity
+"""
+type SimpleQuantity {
+  "Numerical value (with implicit precision)"
+  value: Float!
+  "Unit representation"
+  unit: String
+  "System that defines coded unit form"
+  system: String
+  "Coded form of the unit"
+  code: String
+}
+
+"""
+Type that represent a set of ordered Quantity values defined by a low and high limit, based on Quantity types
 """
 type Range {
   "Low limit"
   low: Quantity
   "High limit"
   high: Quantity
+}
+
+"""
+FHIR type that represent a set of ordered Quantity values defined by a low and high limit. Described at https://www.hl7.org/fhir/datatypes.html#Range
+"""
+type SimpleRange {
+  "Low limit"
+  low: SimpleQuantity
+  "High limit"
+  high: SimpleQuantity
 }
 
 """
@@ -136,3 +160,86 @@ type Ratio {
   "Denominator value"
   denominator: Quantity!
 }
+
+"""
+FHIR type that represent a timing schedule that specifies an event that may occur multiple times. Described at https://www.hl7.org/fhir/datatypes.html#Timing
+"""
+type Timing {
+  "When the event occurs"
+  event: [DateTime]
+  "When the event is to occur"
+  repeat: {
+    "Number of times to repeat"
+    count: Int
+    "Maximum number of times to repeat"
+    countMax: Int
+    "How long when it happens"
+    duration: Float
+    "How long when it happens (Max)"
+    durationMax: Float
+    "A unit of time (units from UCUM)."
+    durationUnit: String
+    "Event occurs frequency times per period"
+    frequency: Int
+    "Event occurs up to frequencyMax times per period"
+    frequencyMax: Int
+    "Event occurs frequency times per period"
+    period: Float
+    "Upper limit of period (3-4 hours)"
+    periodMax: Float
+    "A unit of time (units from UCUM)."
+    periodUnit: String
+    "Days of week the event occurs"
+    dayOfWeek: [String]
+    "Time of day for action"
+    timeOfDay: [String]
+    "Code for time period of occurrence"
+    when: EventTiming
+    "Minutes from event (before or after)"
+    offset: Int
+    "Length/Range of lengths, or (Start and/or end) limits"
+    bounds: TimingBounds
+  }
+  "Code for a known/defined timing pattern."
+  code: CodeableConcept
+}
+
+"""
+List of time periods of occurrence
+"""
+enum EventTiming {
+  "Event occurs [offset] before a meal (from the Latin ante cibus)"
+  AC
+  "Event occurs [offset] before lunch (from the Latin ante cibus diurnus)"
+  ACD
+  "Event occurs [offset] before breakfast (from the Latin ante cibus matutinus)"
+  ACM
+  "Event occurs [offset] before dinner (from the Latin ante cibus vespertinus)"
+  ACV
+  "Event occurs at a meal (from the Latin cibus)"
+  C
+  "Event occurs at lunch (from the Latin cibus diurnus)"
+  CD
+  "Event occurs at breakfast (from the Latin cibus matutinus)"
+  CM
+  "Event occurs at dinner (from the Latin ante cibus vespertinus)"
+  CV
+  "Event occurs [offset] before the hour of sleep (or trying to)"
+  HS
+  "Event occurs [offset] after a meal (from the Latin post cibus)"
+  PC
+  "Event occurs [offset] after lunch (from the Latin post cibus diurnus)"
+  PCD
+  "Event occurs [offset] after breakfast (from the Latin post cibus matutinus)"
+  PCM
+  "Event occurs [offset] after dinner (from the Latin post cibus vespertinus)"
+  PCV
+  "Event occurs [offset] after waking"
+  WAKE
+}
+
+"""
+The union represents Length/Range of lengths, or (Start and/or end) limits.
+Duration as SimpleQuantity, Range as SimpleRange.
+"""
+union TimingBounds = SimpleQuantity | SimpleRange | Period

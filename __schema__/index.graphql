@@ -41,6 +41,8 @@
 # import * from "justifications.graphql"
 # import * from "encounters.graphql"
 # import * from "observations.graphql"
+# import * from "carePlans.graphql"
+# import * from "activities.graphql"
 
 """
 The query root of e-Health GraphQL interface.
@@ -643,6 +645,44 @@ type Query {
 
   "Reads a single `Observation` using its globally unique ID and person's mpi id."
   observation(personId: ID!, id: ID!): Observation
+
+  "Reads and enables pagination through a set of `CarePlan`"
+  carePlans(
+    "A condition to be used in determining which values should be returned by the collection."
+    filter: CarePlanFilter!
+    "The method to use when ordering collection items."
+    orderBy: CarePlanOrderBy
+    "Read all values in the set after (below) this cursor."
+    after: String
+    "Read all values in the set before (above) this cursor."
+    before: String
+    "Only read the first _n_ values of the set."
+    first: Int
+    "Only read the last _n_ values of the set."
+    last: Int
+  ): CarePlanConnection!
+
+  "Reads a single `CarePlan` using its globally unique ID and person's mpi id."
+  carePlan(personId: ID!, id: ID!): CarePlan
+
+  "Reads and enables pagination through a set of `Activities`"
+  activities(
+    "A condition to be used in determining which values should be returned by the collection."
+    filter: ActivityFilter!
+    "The method to use when ordering collection items."
+    orderBy: ActivityOrderBy
+    "Read all values in the set after (below) this cursor."
+    after: String
+    "Read all values in the set before (above) this cursor."
+    before: String
+    "Only read the first _n_ values of the set."
+    first: Int
+    "Only read the last _n_ values of the set."
+    last: Int
+  ): ActivityConnection!
+
+  "Reads a single `Activity` within `CarePlan` using its globally unique ID and person's mpi id."
+  activity(personId: ID!, carePlanId: ID!, id: ID!): Activity
 }
 
 """
