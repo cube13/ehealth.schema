@@ -1,0 +1,143 @@
+# import CodeableConcept, Reference, SimpleQuantity, Timing, Period from "medicalEvents.graphql"
+
+"""
+Fields to filter `Activity` in the system.
+"""
+input ActivityFilter {
+  "Person identifier from MPI database"
+  personId: ID!
+  "Care plan identifier"
+  carePlanId: ID!
+  "Activity status"
+  status: ActivityStatus
+  "Activity type"
+  kind: ActivityKind
+}
+
+"""
+Methods to use when ordering `Activity`.
+"""
+enum ActivityOrderBy {
+  "Sort by inserted_at in ascending order."
+  INSERTED_AT_ASC
+  "Sort by inserted_at in descending order."
+  INSERTED_AT_DESC
+  "Sort by status in ascending order."
+  STATUS_ASC
+  "Sort by status in descending order."
+  STATUS_DESC
+}
+
+"""
+A connection to a list of `Activity` values.
+"""
+type ActivityConnection {
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "A list of nodes."
+  nodes: [Activity]
+  "A list of edges."
+  edges: [ActivityEdge]
+}
+
+"""
+An edge in a connection of `Activity`.
+"""
+type ActivityEdge {
+  "The item at the end of the edge."
+  node: Activity!
+  "A cursor for use in pagination."
+  cursor: String!
+}
+
+"""
+Activity data contains all information about care plan's activity. Described by https://www.hl7.org/fhir/careplan.html
+In order to obtain this data user must have a scopes: **care_plan:practical_monitor**, **care_plan:clinical_monitor**
+"""
+type Activity implements Node {
+  "The ID of an object."
+  id: ID!
+  "Primary key identifier from the database."
+  databaseId: UUID!
+  "Who is the designated responsible Employee"
+  author: Reference!
+  "Appointment as reference on Encounter, Procedure, DiagnosticReport or MedicationRequest resource"
+  outcomeReference: [Reference]
+  "Results of the activity"
+  outcomeCodeableConcept: [CodeableConcept]
+  "In-line definition of activity"
+  detail: Detail!
+  "Path to signed content of the Activity in storage"
+  signedContentLinks: [String]!
+  "Date and time when record was inserted"
+  insertedAt: DateTime!
+  "Date and time when record was updated"
+  updatedAt: DateTime!
+}
+
+"""
+A simple summary of a planned activity suitable for a general care plan system (e.g. form driven) that doesn't know about specific resources such as procedure etc.
+"""
+type Detail {
+  "Resource types defined as part of FHIR that can be represented as in-line definitions of a care plan activity."
+  kind: ActivityKind!
+  "Why activity should be done or why activity was prohibited"
+  reasonCode: [CodeableConcept]
+  "Why activity is needed. May include references on Condition, Observation, DiagnosticReport resource"
+  reasonReference: [Reference]
+  "Goals this activity relates to"
+  goal: [CodeableConcept]
+  "Identifies what progress is being made for the specific activity."
+  status: ActivityStatus!
+  "Reason for current status"
+  statusReason: CodeableConcept
+  "How much to administer/supply/consume"
+  quantity: SimpleQuantity
+  "When activity is to occur"
+  scheduled: ActivityScheduled
+  "Where it should happen as reference on Division resource"
+  location: Reference
+  "Who will be responsible as reference in Employee resource"
+  performer: Reference
+  "What is to be administered/supplied as reference on service/medication/serviceGroup resource"
+  productReference: Reference!
+  "How to consume/day"
+  dailyAmount: SimpleQuantity
+  "How many remain to consume"
+  remainingQuantity: SimpleQuantity
+  "Extra info describing activity to perform"
+  description: String
+  "If true, activity is prohibiting action"
+  doNotPerform: Boolean!
+  "Reference on Medical program resource according to which activity should be performed"
+  program: Reference
+}
+
+"""
+List of activity kinds
+"""
+enum ActivityKind {
+  "Kind `MEDICATION_REQUEST` for an activity"
+  MEDICATION_REQUEST
+  "Kind `SERVICE_REQUEST` for an activity"
+  SERVICE_REQUEST
+}
+
+"""
+List of activity statuses
+"""
+enum ActivityStatus {
+  "Status `CANCELLED` for an activity"
+  CANCELLED
+  "Status `COMPLETED` for an activity"
+  COMPLETED
+  "Status `SCHEDULED` for an activity"
+  SCHEDULED
+  "Status `IN_PROGRESS` for an activity"
+  IN_PROGRESS
+}
+
+"""
+This union represents when activity is to occur
+"""
+union ActivityScheduled = Timing | Period | String

@@ -44,6 +44,8 @@
 # import * from "conditions.graphql"
 # import * from "allergyIntolerances.graphql"
 # import * from "procedures.graphql"
+# import * from "carePlans.graphql"
+# import * from "activities.graphql"
 
 """
 The query root of e-Health GraphQL interface.

@@ -1,0 +1,130 @@
+# import CodeableConcept, Reference, Period, StatusHistory from "medicalEvents.graphql"
+
+"""
+Fields to filter `CarePlan` in the system.
+"""
+input CarePlanFilter {
+  "Person identifier from MPI database"
+  personId: ID!
+  "Care plan status"
+  status: CarePlanStatus
+  "Encounter identifier from Care plan context"
+  encounterId: ID
+  "Date within care plan's period"
+  periodDate: Date
+  "Requisition number of the care plan"
+  requisition: String
+}
+
+"""
+Methods to use when ordering `CarePlan`.
+"""
+enum CarePlanOrderBy {
+  "Sort by inserted_at in ascending order."
+  INSERTED_AT_ASC
+  "Sort by inserted_at in descending order."
+  INSERTED_AT_DESC
+  "Sort by status in ascending order."
+  STATUS_ASC
+  "Sort by status in descending order."
+  STATUS_DESC
+}
+
+"""
+A connection to a list of `CarePlan` values.
+"""
+type CarePlanConnection {
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "A list of nodes."
+  nodes: [CarePlan]
+  "A list of edges."
+  edges: [CarePlanEdge]
+}
+
+"""
+An edge in a connection of `CarePlan`.
+"""
+type CarePlanEdge {
+  "The item at the end of the edge."
+  node: CarePlan!
+  "A cursor for use in pagination."
+  cursor: String!
+}
+
+"""
+CarePlan data contains all information about care plan. Described by https://www.hl7.org/fhir/careplan.html
+In order to obtain this data user must have a scopes: **care_plan:practical_monitor**, **care_plan:clinical_monitor**
+"""
+type CarePlan implements Node {
+  "The ID of an object."
+  id: ID!
+  "Primary key identifier from the database."
+  databaseId: UUID!
+  "Fulfills CarePlan"
+  basedOn: Reference
+  "Part of referenced CarePlan"
+  partOf: Reference
+  "Type of plan"
+  category: CodeableConcept!
+  "Human-friendly name for the care plan"
+  title: String!
+  "Summary of nature of plan"
+  description: String
+  "Time period plan covers"
+  period: Period!
+  "Information considered as part of plan. Can include Episodes, Procedures, Diagnostic reports"
+  supportingInfo: [Reference]
+  "Comments about the plan"
+  note: String
+  "Care plan requisition number"
+  requisition: String!
+  "Codes indicating the degree of authority associated with a care plan."
+  intent: CarePlanIntent!
+  "Encounter created as part of"
+  encounter: Reference!
+  "Health issues this plan addresses"
+  addresses: [CodeableConcept!]!
+  "Indicates the care plan status."
+  status: CarePlanStatus!
+  "Reason for current status"
+  statusReason: CodeableConcept
+  "Care plan status history"
+  statusHistory: StatusHistory!
+  "Who is the designated responsible employee"
+  author: Reference!
+  "Employees who provided the content of the care plan"
+  contributor: [Reference]
+  "Care plan providing conditions"
+  termsOfService: CodeableConcept!
+  "Path to signed content of the Care plan in storage"
+  signedContentLinks: [String]!
+  "Date and time when record was inserted"
+  insertedAt: DateTime!
+  "Date and time when record was updated"
+  updatedAt: DateTime!
+}
+
+"""
+List of care plan statuses. According to 'eHealth/care_plan_statuses' dictionary
+"""
+enum CarePlanStatus {
+  "Status `NEW` for a care plan"
+  NEW
+  "Status `ACTIVE` for a care plan"
+  ACTIVE
+  "Status `COMPLETED` for a care plan"
+  COMPLETED
+  "Status `CANCELLED` for a care plan"
+  CANCELLED
+  "Status `TERMINATED` for a care plan"
+  TERMINATED
+}
+
+"""
+List of care plan intents
+"""
+enum CarePlanIntent {
+    "Intent `ORDER` for a care plan"
+    ORDER
+}
