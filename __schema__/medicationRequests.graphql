@@ -1,0 +1,179 @@
+# import Reference from "medicalEvents.graphql"
+# import Employee from "employees.graphql"
+# import INNMDosage from "innmDosages.graphql"
+# import MedicalProgram from "medicalPrograms.graphql"
+# import LegalEntity from "legalEntities.graphql"
+# import Division from "divisions.graphql"
+
+"""
+Fields to filter MedicationRequest in the system.
+"""
+input MedicationRequestFilter {
+  "Person identifier from MPI database"
+  personId: ID!
+  "Search by request number"
+  requestNumber: String
+  "The interval for searching by date when medication request created."
+  created: DateInterval
+  "Identifier of Employee who created a medication request"
+  employeeId: ID
+  "Identifier of INNMDosage used in medication request"
+  medicationId: ID
+  "Search by medication request status"
+  status: MedicationRequestStatus
+  "Identifier of LegalEntity where medication request created."
+  legalEntityId: ID
+  "Identifier of Encounter from context"
+  encounterId: ID
+}
+
+"""
+Methods to use when ordering `MedicationRequest`.
+"""
+enum MedicationRequestOrderBy {
+  "Sort by inserted_at in ascending order."
+  INSERTED_AT_ASC
+  "Sort by inserted_at in descending order."
+  INSERTED_AT_DESC
+  "Sort by status in ascending order."
+  STATUS_ASC
+  "Sort by status in descending order."
+  STATUS_DESC
+}
+
+"""
+A connection to a list of `MedicationRequest` values.
+"""
+type MedicationRequestConnection {
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "A list of nodes."
+  nodes: [MedicationRequest]
+  "A list of edges."
+  edges: [MedicationRequestEdge]
+}
+
+"""
+An edge in a connection of `MedicationRequest`.
+"""
+type MedicationRequestEdge {
+  "The item at the end of the edge."
+  node: MedicationRequest!
+  "A cursor for use in pagination."
+  cursor: String!
+}
+
+"""
+MedicationRequest data contains all information about the medication request. Described by https://www.hl7.org/fhir/medicationrequest.html
+In order to obtain this data user must have a scopes: **medication_request:practical_monitor**, **medication_request:clinical_monitor**
+"""
+type MedicationRequest implements Node {
+  "The ID of an object."
+  id: ID!
+  "Primary key identifier from the database."
+  databaseId: UUID!
+  "Human-readable request number"
+  requestNumber: String!
+  "Date the Medication request created"
+  createdAt: Date!
+  "Date when treatment period started"
+  startedAt: Date!
+  "Date when treatment period ended"
+  endedAt: Date!
+  "Date from which Medication request can be dispensed"
+  dispenseValidFrom: Date!
+  "Date to which Medication request should be dispensed"
+  dispenseValidTo: Date!
+  "Employee created the Medication request"
+  employee: Employee!
+  "Prescripted medication"
+  medication: INNMDosage!
+  "Quantity of the prescripted medication"
+  medicationQty: Int!
+  "Medication request status that describes the lifecycle of the prescription."
+  status: MedicationRequestStatus!
+  "System identifier if medication request is considered to be deleted"
+  isActive: Boolean!
+  "Date the Medication request has been rejected"
+  rejectedAt: Date
+  "Who rejects the Medication request"
+  rejectedBy: UUID!
+  "Reason code if Medication request has been rejected"
+  rejectReasonCode: MedicationRequestRejectReason
+  "Description why Medication request has been rejected"
+  rejectReason: String
+  "Identifier of Medication request Request which led to creation of the `MedicationRequest`"
+  medicationRequestRequestsId: UUID!
+  "Medical program used in Medication request"
+  medicalProgram: MedicalProgram
+  "Division where Medication request created"
+  division: Division!
+  "Legal entity where Medication request created"
+  legalEntity: LegalEntity!
+  "Medication request intent"
+  intent: MedicationRequestIntent!
+  "Type of medication usage"
+  category: MedicationRequestCategory!
+  "Reference on Encounter created as part of admission"
+  context: Reference
+  "Whether the Medication request is blocked or not"
+  isBlocked: Boolean
+  "References on Care plan and Activity resource on which the `MedicationRequest` is based on"
+  basedOn: [Reference]
+  "Date and time when record was inserted"
+  insertedAt: DateTime!
+  "Date and time when record was updated"
+  updatedAt: DateTime!  
+}
+
+"""
+List of Medication Request statuses.
+"""
+enum MedicationRequestStatus {
+  "Status `ACTIVE` for a medication request"
+  ACTIVE
+  "Status `COMPLETED` for a medication request"
+  COMPLETED
+  "Status `REJECTED` for a medication request"
+  REJECTED
+  "Status `EXPIRED` for a medication request"
+  EXPIRED
+}
+
+"""
+List of medication request reject reasons. According to `MEDICATION_REQUEST_REJECT_REASON` dictionary
+"""
+enum MedicationRequestRejectReason {
+  "Reject reason `NO_REQUEST_NEEDED` for a medication request"
+  NO_REQUEST_NEEDED
+  "Reject reason `NO_SMS` for a medication request"
+  NO_SMS
+  "Reject reason `PATIENT_REJECT` for a medication request"
+  PATIENT_REJECT
+  "Reject reason `WRONG_DOSAGE` for a medication request"
+  WRONG_DOSAGE
+  "Reject reason `WRONG_PERIOD` for a medication request"
+  WRONG_PERIOD
+  "Reject reason `WRONG_QTY` for a medication request"
+  WRONG_QTY
+  "Reject reason `WRONG_SIGNATURE` for a medication request"
+  WRONG_SIGNATURE
+}
+
+"""
+List of Medication request intents. According to `MEDICATION_REQUEST_INTENT` dictionary
+"""
+enum MedicationRequestIntent {
+  "Intent `ORDER` for a medication request"
+  ORDER
+  "Intent `PLAN` for a medication request"
+  PLAN
+}
+
+"""
+List of Medication request categories. According to `MEDICATION_REQUEST_CATEGORY` dictionary 
+"""
+enum MedicationRequestCategory {
+  "Category `COMMUNITY` for a medication request"
+  COMMUNITY
+}
