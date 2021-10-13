@@ -1,0 +1,136 @@
+# import CodeableConcept, Reference, PaperReferral, Period from "medicalEvents.graphql"
+
+"""
+Fields to filter DiagnosticReport in the system.
+"""
+input DiagnosticReportFilter {
+  "Person identifier from MPI database"
+  personId: ID!
+  "Diagnostic report code. Represents service code"
+  code: String
+  "Encounter identifier related to the diagnostic report"
+  encounterId: ID
+  "Episode related to diagnostic report"
+  contextEpisodeId: ID
+  "Origin episode identifier"
+  originEpisodeId: ID
+  "The interval for searching diagnostic report by issued date"
+  issued: DateInterval
+  "Service request the diagnostic report is based on"
+  basedOn: ID
+  "Legal entity identifier"
+  managingOrganizationId: ID
+}
+
+"""
+Methods to use when ordering `DiagnosticReport`.
+"""
+enum DiagnosticReportOrderBy {
+  "Sort by inserted_at in ascending order."
+  INSERTED_AT_ASC
+  "Sort by inserted_at in descending order."
+  INSERTED_AT_DESC
+  "Sort by status in ascending order."
+  STATUS_ASC
+  "Sort by status in descending order."
+  STATUS_DESC
+}
+
+"""
+A connection to a list of `DiagnosticReport` values.
+"""
+type DiagnosticReportConnection {
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "A list of nodes."
+  nodes: [DiagnosticReport]
+  "A list of edges."
+  edges: [DiagnosticReportEdge]
+}
+
+"""
+An edge in a connection of `DiagnosticReport`.
+"""
+type DiagnosticReportEdge {
+  "The item at the end of the edge."
+  node: DiagnosticReport!
+  "A cursor for use in pagination."
+  cursor: String!
+}
+
+"""
+DiagnosticReport data contains all information about the diagnostic report. Described by https://www.hl7.org/fhir/diagnosticreport.html
+In order to obtain this data user must have a scopes: **diagnostic_report:practical_monitor**, **diagnostic_report:clinical_monitor**
+"""
+type DiagnosticReport implements Node {
+  "The ID of an object."
+  id: ID!
+  "Primary key identifier from the database."
+  databaseId: UUID!
+  "Reference on Service request resource the `DiagnosticReport` is based on"
+  basedOn: Reference
+  "Reson why `DiagnosticReport` was cancelled"
+  cancellationReason: CodeableConcept
+  "Diagnostic report categories"
+  category: [CodeableConcept]!
+  "Reference on Service resource provided by the diagnostic report"
+  code: Reference!
+  "Clinical conclusion (interpretation) of test results"
+  conclusion: String
+  "Codes for the clinical conclusion of test results"
+  conclusionCode: CodeableConcept
+  "Reference on Division resource where service should be provided"
+  division: Reference
+  "Clinically relevant time"
+  effective: DiagnosticReportEffective
+  "Health care event when test ordered"
+  encounter: Reference
+  "Explanatory letter if diagnostic report was cancelled."
+  explanatoryLetter: String
+  "Date and time this version was made"
+  issued: DateTime!
+  "Reference on Legal entity resource this version was made"
+  managingOrganization: Reference!
+  "Reference on origin episode resource that relates to service request the diagnostic report was based on"
+  originEpisode: Reference
+  "ServiceRequest representation in paper form"
+  paperReferral: PaperReferral 
+  "An indication that the content of the record is based on information from the person who administered the report."
+  primarySource: Boolean!
+  "Reference on Employee resource who is responsible for posting the report."
+  recordedBy: Reference!
+  "The practitioner that is responsible for the report's conclusions and interpretations."
+  resultsInterpreter: ResponsibleEmployee
+  "The practitioner that is responsible diagnostic service"
+  performer: ResponsibleEmployee
+  "Report origin. Mandatory if primary_source=false"
+  reportOrigin: CodeableConcept
+  "Diagnostic report status"
+  status: DiagnosticReportStatus!
+  "Path to signed content of the DiagnosticReport package in storage"
+  signedContentLinks: [String]
+  "Date and time when record was inserted"
+  insertedAt: DateTime!
+  "Date and time when record was updated"
+  updatedAt: DateTime!
+}
+
+"""
+Clinically relevant time/time-period for diagnostic report
+"""
+union DiagnosticReportEffective = Period | DateTime
+
+"""
+The union is represent employee that can be as reference on Employee resource, or as text description if employee is not present in the system.
+"""
+union ResponsibleEmployee = Reference | String
+
+"""
+List of Diagnostic report statuses
+"""
+enum DiagnosticReportStatus {
+  "Status `FINAL` for an encounter"
+  FINAL
+  "Status `ENTERED_IN_ERROR` for an encounter"
+  ENTERED_IN_ERROR
+}

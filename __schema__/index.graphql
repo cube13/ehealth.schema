@@ -41,6 +41,7 @@
 # import * from "justifications.graphql"
 # import * from "encounters.graphql"
 # import * from "observations.graphql"
+# import * from "diagnosticReports.graphql"
 
 """
 The query root of e-Health GraphQL interface.
@@ -643,6 +644,25 @@ type Query {
 
   "Reads a single `Observation` using its globally unique ID and person's mpi id."
   observation(personId: ID!, id: ID!): Observation
+
+  "Reads and enables pagination through a set of `DiagnosticReport`"
+  diagnosticReports(
+    "A condition to be used in determining which values should be returned by the collection."
+    filter: DiagnosticReportFilter!
+    "The method to use when ordering collection items."
+    orderBy: DiagnosticReportOrderBy
+    "Read all values in the set after (below) this cursor."
+    after: String
+    "Read all values in the set before (above) this cursor."
+    before: String
+    "Only read the first _n_ values of the set."
+    first: Int
+    "Only read the last _n_ values of the set."
+    last: Int
+  ): DiagnosticReportConnection!
+
+  "Reads a single `DiagnosticReport` using its globally unique ID and person's mpi id."
+  diagnosticReport(personId: ID!, id: ID!): DiagnosticReport
 }
 
 """
