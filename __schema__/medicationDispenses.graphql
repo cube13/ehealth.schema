@@ -1,0 +1,128 @@
+# import Party from "parties.graphql"
+
+"""
+Fields to filter MedicationDispense in the system.
+"""
+input MedicationDispenseFilter {
+  "Person identifier from MPI database"
+  personId: ID!
+  "The interval for searching by date when medication request dispensed."
+  dispensed: DateInterval
+  "Identifier of the Division where medication dispense created."
+  divisionId: ID
+  "Identifier of MedicationRequest used in medication dispense"
+  medicationRequestId: ID
+  "Search by medication dispense status"
+  status: MedicationDispenseStatus
+  "Identifier of the LegalEntity where medication dispense created."
+  legalEntityId: ID
+}
+
+"""
+Methods to use when ordering `MedicationDispense`.
+"""
+enum MedicationDispenseOrderBy {
+  "Sort by inserted_at in ascending order."
+  INSERTED_AT_ASC
+  "Sort by inserted_at in descending order."
+  INSERTED_AT_DESC
+  "Sort by status in ascending order."
+  STATUS_ASC
+  "Sort by status in descending order."
+  STATUS_DESC
+}
+
+"""
+A connection to a list of `MedicationDispense` values.
+"""
+type MedicationDispenseConnection {
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "A list of nodes."
+  nodes: [MedicationDispense]
+  "A list of edges."
+  edges: [MedicationDispenseEdge]
+}
+
+"""
+An edge in a connection of `MedicationDispense`.
+"""
+type MedicationDispenseEdge {
+  "The item at the end of the edge."
+  node: MedicationDispense!
+  "A cursor for use in pagination."
+  cursor: String!
+}
+
+"""
+MedicationDispense data contains all information about the medication dispense. Described by https://www.hl7.org/fhir/medicationdispense.html
+In order to obtain this data user must have a scopes: **medication_dispense:practical_monitor**, **medication_dispense:clinical_monitor**
+"""
+type MedicationDispense implements Node {
+  "The ID of an object."
+  id: ID!
+  "Primary key identifier from the database."
+  databaseId: UUID!
+  "Identifier of `MedicationRequest` that authorizes the dispense."
+  medicationRequestId: ID!
+  "Date when medication was given out"
+  dispensedAt: Date!
+  "Full name of the employee who create the Medication dispense."
+  dispensedBy: String!
+  "Info about the user who create the Medication dispense."
+  party: Party!
+  "Legal entity identifier where Medication dispense created"
+  legalEntityId: ID!
+  "Division identifier where Medication dispense created"
+  divisionId: ID!
+  "Medical program identifier according to which medication dispeses."
+  medicalProgramId: ID!
+  "Status of the Medication dispense"
+  status: MedicationDispenseStatus!
+  "Flag whether Medication dispense is actual or not?"
+  isActive: Boolean!
+  "Medication dispense details"
+  details:[MedicationDispenseDetail!]!
+  "Payment identifier (external)"
+  paymentId: String
+  "Payment amount"
+  paymentAmount: Float
+  "Date and time when record was inserted"
+  insertedAt: DateTime!
+  "Date and time when record was updated"
+  updatedAt: DateTime!
+}
+
+"""
+List of medication dispense statuses.
+"""
+enum MedicationDispenseStatus {
+  "Status `NEW` for a medication dispense"
+  NEW
+  "Status `PROCESSED` for a medication dispense"
+  PROCESSED
+  "Status `REJECTED` for a medication dispense"
+  REJECTED
+  "Status `EXPIRED` for a medication dispense"
+  EXPIRED
+}
+
+"""
+Detail of medication dispense
+"""
+type MedicationDispenseDetail {
+  "Identifier of the dispensed BRAND medication."
+  medicationId: ID!
+  "Amount of dispensed medication"
+  medicationQty: Float!
+  "Sell price"
+  sellPrice: Float!
+  "Reimbursement amount"
+  reimbursementAmount: Float!
+  "Sell amount"
+  sellAmount: Float!
+  "Discount amount"
+  discountAmount: Float!
+  "Identifier of medication program participant"
+  programMedicationId: ID
+}
