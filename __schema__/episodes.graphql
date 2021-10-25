@@ -35,7 +35,7 @@ A connection to a list of `Episode` values.
 """
 type EpisodeConnection {
   "Information to aid in pagination."
-  pageInfo: PageInfo!
+  pageInfo: FullPageInfo!
   "A list of nodes."
   nodes: [Episode]
   "A list of edges."
