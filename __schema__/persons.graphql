@@ -18,7 +18,7 @@ input PersonFilter {
 }
 
 """
-Fields to filter PersonIndentity in the system.
+Fields to filter PersonIndentity in the system
 """
 input PersonIdentityFilter {
   "Performs search on object's `lastName` field."
