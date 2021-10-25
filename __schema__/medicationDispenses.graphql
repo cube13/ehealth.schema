@@ -37,7 +37,7 @@ A connection to a list of `MedicationDispense` values.
 """
 type MedicationDispenseConnection {
   "Information to aid in pagination."
-  pageInfo: PageInfo!
+  pageInfo: FullPageInfo!
   "A list of nodes."
   nodes: [MedicationDispense]
   "A list of edges."
