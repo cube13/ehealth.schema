@@ -9,6 +9,8 @@ input PersonFilter {
   personal: PersonPersonalFilter
   "Person identity information."
   identity: PersonIdentityFilter
+  "Verification status of verified Person"
+  verification: VerifiedPersonStatus
   "Person status."
   status: PersonStatus
   "National person identifier."
@@ -344,15 +346,23 @@ enum PersonVerificationStatus {
 }
 
 """
-List of values of `PersonVerificationStatus` that represent an unverified person.
+List of values of `PersonVerificationStatus` that represent persons who has final decision about verification.
+"""
+enum VerifiedPersonStatus {
+  "Status `VERIFICATION_NEEDED` for a verificated person."
+  NOT_VERIFIED
+  "Status `VERIFIED` for a verificated person."
+  VERIFIED
+}
+
+"""
+List of values of `PersonVerificationStatus` that represent persons who has no decision about verification yet.
 """
 enum UnverifiedPersonStatus {
   "Status `VERIFICATION_NEEDED` for an unverified person."
   VERIFICATION_NEEDED
   "Status `IN_REVIEW` for an unverified person."
   IN_REVIEW
-  "Status `NOT_VERIFIED` for an unverified person."
-  NOT_VERIFIED
 }
 
 """
