@@ -10,7 +10,7 @@ input PersonFilter {
   "Person identity information."
   identity: PersonIdentityFilter
   "Verification status of verified Person"
-  verification: VerifiedPersonStatus
+  verificationStatus: VerifiedPersonStatus
   "Person status."
   status: PersonStatus
   "National person identifier."
