@@ -46,7 +46,7 @@ A connection to a list of `MedicationRequest` values.
 """
 type MedicationRequestConnection {
   "Information to aid in pagination."
-  pageInfo: PageInfo!
+  pageInfo: FullPageInfo!
   "A list of nodes."
   nodes: [MedicationRequest]
   "A list of edges."
