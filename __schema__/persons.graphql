@@ -9,8 +9,6 @@ input PersonFilter {
   personal: PersonPersonalFilter
   "Person identity information."
   identity: PersonIdentityFilter
-  "Person verification infirmation"
-  verification: PersonVerificationFilter
   "Person status."
   status: PersonStatus
   "National person identifier."
@@ -56,11 +54,11 @@ input PersonPersonalFilter {
 }
 
 """
-Information about person verification
+Fields to filter unverified Persons
 """
-input PersonVerificationFilter {
-  "Person verification status"
-  verificationStatus: PersonVerificationStatus
+input UnverifiedPersonFilter {
+  "Values to show whether person is unverified"
+  verificationStatus: UnverifiedPersonStatus
 }
 
 """
@@ -233,11 +231,11 @@ type Person implements Node {
     last: Int
   ): DeclarationConnection!
   "Person verification status"
-  verificationStatus: PersonVerificationStatus
+  verificationStatus: PersonVerificationStatus!
   "Description about person verification status"
   verificationComment: String
-  "Date when person will be deactivated automatically"
-  deactivatesAt: Date
+  "Reason of the verification status"
+  verificationReason: PersonVerificationReason!
 }
 
 """
@@ -331,6 +329,9 @@ type ConfidantPerson {
   preferredWayCommunication: PersonPreferredWayCommunication
 }
 
+"""
+List of person verification statuses. According to PERSON_VERIFICATION_STATUSES dictionary
+"""
 enum PersonVerificationStatus {
   "Status `VERIFICATION_NEEDED` for a person."
   VERIFICATION_NEEDED
@@ -340,4 +341,28 @@ enum PersonVerificationStatus {
   NOT_VERIFIED
   "Status `VERIFIED` for a person."
   VERIFIED
+}
+
+"""
+List of values of `PersonVerificationStatus` that represent an unverified person.
+"""
+enum UnverifiedPersonStatus {
+  "Status `VERIFICATION_NEEDED` for an unverified person."
+  VERIFICATION_NEEDED
+  "Status `IN_REVIEW` for an unverified person."
+  IN_REVIEW
+  "Status `NOT_VERIFIED` for an unverified person."
+  NOT_VERIFIED
+}
+
+"""
+List of person verification status reasons. According to PERSON_VERIFICATION_STATUS_REASONS dictionary
+"""
+enum PersonVerificationReason {
+  "Verification reason `INITIAL` for a person."
+  INITIAL
+  "Verification reason `INITIAL` for a person."
+  AUTO
+  "Verification reason `INITIAL` for a person."
+  MANUAL
 }
