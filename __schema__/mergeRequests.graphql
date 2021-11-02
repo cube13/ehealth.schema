@@ -41,6 +41,64 @@ type MergeRequestEdge {
 }
 
 """
+Fields to filter `ManualMergeCandidate` in the system
+"""
+type ManualMergeCandidateFilter {
+  "Perform search by master person identifier."
+  masterPersonId: UUID
+  "Perform search by merge person identifier."
+  personId: UUID
+  "Perform search by status of `ManualMergeCandidate`."
+  status: ManualMergeCandidateStatus
+  "Perform search by assignee who is proccessing `ManualMergeCandidate` at the moment"
+  assigneeId: UUID
+}
+
+"""
+Methods to use when ordering `ManualMergeCandidate`.
+"""
+enum ManualMergeCandidateOrderBy {
+  "Sort by inserted at in ascending order."
+  INSERTED_AT_ASC
+  "Sort by inserted at in descending order."
+  INSERTED_AT_DESC
+  "Sort by status in ascending order."
+  STATUS_ASC
+  "Sort by status in descending order."
+  STATUS_DESC
+}
+
+"""
+A connection to a list of `ManualMergeCandidate` values.
+"""
+type ManualMergeCandidateConnection {
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "A list of nodes."
+  nodes: [ManualMergeCandidate]
+  "A list of edges."
+  edges: [ManualMergeCandidateEdge]
+}
+
+"""
+Reads and enables pagination through a set of `ManualMergeCandidate`.
+"""
+type ManualMergeCandidateEdge {
+  "The item at the end of the edge."
+  node: ManualMergeCandidate!
+  "A cursor for use in pagination."
+  cursor: String!
+}
+
+"""
+Input for `assignMergeCandidate` mutation.
+"""
+input AssignMergeCandidateInput {
+  "Primary key identifier from the database for `ManualMergeCandidate`"
+  manualMergeCandidateId: UUID
+}
+
+"""
 Return type for `assignMergeCandidate` mutation.
 """
 type AssignMergeCandidatePayload {
@@ -122,6 +180,10 @@ type ManualMergeCandidate {
   insertedAt: DateTime!
   "Technical information when the patient was updated in the DB."
   updatedAt: DateTime!
+  "User who is proccessing current candidate at the moment"
+  assigneeId: UUID
+  "Merge decision for already processed candidate"
+  decision: ManualMergeCandidateDecision
 }
 
 """
@@ -146,4 +208,16 @@ enum ManualMergeCandidateStatus {
   NEW
   "Status `PROCESSED` for a merge request"
   PROCESSED
+}
+
+"""
+List of ManualMergeCandidate decisions.
+"""
+enum ManualMergeCandidateDecision {
+  "Decision `SPLIT` for a manual merge candidate"
+  SPLIT
+  "Decision `MERGE` for a manual merge candidate"
+  MERGE
+  "Decision `TRASH` for a manual merge candidate"
+  TRASH
 }

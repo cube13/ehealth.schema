@@ -76,9 +76,9 @@ type Episode implements Node {
   "Episode type"
   type: Coding!
   "The list of current diagnosis relevant to this Episode"
-  currentDiagnoses: [Diagnosis!]!
+  currentDiagnoses: [Diagnosis]!
   "History of episode diagnosis"
-  diagnosesHistory: [DiagnosesHistory!]!
+  diagnosesHistory: [DiagnosesHistory]!
   "Reference on Legal entity resource"
   managingOrganization: Reference!
   "Interval during responsibility is assumed"
