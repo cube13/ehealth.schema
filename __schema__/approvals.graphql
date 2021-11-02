@@ -1,0 +1,232 @@
+# import Reference from "medicalEvents.graphql"
+
+"""
+Fields to filter `Approval` in the system.
+"""
+input ApprovalFilter {
+  "Person identifier from MPI database by whom approval is granted"
+  personId: ID!
+  "Identifier of the `Emploee` who has requested access permission to the resource by approval"
+  grantedTo: UUID
+  "Resource identifier on which approval was granted to"
+  grantedResourceId: UUID
+  "Resource type on which approval is granted to"
+  grantedResourceType: ApprovalResourceType!
+  "Identifier of `ServiceRequest` based on which approval has been created"
+  reason: UUID
+  "Approval status."
+  status: ApprovalStatus
+  "Access level to data"
+  accessLevel: ApprovalAccessLevel
+}
+
+"""
+Methods to use when ordering `Approval`.
+"""
+enum ApprovalOrderBy {
+  "Orders by the object’s `insertedAt` field in the ascending order."
+  INSERTED_AT_ASC
+  "Orders by the object’s `insertedAt` field in the descending order."
+  INSERTED_AT_DESC
+  "Orders by the object’s `expiresAt` field in the ascending order."
+  EXPIRES_AT_ASC
+  "Orders by the object’s `expiresAt` field in the descending order."
+  EXPIRES_AT_DESC
+}
+
+"""
+A connection to a list of `Approval` items.
+"""
+type ApprovalConnection {
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "A list of nodes."
+  nodes: [Approval]
+  "A list of edges."
+  edges: [ApprovalEdge]
+}
+
+"""
+An edge in a connection of `Approval`.
+"""
+type ApprovalEdge {
+  "The item at the end of the edge."
+  node: Approval!
+  "A cursor for use in pagination."
+  cursor: String!
+}
+
+"""
+Approval is a permission on patient's medical resources granted by patient to employee.
+Only Approvals on ForbiddenGroup allowed to create/search by NHS.
+"""
+type Approval implements Node {
+  "The ID of an object."
+  id: ID!
+  "Primary key identifier from the database."
+  databaseId: UUID!
+  "The date and time when Approval expires"
+  expiresAt: DateTime!
+  "Access level to granted resource"
+  accessLevel: ApprovalAccessLevel!
+  "Date anr time when approval expires"
+  expiresAt: DateTime!
+  "Reference on `Person` resource by whom approval was granted"
+  grantedBy: Reference!
+  "Reference on Employee to whom the approval was granted to"
+  grantedTo: Reference!
+  "Reference on ForbiddenGroup resource to which an access has been requested"
+  grantedResources: [Reference!]!
+  "Reference on `ServiceRequest` resource based on which approval has been created"
+  reason: Reference
+  "Approval status"
+  status: ApprovalStatus!
+  "Date and time when Approval was created"
+  insertedAt: DateTime!
+  "Identifier of the user who created the Approval"
+  insertedBy: UUID!
+  "Date and time when Approval was updated"
+  updatedAt: DateTime!
+  "Identifier of the user who changed the Approval"
+  updatedBy: UUID!
+  "Info about patient auth method by which approval should be verified"
+  authenticationMethodCurrent: ApprovalAuthMethod!
+}
+
+"""
+Input for `createApproval` mutation.
+
+User must have a scope **approval:create**
+"""
+input CreateApprovalInput {
+  "Person's global identifier"
+  personId: ID!
+  "Access level to forbidden group"
+  accessLevel: ApprovalAccessLevel!
+  "Reference on `ForbiddenGroup` resource"
+  forbiddenGroup: Reference!
+  "Reference on `Employee` resource who requests an access to the forbidden group"
+  grantedTo: Reference!
+  "Authorization method to verify approval"
+  authorizeWith: UUID
+}
+
+"""
+Return type for `createApproval` mutation.
+"""
+type CreateApprovalPayload {
+  "Approval information."
+  approval: Approval!
+}
+
+"""
+Input for `verifyApproval` mutation.
+
+User must have a scope **approval:create**
+"""
+input VerifyApprovalInput {
+  "Person's global identifier"
+  personId: ID!
+  "Approval global identifier"
+  id: ID!
+  "Verification code if auth method is OTP"
+  code: Int
+}
+
+"""
+Return type for `verifyApproval` mutation.
+"""
+type VerifyApprovalPayload {
+  "Approval information."
+  approval: Approval!
+}
+
+"""
+Input for `cancelApproval` mutation.
+
+User must have a scope **approval:cancel**
+"""
+input CancelApprovalInput {
+  "Person's global identifier"
+  personId: ID!
+  "Approval global identifier"
+  id: ID!
+}
+
+"""
+Return type for `cancelApproval` mutation.
+"""
+type CancelApprovalPayload {
+  "Approval information."
+  approval: Approval!
+}
+
+"""
+Input for `resendSmsApproval` mutation.
+
+For approvals with OTP auth method only.
+
+User must have a scope **approval:create**
+"""
+input ResendSmsApprovalInput {
+  "Person's global identifier"
+  personId: ID!
+  "Approval global identifier"
+  id: ID!
+}
+
+"""
+Return type for `resendSmsApproval` mutation.
+"""
+type ResendSmsApprovalPayload {}
+
+"""
+List of Approval statuses.
+"""
+enum ApprovalStatus {
+  "Status `ACTIVE` for an approval"
+  ACTIVE
+  "Status `NEW` for an approval"
+  NEW
+  "Status `CANCELLED` for an approval"
+  CANCELLED
+}
+
+"""
+List of resource types for an approval. According to `eHealth/resources` dictionary
+"""
+enum ApprovalResourceType {
+  "Resource type `FORBIDDEN_GROUP` for an approval"
+  FORBIDDEN_GROUP
+} 
+
+"""
+List of access levels to granted resources in approval.
+"""
+enum ApprovalAccessLevel {
+  "Access level `READ` to granted resources in approval."
+  READ
+}
+
+"""
+Info about authorization method by which approval is verified.
+"""
+type ApprovalAuthMethod {
+  "Masked phone number if authorization via OTP code"
+  phoneNumber: String
+  "Type of authorization method"
+  type: ApprovalAuthMethodType!
+}
+
+"""
+List of authorization method types allowed to verify approval.
+"""
+enum ApprovalAuthMethodType {
+  "Auth method type `OTP` for an approval"
+  OTP
+  "Auth method type `OFFLINE` for an approval"
+  OFFLINE
+  "Auth method type `THIRD_PERSON` for an approval"
+  THIRD_PERSON
+}
+

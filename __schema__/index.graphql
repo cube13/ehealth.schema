@@ -41,6 +41,7 @@
 # import * from "justifications.graphql"
 # import * from "encounters.graphql"
 # import * from "observations.graphql"
+# import * from "approvals.graphql"
 
 """
 The query root of e-Health GraphQL interface.
@@ -659,6 +660,22 @@ type Query {
 
   "Reads a single `Observation` using its globally unique ID and person's mpi id."
   observation(personId: ID!, id: ID!): Observation
+
+  "Reads and enables pagination through a set of `Approval`"
+  approvals(
+    "A condition to be used in determining which values should be returned by the collection."
+    filter: ApprovalFilter!
+    "The method to use when ordering collection items."
+    orderBy: ApprovalOrderBy
+    "Read all values in the set after (below) this cursor."
+    after: String
+    "Read all values in the set before (above) this cursor."
+    before: String
+    "Only read the first _n_ values of the set."
+    first: Int
+    "Only read the last _n_ values of the set."
+    last: Int
+  ): ApprovalConnection!
 }
 
 """
@@ -901,6 +918,26 @@ type Mutation {
   createJustification(
     input: CreateJustificationInput!
   ): CreateJustificationPayload
+
+  "Creates a single `Approval`."
+  createApproval(
+    input: CreateApprovalInput!
+  ): CreateApprovalPayload
+
+  "Verifies a single `Approval`."
+  verifyApproval(
+    input: VerifyApprovalInput!
+  ): VerifyApprovalPayload
+
+  "Cancels a single `Approval`."
+  cancelApproval(
+    input: CancelApprovalInput!
+  ): CancelApprovalPayload
+
+  "Resend SMS for `Approval` with OTP auth method"
+  resendSmsApproval(
+    input: ResendSmsApprovalInput!
+  ): ResendSmsApprovalPayload
 }
 
 """
