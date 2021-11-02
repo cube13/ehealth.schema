@@ -42,6 +42,7 @@
 # import * from "encounters.graphql"
 # import * from "observations.graphql"
 # import * from "conditions.graphql"
+# import * from "approvals.graphql"
 
 """
 The query root of e-Health GraphQL interface.
@@ -921,6 +922,26 @@ type Mutation {
   createJustification(
     input: CreateJustificationInput!
   ): CreateJustificationPayload
+
+  "Creates a single `Approval`."
+  createApproval(
+    input: CreateApprovalInput!
+  ): CreateApprovalPayload
+
+  "Verifies a single `Approval`."
+  verifyApproval(
+    input: VerifyApprovalInput!
+  ): VerifyApprovalPayload
+
+  "Cancels a single `Approval`."
+  cancelApproval(
+    input: CancelApprovalInput!
+  ): CancelApprovalPayload
+
+  "Resend SMS for `Approval` with OTP auth method"
+  resendSmsApproval(
+    input: ResendSmsApprovalInput!
+  ): ResendSmsApprovalPayload
 }
 
 """
