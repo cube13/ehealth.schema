@@ -1,4 +1,6 @@
 # import Reference from "medicalEvents.graphql"
+# import EmployeeFilter, Employee from "employees.graphql"
+# import ForbiddenGroup from "forbiddenGroups.graphql"
 
 """
 Fields to filter `Approval` in the system.
@@ -6,18 +8,16 @@ Fields to filter `Approval` in the system.
 input ApprovalFilter {
   "Person identifier from MPI database by whom approval is granted"
   personId: ID!
-  "Identifier of the `Emploee` who has requested access permission to the resource by approval"
-  grantedTo: UUID
+  "Emploee who has requested access permission to the resource by approval"
+  grantedTo: EmployeeFilter
   "Resource identifier on which approval was granted to"
   grantedResourceId: UUID
   "Resource type on which approval is granted to"
   grantedResourceType: ApprovalResourceType!
-  "Identifier of `ServiceRequest` based on which approval has been created"
-  reason: UUID
   "Approval status."
   status: ApprovalStatus
-  "Access level to data"
-  accessLevel: ApprovalAccessLevel
+  "Date interval to search by approval expiration date"
+  expires: DateInterval
 }
 
 """
@@ -73,10 +73,10 @@ type Approval implements Node {
   expiresAt: DateTime!
   "Reference on `Person` resource by whom approval was granted"
   grantedBy: Reference!
-  "Reference on Employee to whom the approval was granted to"
-  grantedTo: Reference!
-  "Reference on ForbiddenGroup resource to which an access has been requested"
-  grantedResources: [Reference!]!
+  "Employee to whom the approval was granted to"
+  grantedTo: Employee!
+  "ForbiddenGroup resource to which an access has been requested"
+  grantedResources: [ForbiddenGroup!]!
   "Reference on `ServiceRequest` resource based on which approval has been created"
   reason: Reference
   "Approval status"
