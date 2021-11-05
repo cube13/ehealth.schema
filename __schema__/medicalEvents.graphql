@@ -42,44 +42,44 @@ type Reference {
   identifier: Identifier!
 }
 
-"""
-Past list of medical event status codes
-"""
-type StatusHistory {
-  "Status of the medical event"
-  status: String!
-  "Identifier of the user who changed the status"
-  insertedBy: UUID!
-  "Date and time when status was changed"
-  insertedAt: DateTime!
-  "The reason why status was changed. Choses from corresponding dictionary for the medical event"
-  statusReason: CodeableConcept
-}
+# """
+# Past list of medical event status codes
+# """
+# type StatusHistory {
+#   "Status of the medical event"
+#   status: String!
+#   "Identifier of the user who changed the status"
+#   insertedBy: UUID!
+#   "Date and time when status was changed"
+#   insertedAt: DateTime!
+#   "The reason why status was changed. Choses from corresponding dictionary for the medical event"
+#   statusReason: CodeableConcept
+# }
 
-"""
-Diagnosis representation according to FHIR for some medical events (episode, encounter)
-"""
-type Diagnosis {
-  "Ranking of the diagnosis"
-  rank: Int
-  "Reference on the Condition resource"
-  condition: Reference
-  "Role that this diagnosis has within the medical event. Filled from eHealth/diagnosis_roles dictionary"
-  role: CodeableConcept
-  "Identification of the condition, problem or diagnosis"
-  code: CodeableConcept!
-}
+# """
+# Diagnosis representation according to FHIR for some medical events (episode, encounter)
+# """
+# type Diagnosis {
+#   "Ranking of the diagnosis"
+#   rank: Int
+#   "Reference on the Condition resource"
+#   condition: Reference
+#   "Role that this diagnosis has within the medical event. Filled from eHealth/diagnosis_roles dictionary"
+#   role: CodeableConcept
+#   "Identification of the condition, problem or diagnosis"
+#   code: CodeableConcept!
+# }
 
-"""
-General-purpose FHIR data type described at https://www.hl7.org/fhir/datatypes.html#Period.
-A time period defined by a start and end date/time.
-"""
-type Period {
-  "Starting time with inclusive boundary"
-  start: DateTime!
-  "End time with inclusive boundary, if not ongoing"
-  end: DateTime
-}
+# """
+# General-purpose FHIR data type described at https://www.hl7.org/fhir/datatypes.html#Period.
+# A time period defined by a start and end date/time.
+# """
+# type Period {
+#   "Starting time with inclusive boundary"
+#   start: DateTime!
+#   "End time with inclusive boundary, if not ongoing"
+#   end: DateTime
+# }
 
 """
 FHIR type that represent a measured amount. Described at https://www.hl7.org/fhir/datatypes.html#Quantity
@@ -97,42 +97,42 @@ type Quantity {
   code: String
 }
 
-"""
-FHIR type that represent a set of ordered Quantity values defined by a low and high limit. Described at https://www.hl7.org/fhir/datatypes.html#Range
-"""
-type Range {
-  "Low limit"
-  low: Quantity
-  "High limit"
-  high: Quantity
-}
+# """
+# FHIR type that represent a set of ordered Quantity values defined by a low and high limit. Described at https://www.hl7.org/fhir/datatypes.html#Range
+# """
+# type Range {
+#   "Low limit"
+#   low: Quantity
+#   "High limit"
+#   high: Quantity
+# }
 
-"""
-FHIR type that comes from a series of measurements taken by a device, which may have upper and lower limits. Described at https://www.hl7.org/fhir/datatypes.html#SampledData
-"""
-type SampledData {
-  "Zero value and units"
-  origin: Float
-  "Number of milliseconds between samples"
-  period: Float
-  "Multiply data by this before adding to origin"
-  factor: Float
-  "Lower limit of detection"
-  lowerLimit: Float
-  "Upper limit of detection"
-  upperLimit: Float
-  "Number of sample points at each time point"
-  dimensions: Float
-  "Decimal values with spaces, or E | U | L"
-  data: String!
-}
+# """
+# FHIR type that comes from a series of measurements taken by a device, which may have upper and lower limits. Described at https://www.hl7.org/fhir/datatypes.html#SampledData
+# """
+# type SampledData {
+#   "Zero value and units"
+#   origin: Float
+#   "Number of milliseconds between samples"
+#   period: Float
+#   "Multiply data by this before adding to origin"
+#   factor: Float
+#   "Lower limit of detection"
+#   lowerLimit: Float
+#   "Upper limit of detection"
+#   upperLimit: Float
+#   "Number of sample points at each time point"
+#   dimensions: Float
+#   "Decimal values with spaces, or E | U | L"
+#   data: String!
+# }
 
-"""
-FHIR type that represent a relationship between two Quantity values. Described at https://www.hl7.org/fhir/datatypes.html#Ratio
-"""
-type Ratio {
-  "Numerator value"
-  numerator: Quantity!
-  "Denominator value"
-  denominator: Quantity!
-}
+# """
+# FHIR type that represent a relationship between two Quantity values. Described at https://www.hl7.org/fhir/datatypes.html#Ratio
+# """
+# type Ratio {
+#   "Numerator value"
+#   numerator: Quantity!
+#   "Denominator value"
+#   denominator: Quantity!
+# }
