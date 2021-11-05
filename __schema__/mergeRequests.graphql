@@ -43,7 +43,7 @@ type MergeRequestEdge {
 """
 Fields to filter `ManualMergeCandidate` in the system
 """
-type ManualMergeCandidateFilter {
+input ManualMergeCandidateFilter {
   "Perform search by master person identifier."
   masterPersonId: UUID
   "Perform search by merge person identifier."
