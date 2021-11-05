@@ -37,11 +37,13 @@ A connection to a list of `ServiceRequest` values.
 """
 type ServiceRequestConnection {
   "Information to aid in pagination."
-  pageInfo: FullPageInfo!
+  pageInfo: PageInfo!
   "A list of nodes."
   nodes: [ServiceRequest]
   "A list of edges."
   edges: [ServiceRequestEdge]
+  "Total entries found"
+  totalEntries: Int!
 }
 
 """
