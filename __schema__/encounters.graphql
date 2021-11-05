@@ -1,0 +1,158 @@
+# import Coding, CodeableConcept, Reference, Diagnosis from "medicalEvents.graphql"
+
+"""
+Fields to filter Encounter in the system.
+"""
+input EncounterFilter {
+  "Person identifier from MPI database"
+  personId: ID!
+  "Encounter status"
+  status: EncounterStatus
+  "Episode identifier"
+  episodeId: ID
+  "Service request identifier"
+  incomingReferralId: ID
+  "The interval for searching encounter by date"
+  date: DateInterval
+}
+
+"""
+Methods to use when ordering `Encounter`.
+"""
+enum EncounterOrderBy {
+  "Sort by inserted_at in ascending order."
+  INSERTED_AT_ASC
+  "Sort by inserted_at in descending order."
+  INSERTED_AT_DESC
+  "Sort by status in ascending order."
+  STATUS_ASC
+  "Sort by status in descending order."
+  STATUS_DESC
+}
+
+"""
+A connection to a list of `Emcounter` values.
+"""
+type EncounterConnection {
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "A list of nodes."
+  nodes: [Encounter]
+  "A list of edges."
+  edges: [EncounterEdge]
+  "Total entries found"
+  totalEntries: Int!
+}
+
+"""
+An edge in a connection of `Encounter`.
+"""
+type EncounterEdge {
+  "The item at the end of the edge."
+  node: Encounter!
+  "A cursor for use in pagination."
+  cursor: String!
+}
+
+"""
+Encounter data contains all information about the encounter. Described by https://www.hl7.org/fhir/encounter.html
+In order to obtain this data user must have a scopes: **encounter:practical_monitor**, **encounter:clinical_monitor**
+"""
+type Encounter implements Node {
+  "The ID of an object."
+  id: ID!
+  "Primary key identifier from the database."
+  databaseId: UUID!
+  "Encounter type."
+  type: CodeableConcept!
+  "Encounter class."
+  class: Coding!
+  "Encounter date"
+  date: DateTime!
+  "Encounter status"
+  status: EncounterStatus!
+  "Reference on Episode resource"
+  episode: Reference!
+  "Reference on Visit resource"
+  visit: Reference!
+  "Reference on Employee resource"
+  performer: Reference!
+  "Diagnoses of the Encounter"
+  diagnoses: [Diagnosis!]!
+  "Priority of the Encounter."
+  priority: CodeableConcept
+  "Encounter reasons."
+  reasons: [CodeableConcept]
+  "Encounter actions."
+  actions: [CodeableConcept]
+  "References on Service resources"
+  actionReferences: [Reference]
+  "Reference on Division resource"
+  division: Reference
+  "Reference on ServiceRequest resource"
+  incomingReferral: Reference
+  "ServiceRequest representation if it has paper form"
+  paperReferral: PaperReferral
+  "Some prescriptions"
+  prescriptions: String
+  "Data about patient hospitalization"
+  hospitalization: Hospitalization
+  "Explanatory letter if Encounter was cancelled."
+  explanatoryLetter: String
+  "Reason if Encounter was cancelled. According to `eHealth/cancellation_reasons` dictionary"
+  cancellationReason: CodeableConcept
+  "Reference on supporting Observation, DiagnosticReport or Condition resources"
+  supportingInfo: [Reference]
+  "Path to signed content of the Encounter package in storage"
+  signedContentLinks: [String]!
+  "Date and time when record was inserted"
+  insertedAt: DateTime!
+  "Date and time when record was updated"
+  updatedAt: DateTime!
+}
+
+"""
+List of encounter statuses. According to `eHealth/encounter_statuses` dictionary
+"""
+enum EncounterStatus {
+  "Status `ENTERED_IN_ERROR` for an encounter"
+  ENTERED_IN_ERROR
+  "Status `FINISHED` for an encounter"
+  FINISHED
+}
+
+"""
+Service Request representation in paper form
+"""
+type PaperReferral {
+    "Some notes"
+    note: String
+    "Requester employee name"
+    requesterEmployeeName: String!
+    "Requester legal entity edrpou"
+    requesterLegalEntityEdrpou: String!
+    "Requester legal entity name"
+    requesterLegalEntityName: String
+    "Service request number"
+    requisition: String
+    "Service request date"
+    serviceRequestDate: String!
+}
+
+"""
+Represents data about patient hospitalization
+"""
+type Hospitalization {
+    "From where patient was admitted (physician referral, transfer). According to `eHealth/encounter_admit_source` dictionary"
+    admitSource: CodeableConcept
+    "Reference on LegalEntity or Division resource where the patient is hospitalized"
+    destination: Reference
+    "Category or kind of location after discharge. According to `eHealth/encounter_discharge_disposition` dictionary"
+    dischargeDisposition: CodeableConcept
+    "Department from which patient has been discharged. According to `eHealth/encounter_discharge_department` dictionary"
+    dischargeDepartment: CodeableConcept
+    "Pre-admission identifier"
+    preAdmissionIdentifier: String
+    "The type of hospital re-admission that has occurred. According to `eHealth/encounter_re_admission` dictionary"
+    reAdmission: CodeableConcept
+}

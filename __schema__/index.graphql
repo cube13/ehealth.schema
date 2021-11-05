@@ -39,6 +39,7 @@
 # import * from "forbiddenGroups.graphql"
 # import * from "episodes.graphql"
 # import * from "justifications.graphql"
+# import * from "encounters.graphql"
 
 """
 The query root of e-Health GraphQL interface.
@@ -620,24 +621,24 @@ type Query {
   "Reads a single `Episode` using its globally unique ID and person mpi id."
   episode(personId: ID!, id: ID!): Episode
 
-  # "Reads and enables pagination through a set of `Encounter`"
-  # encounters(
-  #   "A condition to be used in determining which values should be returned by the collection."
-  #   filter: EncounterFilter!
-  #   "The method to use when ordering collection items."
-  #   orderBy: EncounterOrderBy
-  #   "Read all values in the set after (below) this cursor."
-  #   after: String
-  #   "Read all values in the set before (above) this cursor."
-  #   before: String
-  #   "Only read the first _n_ values of the set."
-  #   first: Int
-  #   "Only read the last _n_ values of the set."
-  #   last: Int
-  # ): EncounterConnection!
+  "Reads and enables pagination through a set of `Encounter`"
+  encounters(
+    "A condition to be used in determining which values should be returned by the collection."
+    filter: EncounterFilter!
+    "The method to use when ordering collection items."
+    orderBy: EncounterOrderBy
+    "Read all values in the set after (below) this cursor."
+    after: String
+    "Read all values in the set before (above) this cursor."
+    before: String
+    "Only read the first _n_ values of the set."
+    first: Int
+    "Only read the last _n_ values of the set."
+    last: Int
+  ): EncounterConnection!
 
-  # "Reads a single `Encounter` using its globally unique ID and person mpi id."
-  # encounter(personId: ID!, id: ID!): Encounter
+  "Reads a single `Encounter` using its globally unique ID and person mpi id."
+  encounter(personId: ID!, id: ID!): Encounter
 
   # "Reads and enables pagination through a set of `Observation`"
   # observations(
