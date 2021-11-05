@@ -94,9 +94,19 @@ Input for `reasonType` for `createJustification` mutation.
 """
 input ReasonTypeInput {
   "Code defined by a terminology system"
-  coding: [Coding]!
+  coding: [CodingInput]!
   "Plain text representation of the concept"
   text: String
+}
+
+"""
+Input for `ReasonTypeInput`.
+"""
+input CodingInput {
+  "Identity of the terminology system"
+  system: String!
+  "Symbol in syntax defined by the system"
+  code: String!
 }
 
 """
