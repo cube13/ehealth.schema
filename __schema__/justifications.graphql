@@ -6,7 +6,7 @@ Fields to filter Justification in the system.
 input JustificationFilter {
   "Person identifier from MPI database"
   personId: ID!
-  "Identifier of the user who consume patient's data"
+  "Identifier of the user who consume patient data"
   userId: UUID
   "Justification status."
   status: JustificationStatus
@@ -48,7 +48,7 @@ type JustificationEdge {
 }
 
 """
-Justification contains reason why user perform monitoring of patiet's data.
+Justification contains reason why user perform monitoring of patiet data.
 """
 type Justification implements Node {
   "The ID of an object."
@@ -57,9 +57,9 @@ type Justification implements Node {
   databaseId: UUID!
   "The date Justification expires"
   expiresAt: DateTime!
-  "Information about user who performs monitor of patient's data"
+  "Information about user who performs monitor of patient data"
   consumer: Consumer!
-  "The reason of monitoring patiet's data"
+  "The reason of monitoring patiet data"
   reason: String!
   "Justification reason type. According to `eHealth/justification_reason_types` dictionary"
   reasonType: CodeableConcept!
@@ -81,12 +81,32 @@ Input for `createJustification` mutation.
 User must have a scope **justification:write**
 """
 input CreateJustificationInput {
-  "Person's primary key identifier from the database"
+  "Person primary key identifier from the database"
   personId: ID!
-  "The reason of monitoring patiet's data"
+  "The reason of monitoring patiet data"
   reason: String!
   "Justification reason type. According to `eHealth/justification_reason_types` dictionary"
-  reasonType: CodeableConcept!
+  reasonType: ReasonTypeInput!
+}
+
+"""
+Input for `reasonType` for `createJustification` mutation.
+"""
+input ReasonTypeInput {
+  "Code defined by a terminology system"
+  coding: [CodingInput]!
+  "Plain text representation of the concept"
+  text: String
+}
+
+"""
+Input for `ReasonTypeInput`.
+"""
+input CodingInput {
+  "Identity of the terminology system"
+  system: String!
+  "Symbol in syntax defined by the system"
+  code: String!
 }
 
 """
@@ -108,10 +128,10 @@ enum JustificationStatus {
 }
 
 """
-Information about consumer of patient's data
+Information about consumer of patient data
 """
 type Consumer {
-  "User identifier who consume patient's data"
+  "User identifier who consume patient data"
   userId: UUID!
   "Client identifier user belongs to"
   clientId: UUID!

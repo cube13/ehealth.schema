@@ -35,11 +35,13 @@ A connection to a list of `Emcounter` values.
 """
 type EncounterConnection {
   "Information to aid in pagination."
-  pageInfo: FullPageInfo!
+  pageInfo: PageInfo!
   "A list of nodes."
   nodes: [Encounter]
   "A list of edges."
   edges: [EncounterEdge]
+  "Total entries found"
+  totalEntries: Int!
 }
 
 """
@@ -93,11 +95,11 @@ type Encounter implements Node {
   paperReferral: PaperReferral
   "Some prescriptions"
   prescriptions: String
-  "Data about patient's hospitalization"
+  "Data about patient hospitalization"
   hospitalization: Hospitalization
   "Explanatory letter if Encounter was cancelled."
   explanatoryLetter: String
-  "Reason if Encounter was cancelled. According to 'eHealth/cancellation_reasons' dictionary"
+  "Reason if Encounter was cancelled. According to `eHealth/cancellation_reasons` dictionary"
   cancellationReason: CodeableConcept
   "Reference on supporting Observation, DiagnosticReport or Condition resources"
   supportingInfo: [Reference]
@@ -110,13 +112,13 @@ type Encounter implements Node {
 }
 
 """
-List of encounter statuses. According to 'eHealth/encounter_statuses' dictionary
+List of encounter statuses. According to `eHealth/encounter_statuses` dictionary
 """
 enum EncounterStatus {
-  "Status `FINISHED` for an encounter"
-  FINISHED
   "Status `ENTERED_IN_ERROR` for an encounter"
   ENTERED_IN_ERROR
+  "Status `FINISHED` for an encounter"
+  FINISHED
 }
 
 """
@@ -138,19 +140,19 @@ type PaperReferral {
 }
 
 """
-Represents data about patient's hospitalization
+Represents data about patient hospitalization
 """
 type Hospitalization {
-    "From where patient was admitted (physician referral, transfer). According to 'eHealth/encounter_admit_source' dictionary"
+    "From where patient was admitted (physician referral, transfer). According to `eHealth/encounter_admit_source` dictionary"
     admitSource: CodeableConcept
     "Reference on LegalEntity or Division resource where the patient is hospitalized"
     destination: Reference
-    "Category or kind of location after discharge. According to 'eHealth/encounter_discharge_disposition' dictionary"
+    "Category or kind of location after discharge. According to `eHealth/encounter_discharge_disposition` dictionary"
     dischargeDisposition: CodeableConcept
-    "Department from which patient has been discharged. According to 'eHealth/encounter_discharge_department' dictionary"
+    "Department from which patient has been discharged. According to `eHealth/encounter_discharge_department` dictionary"
     dischargeDepartment: CodeableConcept
     "Pre-admission identifier"
     preAdmissionIdentifier: String
-    "The type of hospital re-admission that has occurred. According to 'eHealth/encounter_re_admission' dictionary"
-    reAdmission:CodeableConcept
+    "The type of hospital re-admission that has occurred. According to `eHealth/encounter_re_admission` dictionary"
+    reAdmission: CodeableConcept
 }

@@ -1,4 +1,4 @@
-# import Coding, CodeableConcept, StatusHistory, Diagnosis, Period from "medicalEvents.graphql"
+# import Coding, CodeableConcept, Reference, StatusHistory, Diagnosis, Period from "medicalEvents.graphql"
 
 """
 Fields to filter Episode in the system.
@@ -35,11 +35,13 @@ A connection to a list of `Episode` values.
 """
 type EpisodeConnection {
   "Information to aid in pagination."
-  pageInfo: FullPageInfo!
+  pageInfo: PageInfo!
   "A list of nodes."
   nodes: [Episode]
   "A list of edges."
   edges: [EpisodeEdge]
+  "Total entries found"
+  totalEntries: Int!
 }
 
 """
@@ -92,7 +94,7 @@ type Episode implements Node {
 }
 
 """
-List of episode statuses. According to 'eHealth/episode_statuses' dictionary
+List of episode statuses. According to `eHealth/episode_statuses` dictionary
 """
 enum EpisodeStatus {
   "Status `ACTIVE` for an episode"

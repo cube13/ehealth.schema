@@ -619,7 +619,7 @@ type Query {
     last: Int
   ): EpisodeConnection!
 
-  "Reads a single `Episode` using its globally unique ID and person's mpi id."
+  "Reads a single `Episode` using its globally unique ID and person mpi id."
   episode(personId: ID!, id: ID!): Episode
 
   "Reads and enables pagination through a set of `Encounter`"
@@ -638,7 +638,7 @@ type Query {
     last: Int
   ): EncounterConnection!
 
-  "Reads a single `Encounter` using its globally unique ID and person's mpi id."
+  "Reads a single `Encounter` using its globally unique ID and person mpi id."
   encounter(personId: ID!, id: ID!): Encounter
 
   "Reads and enables pagination through a set of `Observation`"
@@ -657,7 +657,7 @@ type Query {
     last: Int
   ): ObservationConnection!
 
-  "Reads a single `Observation` using its globally unique ID and person's mpi id."
+  "Reads a single `Observation` using its globally unique ID and person mpi id."
   observation(personId: ID!, id: ID!): Observation
 }
 
