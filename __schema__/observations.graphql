@@ -93,8 +93,8 @@ type Observation implements Node {
   method: CodeableConcept
   "Provides guide for interpretation"
   referenceRanges: [ReferenceRange]
-  # "Component results"
-  # components: [Component]
+  "Component results"
+  components: [Component]
   # "Actual result"
   # value: ObservationValue!
   "Date and time when record was inserted"
@@ -131,19 +131,19 @@ type ReferenceRange {
   type: CodeableConcept
 }
 
-# """
-# Component of observation.
-# """
-# type Component {
-#   "Type of component observation (code or type)"
-#   code: CodeableConcept
-#   "Component interpretation"
-#   interpretation: CodeableConcept
-#   "Provides guide for interpretation of component results"
-#   referenceRanges: [ReferenceRange]
-#   "Value of the component"
-#   value: ObservationValue
-# }
+"""
+Component of observation.
+"""
+type Component {
+  "Type of component observation (code or type)"
+  code: CodeableConcept
+  "Component interpretation"
+  interpretation: CodeableConcept
+  "Provides guide for interpretation of component results"
+  referenceRanges: [ReferenceRange]
+  # "Value of the component"
+  # value: ObservationValue
+}
 
 # """
 # Value in string format
