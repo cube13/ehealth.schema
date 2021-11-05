@@ -71,8 +71,8 @@ type Observation implements Node {
   categories: [CodeableConcept!]!
   "Reference on Encounter resource"
   context: Reference!
-  # "Observation effective time in DateTime or Period format"
-  # effective: Effective!
+  "Observation effective time in DateTime or Period format"
+  effective: Effective!
   "Date and time observation was made available"
   issued: DateTime!
   "If observation belongs to primary source"
@@ -169,13 +169,13 @@ enum ObservationStatus {
 #   valueTime: Time
 # }
 
-# """
-# Value in DateTime format
-# """
-# type ValueDateTime {
-#   "Value"
-#   valueDateTime: DateTime
-# }
+"""
+Value in DateTime format
+"""
+type ValueDateTime {
+  "Value"
+  valueDateTime: DateTime
+}
 
 
 # """ 
@@ -186,8 +186,8 @@ enum ObservationStatus {
 
 # Quantity | SampledData | Range | Ratio
 
-# """
-# This union represents two posible format of effective field: effectiveDateTime, effectivePeriod
-# Value field can be returned in different data type format.
-# """
-# union Effective = ValueDateTime | Period
+"""
+This union represents two posible format of effective field: effectiveDateTime, effectivePeriod
+Value field can be returned in different data type format.
+"""
+union Effective = ValueDateTime | Period
