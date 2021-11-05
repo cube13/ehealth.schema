@@ -1,4 +1,4 @@
-# import CodeableConcept, Reference, Period from "medicalEvents.graphql"
+# import CodeableConcept, Reference, Period, Quantity, Range from "medicalEvents.graphql"
 
 """
 Fields to filter Observation in the system.
@@ -91,8 +91,8 @@ type Observation implements Node {
   bodySite: CodeableConcept
   "How observation was done"
   method: CodeableConcept
-  # "Provides guide for interpretation"
-  # referenceRanges: [ReferenceRange]
+  "Provides guide for interpretation"
+  referenceRanges: [ReferenceRange]
   # "Component results"
   # components: [Component]
   # "Actual result"
@@ -113,23 +113,23 @@ enum ObservationStatus {
   FINISHED
 }
 
-# """
-# Provides guide for interpretation of Observation
-# """
-# type ReferenceRange {
-#   "Applicable age range, if relevant"
-#   age: Range
-#   "Reference range population"
-#   appliesTo:[CodeableConcept]
-#   "Low Range, if relevant"
-#   low: Quantity
-#   "High Range, if relevant"
-#   high: Quantity
-#   "Text based reference range in an observation"
-#   text: String
-#   "Reference range qualifier"
-#   type: CodeableConcept
-# }
+"""
+Provides guide for interpretation of Observation
+"""
+type ReferenceRange {
+  "Applicable age range, if relevant"
+  age: Range
+  "Reference range population"
+  appliesTo:[CodeableConcept]
+  "Low Range, if relevant"
+  low: Quantity
+  "High Range, if relevant"
+  high: Quantity
+  "Text based reference range in an observation"
+  text: String
+  "Reference range qualifier"
+  type: CodeableConcept
+}
 
 # """
 # Component of observation.
@@ -150,7 +150,7 @@ enum ObservationStatus {
 # """
 # type ValueString {
 #   "Value"
-#   valueString:
+#   string: String
 # }
 
 # """
@@ -158,7 +158,7 @@ enum ObservationStatus {
 # """
 # type ValueBoolean {
 #   "Value"
-#   valueBoolean: Boolean
+#   boolean: Boolean
 # }
 
 # """
@@ -166,7 +166,7 @@ enum ObservationStatus {
 # """
 # type ValueTime {
 #   "Value"
-#   valueTime: Time
+#   time: Time
 # }
 
 """
@@ -174,7 +174,7 @@ Value in DateTime format
 """
 type ValueDateTime {
   "Value"
-  valueDateTime: DateTime
+  dateTime: DateTime
 }
 
 

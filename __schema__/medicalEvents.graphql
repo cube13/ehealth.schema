@@ -81,31 +81,31 @@ type Period {
   end: DateTime
 }
 
-# """
-# FHIR type that represent a measured amount. Described at https://www.hl7.org/fhir/datatypes.html#Quantity
-# """
-# type Quantity {
-#   "Numerical value (with implicit precision)"
-#   value: Float!
-#   "< | <= | >= | > | = - how to understand the value"
-#   comparator: String
-#   "Unit representation"
-#   unit: String!
-#   "System that defines coded unit form"
-#   system: String
-#   "Coded form of the unit"
-#   code: String
-# }
+"""
+FHIR type that represent a measured amount. Described at https://www.hl7.org/fhir/datatypes.html#Quantity
+"""
+type Quantity {
+  "Numerical value (with implicit precision)"
+  value: Float!
+  "< | <= | >= | > | = - how to understand the value"
+  comparator: String
+  "Unit representation"
+  unit: String!
+  "System that defines coded unit form"
+  system: String
+  "Coded form of the unit"
+  code: String
+}
 
-# """
-# FHIR type that represent a set of ordered Quantity values defined by a low and high limit. Described at https://www.hl7.org/fhir/datatypes.html#Range
-# """
-# type Range {
-#   "Low limit"
-#   low: Quantity
-#   "High limit"
-#   high: Quantity
-# }
+"""
+FHIR type that represent a set of ordered Quantity values defined by a low and high limit. Described at https://www.hl7.org/fhir/datatypes.html#Range
+"""
+type Range {
+  "Low limit"
+  low: Quantity
+  "High limit"
+  high: Quantity
+}
 
 # """
 # FHIR type that comes from a series of measurements taken by a device, which may have upper and lower limits. Described at https://www.hl7.org/fhir/datatypes.html#SampledData
