@@ -48,7 +48,7 @@ type JustificationEdge {
 }
 
 """
-Justification contains reason why user perform monitoring of patiet data.
+Justification contains reason why user perform monitoring of patient data.
 """
 type Justification implements Node {
   "The ID of an object."

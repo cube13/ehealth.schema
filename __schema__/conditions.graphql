@@ -1,0 +1,144 @@
+# import CodeableConcept, Reference from "medicalEvents.graphql"
+
+"""
+Fields to filter Condition in the system.
+"""
+input ConditionFilter {
+  "Person identifier from MPI database"
+  personId: ID!
+  "Condition code"
+  code: String
+  "Encounter identifier"
+  encounterId: ID
+  "The interval for searching by onset date"
+  onsetDate: DateInterval
+}
+
+"""
+Methods to use when ordering `Condition`.
+"""
+enum ConditionOrderBy {
+  "Sort by inserted_at in ascending order."
+  INSERTED_AT_ASC
+  "Sort by inserted_at in descending order."
+  INSERTED_AT_DESC
+  "Sort by verification status in ascending order."
+  VERIFICATION_STATUS_ASC
+  "Sort by verification status in descending order."
+  VERIFICATION_STATUS_DESC
+}
+
+"""
+A connection to a list of `Condition` values.
+"""
+type ConditionConnection {
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "A list of nodes."
+  nodes: [Condition]
+  "A list of edges."
+  edges: [ConditionEdge]
+  "Total entries found"
+  totalEntries: Int!
+}
+
+"""
+An edge in a connection of `Condition`.
+"""
+type ConditionEdge {
+  "The item at the end of the edge."
+  node: Condition!
+  "A cursor for use in pagination."
+  cursor: String!
+}
+
+"""
+Condition data contains all information about the condition. Described by https://www.hl7.org/fhir/condition.html
+In order to obtain this data user must have a scopes: **condition:practical_monitor**, **condition:clinical_monitor**
+"""
+type Condition implements Node {
+  "The ID of an object."
+  id: ID!
+  "Primary key identifier from the database."
+  databaseId: UUID!
+  "Clinical status of the condition"
+  clinicalStatus: ConditionClinicalStatus!
+  "Verification status of the condition"
+  verificationStatus: ConditionVerificationStatus!
+  "Subjective severity of condition, according to `eHealth/condition_severities` dictionary"
+  severity: CodeableConcept
+  "List of condition codes. Can include codes from various dictionaries"
+  code: [CodeableConcept]!
+  "List of anatomical locations, if relevant. According to `eHealth/body_sites` dictionary"
+  bodySites: [CodeableConcept]
+  "Reference on related Encounter resource"
+  context: Reference!
+  "Date related onsets"
+  onsetDate: DateTime!
+  "Date when condition asserted"
+  assertedDate: DateTime
+  "If condition belongs to primary source"
+  primarySource: Boolean!
+  "Condition report origin"
+  reportOrigin: CodeableConcept
+  "Reference on employee who asserts this condition"
+  asserter: Reference
+  "Stage/grade of the condition."
+  stage: Stage
+  "Supporting evidences"
+  evidences: [Evidence]
+  "Date and time when record was inserted"
+  insertedAt: DateTime!
+  "Date and time when record was updated"
+  updatedAt: DateTime!
+}
+
+"""
+Provides the basis for whatever is present in condition code
+"""
+type Evidence {
+    "List of reason codes according to `eHealth/ICPC2/reasons` dictionary"
+    codes: [CodeableConcept]
+    "List of References on observation resources"
+    details: [Reference]
+}
+
+"""
+Simple summary (disease specific)
+"""
+type Stage {
+    "Code describing condition stages according to `eHealth/condition_stages` dictionary"
+    summary: CodeableConcept!
+}
+
+"""
+Verification status of the condition. According to `eHealth/condition_verification_statuses` dictionary
+"""
+enum ConditionVerificationStatus {
+    "Status `CONFIRMED` for a condition"
+    CONFIRMED
+    "Status `DIFFERENTIAL` for a condition"
+    DIFFERENTIAL
+    "Status `ENTERED_IN_ERROR` for a condition"
+    ENTERED_IN_ERROR
+    "Status `PROVISIONAL` for a condition"
+    PROVISIONAL
+    "Status `REFUTED` for a condition"
+    REFUTED
+}
+
+"""
+Clinical status of the condition. According to `eHealth/condition_clinical_statuses` dictionary
+"""
+enum ConditionClinicalStatus {
+    "Status `ACTIVE` for a condition"
+    ACTIVE
+    "Status `FINISHED` for a condition"
+    FINISHED
+    "Status `RECURRENCE` for a condition"
+    RECURRENCE
+    "Status `REMISSION` for a condition"
+    REMISSION
+    "Status `RESOLVED` for a condition"
+    RESOLVED
+}
