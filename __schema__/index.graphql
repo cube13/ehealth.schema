@@ -37,10 +37,6 @@
 # import * from "declarationsTerminationJobs.graphql"
 # import * from "divisions.graphql"
 # import * from "forbiddenGroups.graphql"
-# import * from "episodes.graphql"
-# import * from "justifications.graphql"
-# import * from "encounters.graphql"
-# import * from "observations.graphql"
 
 """
 The query root of e-Health GraphQL interface.
