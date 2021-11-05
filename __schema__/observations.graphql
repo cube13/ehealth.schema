@@ -1,0 +1,191 @@
+# import CodeableConcept, Reference, Period, Quantity, Range, SampledData, Ratio from "medicalEvents.graphql"
+
+"""
+Fields to filter Observation in the system.
+"""
+input ObservationFilter {
+  "Person identifier from MPI database"
+  personId: ID!
+  "Episode status"
+  status: ObservationStatus
+  "Encounter identifier from observation context"
+  encounterId: ID
+  "The interval to search when observation has been issued"
+  issued: DateInterval
+  "Observation code"
+  code: String
+}
+
+"""
+Methods to use when ordering `Observation`.
+"""
+enum ObservationOrderBy {
+  "Sort by inserted_at in ascending order."
+  INSERTED_AT_ASC
+  "Sort by inserted_at in descending order."
+  INSERTED_AT_DESC
+  "Sort by status in ascending order."
+  STATUS_ASC
+  "Sort by status in descending order."
+  STATUS_DESC
+}
+
+"""
+A connection to a list of `Observation` values.
+"""
+type ObservationConnection {
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "A list of nodes."
+  nodes: [Observation]
+  "A list of edges."
+  edges: [ObservationEdge]
+  "Total entries found"
+  totalEntries: Int!
+}
+
+"""
+An edge in a connection of `Observation`.
+"""
+type ObservationEdge {
+  "The item at the end of the edge."
+  node: Observation!
+  "A cursor for use in pagination."
+  cursor: String!
+}
+
+"""
+Observation data contains all information about patient observation. Described by https://www.hl7.org/fhir/observation.html
+In order to obtain this data user must have a scopes: **observation:practical_monitor**, **observation:clinical_monitor**
+"""
+type Observation implements Node {
+  "The ID of an object."
+  id: ID!
+  "Primary key identifier from the database."
+  databaseId: UUID!
+  "Reference on ServiceRequest resource"
+  basedOn: [Reference]
+  "Observation status"
+  status: ObservationStatus!
+  "Classification of type of observation"
+  categories: [CodeableConcept!]!
+  "Reference on Encounter resource"
+  context: Reference!
+  "Observation effective time in DateTime or Period format"
+  effective: Effective!
+  "Date and time observation was made available"
+  issued: DateTime!
+  "If observation belongs to primary source"
+  primarySource: Boolean!
+  "Performer of the observation"
+  performer: Reference
+  "Observation report origin"
+  reportOrigin: CodeableConcept
+  "Type of observation (code/type)"
+  code: CodeableConcept!
+  "Observation interpretation"
+  interpretation: CodeableConcept
+  "Observation notes"
+  comment: String
+  "Observed body part"
+  bodySite: CodeableConcept
+  "How observation was done"
+  method: CodeableConcept
+  "Provides guide for interpretation"
+  referenceRanges: [ReferenceRange]
+  "Component results"
+  components: [Component]
+  "Actual result"
+  value: ObservationValue!
+  "Date and time when record was inserted"
+  insertedAt: DateTime!
+  "Date and time when record was updated"
+  updatedAt: DateTime!
+}
+
+"""
+List of observation statuses. According to `eHealth/observation_statuses` dictionary
+"""
+enum ObservationStatus {
+  "Status `ENTERED_IN_ERROR` for an observation"
+  ENTERED_IN_ERROR
+  "Status `FINISHED` for an observation"
+  FINISHED
+}
+
+"""
+Provides guide for interpretation of Observation
+"""
+type ReferenceRange {
+  "Applicable age range, if relevant"
+  age: Range
+  "Reference range population"
+  appliesTo:[CodeableConcept]
+  "Low Range, if relevant"
+  low: Quantity
+  "High Range, if relevant"
+  high: Quantity
+  "Text based reference range in an observation"
+  text: String
+  "Reference range qualifier"
+  type: CodeableConcept
+}
+
+"""
+Component of observation.
+"""
+type Component {
+  "Type of component observation (code or type)"
+  code: CodeableConcept
+  "Component interpretation"
+  interpretation: CodeableConcept
+  "Provides guide for interpretation of component results"
+  referenceRanges: [ReferenceRange]
+  "Value of the component"
+  value: ObservationValue
+}
+
+"""
+Value in string format
+"""
+type ValueString {
+  "Value"
+  valueString:
+}
+
+"""
+Value in Boolean format
+"""
+type ValueBoolean {
+  "Value"
+  valueBoolean: Boolean
+}
+
+"""
+Value in Time format
+"""
+type ValueTime {
+  "Value"
+  valueTime: Time
+}
+
+"""
+Value in DateTime format
+"""
+type ValueDateTime {
+  "Value"
+  valueDateTime: DateTime
+}
+
+
+""" 
+This union represents such values as valueQuantity, valueCodeableConcept, valueSampledData, valueString, valueBoolean, valueRange, valueRatio, valueTime, valueDateTime, valuePeriod
+Value field can be returned in different data type format. 
+"""
+union ObservationValue = Quantity | CodeableConcept | SampledData | ValueString | ValueBoolean | Range | Ratio | ValueTime | ValueDateTime | Period
+
+"""
+This union represents two posible format of effective field: effectiveDateTime, effectivePeriod
+Value field can be returned in different data type format.
+"""
+union Effective = ValueDateTime | Period
