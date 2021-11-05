@@ -1,4 +1,4 @@
-# import CodeableConcept, Reference, Period, Quantity, Range, SampledData, Ratio from "medicalEvents.graphql"
+# import CodeableConcept, Reference, Period from "medicalEvents.graphql"
 
 """
 Fields to filter Observation in the system.
@@ -91,8 +91,8 @@ type Observation implements Node {
   bodySite: CodeableConcept
   "How observation was done"
   method: CodeableConcept
-  "Provides guide for interpretation"
-  referenceRanges: [ReferenceRange]
+  # "Provides guide for interpretation"
+  # referenceRanges: [ReferenceRange]
   "Component results"
   components: [Component]
   "Actual result"
@@ -113,23 +113,23 @@ enum ObservationStatus {
   FINISHED
 }
 
-"""
-Provides guide for interpretation of Observation
-"""
-type ReferenceRange {
-  "Applicable age range, if relevant"
-  age: Range
-  "Reference range population"
-  appliesTo:[CodeableConcept]
-  "Low Range, if relevant"
-  low: Quantity
-  "High Range, if relevant"
-  high: Quantity
-  "Text based reference range in an observation"
-  text: String
-  "Reference range qualifier"
-  type: CodeableConcept
-}
+# """
+# Provides guide for interpretation of Observation
+# """
+# type ReferenceRange {
+#   "Applicable age range, if relevant"
+#   age: Range
+#   "Reference range population"
+#   appliesTo:[CodeableConcept]
+#   "Low Range, if relevant"
+#   low: Quantity
+#   "High Range, if relevant"
+#   high: Quantity
+#   "Text based reference range in an observation"
+#   text: String
+#   "Reference range qualifier"
+#   type: CodeableConcept
+# }
 
 """
 Component of observation.
@@ -139,8 +139,8 @@ type Component {
   code: CodeableConcept
   "Component interpretation"
   interpretation: CodeableConcept
-  "Provides guide for interpretation of component results"
-  referenceRanges: [ReferenceRange]
+  # "Provides guide for interpretation of component results"
+  # referenceRanges: [ReferenceRange]
   "Value of the component"
   value: ObservationValue
 }
@@ -182,7 +182,9 @@ type ValueDateTime {
 This union represents such values as valueQuantity, valueCodeableConcept, valueSampledData, valueString, valueBoolean, valueRange, valueRatio, valueTime, valueDateTime, valuePeriod
 Value field can be returned in different data type format. 
 """
-union ObservationValue = Quantity | CodeableConcept | SampledData | ValueString | ValueBoolean | Range | Ratio | ValueTime | ValueDateTime | Period
+union ObservationValue =  CodeableConcept | ValueString | ValueBoolean | ValueTime | ValueDateTime | Period
+
+# Quantity | SampledData | Range | Ratio
 
 """
 This union represents two posible format of effective field: effectiveDateTime, effectivePeriod
