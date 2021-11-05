@@ -680,7 +680,6 @@ type Query {
 
   "Reads a single `Condition` using its globally unique ID and person's mpi id."
   condition(personId: ID!, id: ID!): Condition
-  ): ServiceRequestConnection!
 
   "Reads and enables pagination through a set of `ServiceRequest`"
   serviceRequests(
