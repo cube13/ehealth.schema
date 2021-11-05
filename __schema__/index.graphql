@@ -38,6 +38,7 @@
 # import * from "divisions.graphql"
 # import * from "forbiddenGroups.graphql"
 # import * from "episodes.graphql"
+# import * from "justifications.graphql"
 
 """
 The query root of e-Health GraphQL interface.
@@ -584,21 +585,21 @@ type Query {
   "Reads a single `ForbiddenGroup` using its globally unique ID."
   forbiddenGroup(id: ID!): ForbiddenGroup
 
-  # "Reads and enables pagination through a set of `Justification`"
-  # justifications(
-  #   "A condition to be used in determining which values should be returned by the collection."
-  #   filter: JustificationFilter!
-  #   "The method to use when ordering collection items."
-  #   orderBy: JustificationOrderBy
-  #   "Read all values in the set after (below) this cursor."
-  #   after: String
-  #   "Read all values in the set before (above) this cursor."
-  #   before: String
-  #   "Only read the first _n_ values of the set."
-  #   first: Int
-  #   "Only read the last _n_ values of the set."
-  #   last: Int
-  # ): JustificationConnection!
+  "Reads and enables pagination through a set of `Justification`"
+  justifications(
+    "A condition to be used in determining which values should be returned by the collection."
+    filter: JustificationFilter!
+    "The method to use when ordering collection items."
+    orderBy: JustificationOrderBy
+    "Read all values in the set after (below) this cursor."
+    after: String
+    "Read all values in the set before (above) this cursor."
+    before: String
+    "Only read the first _n_ values of the set."
+    first: Int
+    "Only read the last _n_ values of the set."
+    last: Int
+  ): JustificationConnection!
 
   "Reads and enables pagination through a set of `Episode`"
   episodes(
@@ -894,10 +895,10 @@ type Mutation {
     input: DeactivateForbiddenGroupItemsInput!
   ): DeactivateForbiddenGroupItemsPayload
 
-  # "Creates a single `Justification`."
-  # createJustification(
-  #   input: CreateJustificationInput!
-  # ): CreateJustificationPayload
+  "Creates a single `Justification`."
+  createJustification(
+    input: CreateJustificationInput!
+  ): CreateJustificationPayload
 }
 
 """

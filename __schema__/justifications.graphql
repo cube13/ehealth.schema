@@ -1,0 +1,120 @@
+# import CodeableConcept from "medicalEvents.graphql"
+
+"""
+Fields to filter Justification in the system.
+"""
+input JustificationFilter {
+  "Person identifier from MPI database"
+  personId: ID!
+  "Identifier of the user who consume patient data"
+  userId: UUID
+  "Justification status."
+  status: JustificationStatus
+  "The interval to search when Justification has been expired"
+  expiresAt: DateInterval
+}
+
+"""
+Methods to use when ordering `Justification`.
+"""
+enum JustificationOrderBy {
+  "Orders by the object’s `insertedAt` field in the ascending order."
+  INSERTED_AT_ASC
+  "Orders by the object’s `insertedAt` field in the descending order."
+  INSERTED_AT_DESC
+}
+
+
+"""
+A connection to a list of `Justification` items.
+"""
+type JustificationConnection {
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "A list of nodes."
+  nodes: [Justification]
+  "A list of edges."
+  edges: [JustificationEdge]
+}
+
+"""
+An edge in a connection of `Justification`.
+"""
+type JustificationEdge {
+  "The item at the end of the edge."
+  node: Justification!
+  "A cursor for use in pagination."
+  cursor: String!
+}
+
+"""
+Justification contains reason why user perform monitoring of patiet data.
+"""
+type Justification implements Node {
+  "The ID of an object."
+  id: ID!
+  "Primary key identifier from the database."
+  databaseId: UUID!
+  "The date Justification expires"
+  expiresAt: DateTime!
+  "Information about user who performs monitor of patient data"
+  consumer: Consumer!
+  "The reason of monitoring patiet data"
+  reason: String!
+  "Justification reason type. According to `eHealth/justification_reason_types` dictionary"
+  reasonType: CodeableConcept!
+  "Justification status"
+  status: JustificationStatus!
+  "Date and time when Justification was created"
+  insertedAt: DateTime!
+  "Identifier of the user who created the Justification"
+  insertedBy: UUID!
+  "Date and time when Justification was updated"
+  updatedAt: DateTime!
+  "Identifier of the user who changed the Justification"
+  updatedBy: UUID!
+}
+
+"""
+Input for `createJustification` mutation.
+
+User must have a scope **justification:write**
+"""
+input CreateJustificationInput {
+  "Person primary key identifier from the database"
+  personId: ID!
+  "The reason of monitoring patiet data"
+  reason: String!
+  "Justification reason type. According to `eHealth/justification_reason_types` dictionary"
+  reasonType: CodeableConcept!
+}
+
+"""
+Return type for `createJustification` mutation.
+"""
+type CreateJustificationPayload {
+  "Justification information."
+  justification: Justification!
+}
+
+"""
+List of Justification statuses.
+"""
+enum JustificationStatus {
+  "Status `ACTIVE` for a Justification"
+  ACTIVE
+  "Status `TERMINATED` for a Justification"
+  TERMINATED
+}
+
+"""
+Information about consumer of patient data
+"""
+type Consumer {
+  "User identifier who consume patient data"
+  userId: UUID!
+  "Client identifier user belongs to"
+  clientId: UUID!
+  "Name of the client"
+  clientName: String!
+}
