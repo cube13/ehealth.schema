@@ -1,4 +1,4 @@
-# import CodeableConcept, Reference, StatusHistory, Period from "medicalEvents.graphql"
+# import CodeableConcept, Reference, StatusHistory, Period, ValueDateTime from "medicalEvents.graphql"
 
 """
 Fields to filter ServiceRequest in the system.
@@ -175,4 +175,4 @@ enum ServiceRequestPriority {
 This union represents two posible format of occurrence field: occurrenceDateTime, occurrencePeriod
 Value can be returned in different data type format.
 """
-union Occurrence = DateTime | Period
+union Occurrence = ValueDateTime | Period

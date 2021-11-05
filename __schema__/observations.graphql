@@ -1,4 +1,4 @@
-# import CodeableConcept, Reference, Period, Quantity, Range, SampledData, Ratio from "medicalEvents.graphql"
+# import CodeableConcept, Reference, Period, Quantity, Range, SampledData, Ratio, ValueString, ValueBoolean, ValueTime, ValueDateTime from "medicalEvents.graphql"
 
 """
 Fields to filter Observation in the system.
@@ -143,38 +143,6 @@ type Component {
   referenceRanges: [ReferenceRange]
   "Value of the component"
   value: ObservationValue
-}
-
-"""
-Value in string format
-"""
-type ValueString {
-  "Value"
-  string: String
-}
-
-"""
-Value in Boolean format
-"""
-type ValueBoolean {
-  "Value"
-  boolean: Boolean
-}
-
-"""
-Value in Time format
-"""
-type ValueTime {
-  "Value"
-  time: Time
-}
-
-"""
-Value in DateTime format
-"""
-type ValueDateTime {
-  "Value"
-  dateTime: DateTime
 }
 
 """ 
