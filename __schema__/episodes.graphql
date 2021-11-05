@@ -40,6 +40,8 @@ type EpisodeConnection {
   nodes: [Episode]
   "A list of edges."
   edges: [EpisodeEdge]
+  "Total entries found"
+  totalEntries: Int!
 }
 
 """
