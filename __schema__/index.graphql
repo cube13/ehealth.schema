@@ -37,6 +37,7 @@
 # import * from "declarationsTerminationJobs.graphql"
 # import * from "divisions.graphql"
 # import * from "forbiddenGroups.graphql"
+# import * from "episodes.graphql"
 
 """
 The query root of e-Health GraphQL interface.
@@ -599,24 +600,24 @@ type Query {
   #   last: Int
   # ): JustificationConnection!
 
-  # "Reads and enables pagination through a set of `Episode`"
-  # episodes(
-  #   "A condition to be used in determining which values should be returned by the collection."
-  #   filter: EpisodeFilter!
-  #   "The method to use when ordering collection items."
-  #   orderBy: EpisodeOrderBy
-  #   "Read all values in the set after (below) this cursor."
-  #   after: String
-  #   "Read all values in the set before (above) this cursor."
-  #   before: String
-  #   "Only read the first _n_ values of the set."
-  #   first: Int
-  #   "Only read the last _n_ values of the set."
-  #   last: Int
-  # ): EpisodeConnection!
+  "Reads and enables pagination through a set of `Episode`"
+  episodes(
+    "A condition to be used in determining which values should be returned by the collection."
+    filter: EpisodeFilter!
+    "The method to use when ordering collection items."
+    orderBy: EpisodeOrderBy
+    "Read all values in the set after (below) this cursor."
+    after: String
+    "Read all values in the set before (above) this cursor."
+    before: String
+    "Only read the first _n_ values of the set."
+    first: Int
+    "Only read the last _n_ values of the set."
+    last: Int
+  ): EpisodeConnection!
 
-  # "Reads a single `Episode` using its globally unique ID and person mpi id."
-  # episode(personId: ID!, id: ID!): Episode
+  "Reads a single `Episode` using its globally unique ID and person mpi id."
+  episode(personId: ID!, id: ID!): Episode
 
   # "Reads and enables pagination through a set of `Encounter`"
   # encounters(

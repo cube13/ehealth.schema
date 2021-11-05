@@ -1,85 +1,85 @@
-# """
-# General-purpose FHIR data type described at https://www.hl7.org/fhir/datatypes.html#Coding
-# A Coding is a representation of a defined concept using a symbol from a defined "code system".
-# """
-# type Coding {
-#   "Identity of the terminology system"
-#   system: String!
-#   "Symbol in syntax defined by the system"
-#   code: String!
-# }
+"""
+General-purpose FHIR data type described at https://www.hl7.org/fhir/datatypes.html#Coding
+A Coding is a representation of a defined concept using a symbol from a defined "code system".
+"""
+type Coding {
+  "Identity of the terminology system"
+  system: String!
+  "Symbol in syntax defined by the system"
+  code: String!
+}
 
-# """
-# General-purpose FHIR data type described at https://www.hl7.org/fhir/datatypes.html#CodeableConcept
-# A CodeableConcept represents a value that is usually supplied by providing a reference to one or more terminologies or ontologies but may also be defined by the provision of text.
-# """
-# type CodeableConcept {
-#   "Code defined by a terminology system"
-#   coding: [Coding]!
-#   "Plain text representation of the concept"
-#   text: String
-# }
+"""
+General-purpose FHIR data type described at https://www.hl7.org/fhir/datatypes.html#CodeableConcept
+A CodeableConcept represents a value that is usually supplied by providing a reference to one or more terminologies or ontologies but may also be defined by the provision of text.
+"""
+type CodeableConcept {
+  "Code defined by a terminology system"
+  coding: [Coding]!
+  "Plain text representation of the concept"
+  text: String
+}
 
-# """
-# General-purpose FHIR data type described at https://www.hl7.org/fhir/datatypes.html#Identifier
-# A numeric or alphanumeric string that is associated with a single object or entity within a given system.
-# """
-# type Identifier {
-#   "Description of identifier"
-#   type: CodeableConcept!
-#   "The value that is unique"
-#   value: UUID!
-# }
+"""
+General-purpose FHIR data type described at https://www.hl7.org/fhir/datatypes.html#Identifier
+A numeric or alphanumeric string that is associated with a single object or entity within a given system.
+"""
+type Identifier {
+  "Description of identifier"
+  type: CodeableConcept!
+  "The value that is unique"
+  value: UUID!
+}
 
-# """
-# Special-purpose FHIR data type described at https://www.hl7.org/fhir/references.html#Reference
-# Many of the defined elements in a resource are references to other resources. Using these references, the resources combine to build a web of information about healthcare.
-# """
-# type Reference {
-#   "Text alternative for the resource"
-#   displayValue: String
-#   "Logical reference, when literal reference is not known"
-#   identifier: Identifier!
-# }
+"""
+Special-purpose FHIR data type described at https://www.hl7.org/fhir/references.html#Reference
+Many of the defined elements in a resource are references to other resources. Using these references, the resources combine to build a web of information about healthcare.
+"""
+type Reference {
+  "Text alternative for the resource"
+  displayValue: String
+  "Logical reference, when literal reference is not known"
+  identifier: Identifier!
+}
 
-# """
-# Past list of medical event status codes
-# """
-# type StatusHistory {
-#   "Status of the medical event"
-#   status: String!
-#   "Identifier of the user who changed the status"
-#   insertedBy: UUID!
-#   "Date and time when status was changed"
-#   insertedAt: DateTime!
-#   "The reason why status was changed. Choses from corresponding dictionary for the medical event"
-#   statusReason: CodeableConcept
-# }
+"""
+Past list of medical event status codes
+"""
+type StatusHistory {
+  "Status of the medical event"
+  status: String!
+  "Identifier of the user who changed the status"
+  insertedBy: UUID!
+  "Date and time when status was changed"
+  insertedAt: DateTime!
+  "The reason why status was changed. Choses from corresponding dictionary for the medical event"
+  statusReason: CodeableConcept
+}
 
-# """
-# Diagnosis representation according to FHIR for some medical events (episode, encounter)
-# """
-# type Diagnosis {
-#   "Ranking of the diagnosis"
-#   rank: Int
-#   "Reference on the Condition resource"
-#   condition: Reference
-#   "Role that this diagnosis has within the medical event. Filled from eHealth/diagnosis_roles dictionary"
-#   role: CodeableConcept
-#   "Identification of the condition, problem or diagnosis"
-#   code: CodeableConcept!
-# }
+"""
+Diagnosis representation according to FHIR for some medical events (episode, encounter)
+"""
+type Diagnosis {
+  "Ranking of the diagnosis"
+  rank: Int
+  "Reference on the Condition resource"
+  condition: Reference
+  "Role that this diagnosis has within the medical event. Filled from eHealth/diagnosis_roles dictionary"
+  role: CodeableConcept
+  "Identification of the condition, problem or diagnosis"
+  code: CodeableConcept!
+}
 
-# """
-# General-purpose FHIR data type described at https://www.hl7.org/fhir/datatypes.html#Period.
-# A time period defined by a start and end date/time.
-# """
-# type Period {
-#   "Starting time with inclusive boundary"
-#   start: DateTime!
-#   "End time with inclusive boundary, if not ongoing"
-#   end: DateTime
-# }
+"""
+General-purpose FHIR data type described at https://www.hl7.org/fhir/datatypes.html#Period.
+A time period defined by a start and end date/time.
+"""
+type Period {
+  "Starting time with inclusive boundary"
+  start: DateTime!
+  "End time with inclusive boundary, if not ongoing"
+  end: DateTime
+}
 
 # """
 # FHIR type that represent a measured amount. Described at https://www.hl7.org/fhir/datatypes.html#Quantity
