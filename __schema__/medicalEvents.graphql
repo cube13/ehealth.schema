@@ -1,24 +1,24 @@
-"""
-General-purpose FHIR data type described at https://www.hl7.org/fhir/datatypes.html#Coding
-A Coding is a representation of a defined concept using a symbol from a defined "code system".
-"""
-type Coding {
-  "Identity of the terminology system"
-  system: String!
-  "Symbol in syntax defined by the system"
-  code: String!
-}
+# """
+# General-purpose FHIR data type described at https://www.hl7.org/fhir/datatypes.html#Coding
+# A Coding is a representation of a defined concept using a symbol from a defined "code system".
+# """
+# type Coding {
+#   "Identity of the terminology system"
+#   system: String!
+#   "Symbol in syntax defined by the system"
+#   code: String!
+# }
 
-"""
-General-purpose FHIR data type described at https://www.hl7.org/fhir/datatypes.html#CodeableConcept
-A CodeableConcept represents a value that is usually supplied by providing a reference to one or more terminologies or ontologies but may also be defined by the provision of text.
-"""
-type CodeableConcept {
-  "Code defined by a terminology system"
-  coding: [Coding]!
-  "Plain text representation of the concept"
-  text: String
-}
+# """
+# General-purpose FHIR data type described at https://www.hl7.org/fhir/datatypes.html#CodeableConcept
+# A CodeableConcept represents a value that is usually supplied by providing a reference to one or more terminologies or ontologies but may also be defined by the provision of text.
+# """
+# type CodeableConcept {
+#   "Code defined by a terminology system"
+#   coding: [Coding]!
+#   "Plain text representation of the concept"
+#   text: String
+# }
 
 # """
 # General-purpose FHIR data type described at https://www.hl7.org/fhir/datatypes.html#Identifier

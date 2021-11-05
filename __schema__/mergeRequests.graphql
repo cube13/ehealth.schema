@@ -214,10 +214,10 @@ enum ManualMergeCandidateStatus {
 List of ManualMergeCandidate decisions.
 """
 enum ManualMergeCandidateDecision {
-  "Decision `SPLIT` for a manual merge candidate"
-  SPLIT
   "Decision `MERGE` for a manual merge candidate"
   MERGE
+  "Decision `SPLIT` for a manual merge candidate"
+  SPLIT
   "Decision `TRASH` for a manual merge candidate"
   TRASH
 }
