@@ -107,32 +107,32 @@ type Range {
   high: Quantity
 }
 
-# """
-# FHIR type that comes from a series of measurements taken by a device, which may have upper and lower limits. Described at https://www.hl7.org/fhir/datatypes.html#SampledData
-# """
-# type SampledData {
-#   "Zero value and units"
-#   origin: Float
-#   "Number of milliseconds between samples"
-#   period: Float
-#   "Multiply data by this before adding to origin"
-#   factor: Float
-#   "Lower limit of detection"
-#   lowerLimit: Float
-#   "Upper limit of detection"
-#   upperLimit: Float
-#   "Number of sample points at each time point"
-#   dimensions: Float
-#   "Decimal values with spaces, or E | U | L"
-#   data: String!
-# }
+"""
+FHIR type that comes from a series of measurements taken by a device, which may have upper and lower limits. Described at https://www.hl7.org/fhir/datatypes.html#SampledData
+"""
+type SampledData {
+  "Zero value and units"
+  origin: Float
+  "Number of milliseconds between samples"
+  period: Float
+  "Multiply data by this before adding to origin"
+  factor: Float
+  "Lower limit of detection"
+  lowerLimit: Float
+  "Upper limit of detection"
+  upperLimit: Float
+  "Number of sample points at each time point"
+  dimensions: Float
+  "Decimal values with spaces, or E | U | L"
+  data: String!
+}
 
-# """
-# FHIR type that represent a relationship between two Quantity values. Described at https://www.hl7.org/fhir/datatypes.html#Ratio
-# """
-# type Ratio {
-#   "Numerator value"
-#   numerator: Quantity!
-#   "Denominator value"
-#   denominator: Quantity!
-# }
+"""
+FHIR type that represent a relationship between two Quantity values. Described at https://www.hl7.org/fhir/datatypes.html#Ratio
+"""
+type Ratio {
+  "Numerator value"
+  numerator: Quantity!
+  "Denominator value"
+  denominator: Quantity!
+}

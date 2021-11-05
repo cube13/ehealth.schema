@@ -95,8 +95,8 @@ type Observation implements Node {
   referenceRanges: [ReferenceRange]
   "Component results"
   components: [Component]
-  # "Actual result"
-  # value: ObservationValue!
+  "Actual result"
+  value: ObservationValue!
   "Date and time when record was inserted"
   insertedAt: DateTime!
   "Date and time when record was updated"
@@ -141,33 +141,33 @@ type Component {
   interpretation: CodeableConcept
   "Provides guide for interpretation of component results"
   referenceRanges: [ReferenceRange]
-  # "Value of the component"
-  # value: ObservationValue
+  "Value of the component"
+  value: ObservationValue
 }
 
-# """
-# Value in string format
-# """
-# type ValueString {
-#   "Value"
-#   string: String
-# }
+"""
+Value in string format
+"""
+type ValueString {
+  "Value"
+  string: String
+}
 
-# """
-# Value in Boolean format
-# """
-# type ValueBoolean {
-#   "Value"
-#   boolean: Boolean
-# }
+"""
+Value in Boolean format
+"""
+type ValueBoolean {
+  "Value"
+  boolean: Boolean
+}
 
-# """
-# Value in Time format
-# """
-# type ValueTime {
-#   "Value"
-#   time: Time
-# }
+"""
+Value in Time format
+"""
+type ValueTime {
+  "Value"
+  time: Time
+}
 
 """
 Value in DateTime format
@@ -177,14 +177,11 @@ type ValueDateTime {
   dateTime: DateTime
 }
 
-
-# """ 
-# This union represents such values as valueQuantity, valueCodeableConcept, valueSampledData, valueString, valueBoolean, valueRange, valueRatio, valueTime, valueDateTime, valuePeriod
-# Value field can be returned in different data type format. 
-# """
-# union ObservationValue =  CodeableConcept | ValueString | ValueBoolean | ValueTime | ValueDateTime | Period
-
-# Quantity | SampledData | Range | Ratio
+""" 
+This union represents such values as valueQuantity, valueCodeableConcept, valueSampledData, valueString, valueBoolean, valueRange, valueRatio, valueTime, valueDateTime, valuePeriod
+Value field can be returned in different data type format. 
+"""
+union ObservationValue =  CodeableConcept | ValueString | ValueBoolean | ValueTime | ValueDateTime | Period | Quantity | SampledData | Range | Ratio
 
 """
 This union represents two posible format of effective field: effectiveDateTime, effectivePeriod
