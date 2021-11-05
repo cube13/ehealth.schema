@@ -86,7 +86,17 @@ input CreateJustificationInput {
   "The reason of monitoring patiet data"
   reason: String!
   "Justification reason type. According to `eHealth/justification_reason_types` dictionary"
-  reasonType: CodeableConcept!
+  reasonType: ReasonTypeInput!
+}
+
+"""
+Input for `reasonType` for `createJustification` mutation.
+"""
+input ReasonTypeInput {
+  "Code defined by a terminology system"
+  coding: [Coding]!
+  "Plain text representation of the concept"
+  text: String
 }
 
 """
