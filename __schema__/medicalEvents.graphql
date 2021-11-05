@@ -20,27 +20,27 @@ type CodeableConcept {
   text: String
 }
 
-"""
-General-purpose FHIR data type described at https://www.hl7.org/fhir/datatypes.html#Identifier
-A numeric or alphanumeric string that is associated with a single object or entity within a given system.
-"""
-type Identifier {
-  "Description of identifier"
-  type: CodeableConcept!
-  "The value that is unique"
-  value: UUID!
-}
+# """
+# General-purpose FHIR data type described at https://www.hl7.org/fhir/datatypes.html#Identifier
+# A numeric or alphanumeric string that is associated with a single object or entity within a given system.
+# """
+# type Identifier {
+#   "Description of identifier"
+#   type: CodeableConcept!
+#   "The value that is unique"
+#   value: UUID!
+# }
 
-"""
-Special-purpose FHIR data type described at https://www.hl7.org/fhir/references.html#Reference
-Many of the defined elements in a resource are references to other resources. Using these references, the resources combine to build a web of information about healthcare.
-"""
-type Reference {
-  "Text alternative for the resource"
-  displayValue: String
-  "Logical reference, when literal reference is not known"
-  identifier: Identifier!
-}
+# """
+# Special-purpose FHIR data type described at https://www.hl7.org/fhir/references.html#Reference
+# Many of the defined elements in a resource are references to other resources. Using these references, the resources combine to build a web of information about healthcare.
+# """
+# type Reference {
+#   "Text alternative for the resource"
+#   displayValue: String
+#   "Logical reference, when literal reference is not known"
+#   identifier: Identifier!
+# }
 
 # """
 # Past list of medical event status codes
@@ -81,21 +81,21 @@ type Reference {
 #   end: DateTime
 # }
 
-"""
-FHIR type that represent a measured amount. Described at https://www.hl7.org/fhir/datatypes.html#Quantity
-"""
-type Quantity {
-  "Numerical value (with implicit precision)"
-  value: Float!
-  "< | <= | >= | > | = - how to understand the value"
-  comparator: String
-  "Unit representation"
-  unit: String!
-  "System that defines coded unit form"
-  system: String
-  "Coded form of the unit"
-  code: String
-}
+# """
+# FHIR type that represent a measured amount. Described at https://www.hl7.org/fhir/datatypes.html#Quantity
+# """
+# type Quantity {
+#   "Numerical value (with implicit precision)"
+#   value: Float!
+#   "< | <= | >= | > | = - how to understand the value"
+#   comparator: String
+#   "Unit representation"
+#   unit: String!
+#   "System that defines coded unit form"
+#   system: String
+#   "Coded form of the unit"
+#   code: String
+# }
 
 # """
 # FHIR type that represent a set of ordered Quantity values defined by a low and high limit. Described at https://www.hl7.org/fhir/datatypes.html#Range
