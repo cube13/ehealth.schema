@@ -1,0 +1,192 @@
+# import SignedContent from "signedContent.graphql"
+# import JobStatus, JobStrategy from "jobs.graphql"
+# import TaskFilter, TaskOrderBy from "tasks.graphql"
+"""
+Filter for Legal entity reorganization job.
+"""
+input LegalEntityReorganizationJobFilter {
+  "Legal entity reorganization job status filters."
+  status: JobStatus
+  "Legal entity reorganization job type filters."
+  type: LegalEntityReorganizationJobType
+  "Reorganized Legal entity data filters."
+  reorganizedLegalEntity: ReorganizedLegalEntityFilter 
+}
+
+"""
+List of fields to sort both asc and desc side `LegalEntityReorganizationJob`.
+"""
+enum LegalEntityReorganizationJobOrderBy {
+  "Sort legal entity reorganization job by started at in ascending order"
+  STARTED_AT_ASC
+  "Sort legal entity reorganization job by started at in descending order"
+  STARTED_AT_DESC
+}
+
+"""
+Legal Entity Reorganization Types enum
+"""
+enum LegalEntityReorganizationJobType {
+  "Type 'ACCESSION' of Legal Entity Reorganization"
+  ACCESSION
+  "Type 'MERGING' of Legal Entity Reorganization"
+  MERGING
+  "Type 'DIVIDING' of Legal Entity Reorganization"
+  DIVIDING
+  "Type 'SEPARATING' of Legal Entity Reorganization"
+  SEPARATING
+  "Type 'TRANSFORMATION' of Legal Entity Reorganization"
+  TRANSFORMATION
+}
+
+"""
+Type for reorganized legal entities for filtration.
+"""
+type ReorganizedLegalEntityFilter {
+  "Legal entity edrpou."
+  edrpou: String!
+}
+
+"""
+A connection to a list of `LegalEntityReorganizationJob` values.
+"""
+type LegalEntityReorganizationJobConnection {
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "A list of nodes."
+  nodes: [LegalEntityReorganizationJob]
+  "A list of edges."
+  edges: [LegalEntityReorganizationJobEdge]
+}
+
+"""
+Reads and enables pagination through a set of `LegalEntityReorganizationJob`.
+"""
+type LegalEntityReorganizationJobEdge {
+  "The item at the end of the edge."
+  node: LegalEntityReorganizationJob!
+  "A cursor for use in pagination."
+  cursor: String!
+}
+
+"""
+Input for `reorganizeLegalEntity` mutation.
+"""
+input ReorganizeLegalEntityInput {
+  "Input for Signed Content"
+  signedContent: SignedContent!
+}
+
+"""
+Return type for `reorganizeLegalEntity` mutation.
+"""
+type ReorganizeLegalEntityPayload {
+  "payload LegalEntityReorganizationJob."
+  legalEntityReorganizationJob: LegalEntityReorganizationJob
+}
+
+"""
+An object for LegalEntityReorganizationJob.
+"""
+type LegalEntityReorganizationJob implements Node & Job {
+  "The ID of an object"
+  id: ID!
+  "Primary key identifier from the database"
+  databaseId: UUID!
+  "Job name."
+  name: String
+  "Legal Entity Reorganization Job status."
+  status: JobStatus!
+  "Job execution strategy."
+  strategy: JobStrategy!
+  "Date and time when the job starts."
+  startedAt: DateTime!
+  "Date and time when the job ends."
+  endedAt: DateTime
+  "Tasks within this job."
+  tasks(
+    "A condition to be used in determining which values should be returned by the collection."
+    filter: TaskFilter
+    "The method to use when ordering collection items."
+    orderBy: TaskOrderBy
+    "Read all values in the set after (below) this cursor."
+    after: String
+    "Read all values in the set before (above) this cursor."
+    before: String
+    "Only read the first _n_ values of the set."
+    first: Int
+    "Only read the last _n_ values of the set."
+    last: Int
+  ): LegalEntityReorganizationTaskConnection!
+  "Legal entity that is reorganized."
+  reorganizedLegalEntity: MergeeLegalEntityMetadata!
+  "Reorganization type"
+  reorganizationType: LegalEntityReorganizationJobType!
+}
+
+"""
+Metadata of merging legal entities.
+"""
+type MergeeLegalEntityMetadata {
+  "Primary key identifier from the database."
+  id: UUID!
+  "full official name of legal entity."
+  name: String!
+  "Legal entity edrpou."
+  edrpou: String!
+}
+
+
+"""
+A connection to a list of `LegalEntityReorganizationTask` values.
+"""
+type LegalEntityReorganizationTaskConnection {
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "A list of nodes."
+  nodes: [LegalEntityReorganizationTask]
+  "A list of edges."
+  edges: [LegalEntityReorganizationTaskEdge]
+}
+
+"""
+Reads and enables pagination through a set of `LegalEntityReorganizationTask`.
+"""
+type LegalEntityReorganizationTaskEdge {
+  "The item at the end of the edge."
+  node: LegalEntityReorganizationTask!
+  "A cursor for use in pagination."
+  cursor: String!
+}
+
+"""
+A child of a `LegalEntityReorganizationJob`, contains the result of task execution.
+"""
+type LegalEntityReorganizationTask implements Node {
+  "The ID of an object"
+  id: ID!
+  "Primary key identifier from the database"
+  databaseId: UUID!
+  "Task name."
+  name: String
+  "Task status, is set automatically."
+  status: TaskStatus!
+  "Date and time when task was executed."
+  endedAt: DateTime
+  "Task error."
+  error: TaskError
+  "Technical information when task was inserted into the DB."
+  insertedAt: DateTime!
+  "Technical information when task was updated in the DB."
+  updatedAt: DateTime!
+  "Task meta data."
+  meta: LegalEntityReorganizationTaskMeta
+}
+
+"""
+Metadata of a `LegalEntityReorganizationTask`.
+"""
+type LegalEntityReorganizationTaskMeta {
+  "Legal entity edrpou."
+  edrpou: String
+}

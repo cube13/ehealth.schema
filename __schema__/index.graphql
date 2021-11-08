@@ -42,6 +42,7 @@
 # import * from "encounters.graphql"
 # import * from "observations.graphql"
 # import * from "conditions.graphql"
+# import * from "legalEntityReorganizationJobs.graphql"
 
 """
 The query root of e-Health GraphQL interface.
@@ -681,6 +682,25 @@ type Query {
   condition(personId: ID!, id: ID!): Condition
 }
 
+  "Reads and enables pagination through a set of `LegalEntityReorganizationJob`."
+  legalEntityReorganizationJobs(
+    "A condition to be used in determining which values should be returned by the collection."
+    filter: LegalEntityReorganizationJobFilter
+    "The method to use when ordering collection items."
+    orderBy: LegalEntityReorganizationJobOrderBy
+    "Read all values in the set after (below) this cursor."
+    after: String
+    "Read all values in the set before (above) this cursor."
+    before: String
+    "Only read the first _n_ values of the set."
+    first: Int
+    "Only read the last _n_ values of the set."
+    last: Int
+  ): LegalEntityReorganizationJobConnection!
+
+  "Reads a single `LegalEntityReorganizationJob` using its globally unique ID."
+  legalEntityReorganizationJob(id: ID!): LegalEntityReorganizationJob
+
 """
 The root query for implementing GraphQL mutations.
 """
@@ -921,6 +941,9 @@ type Mutation {
   createJustification(
     input: CreateJustificationInput!
   ): CreateJustificationPayload
+
+  "Reorganizes `LegalEntity` using signed content."
+  reorganizeLegalEntity(input: ReorganizeLegalEntityInput!): ReorganizeLegalEntityPayload
 }
 
 """
