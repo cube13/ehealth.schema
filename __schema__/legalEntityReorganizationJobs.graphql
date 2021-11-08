@@ -1,6 +1,7 @@
 # import SignedContent from "signedContent.graphql"
 # import JobStatus, JobStrategy from "jobs.graphql"
 # import TaskFilter, TaskOrderBy from "tasks.graphql"
+
 """
 Filter for Legal entity reorganization job.
 """
@@ -119,15 +120,15 @@ type LegalEntityReorganizationJob implements Node {
     last: Int
   ): LegalEntityReorganizationTaskConnection!
   "Legal entity that is reorganized."
-  reorganizedLegalEntity: MergeeLegalEntityMetadata!
+  reorganizedLegalEntity: ReorganizedLegalEntityMetadata!
   "Reorganization type"
   reorganizationType: LegalEntityReorganizationJobType!
 }
 
 """
-Metadata of merging legal entities.
+Metadata of reorganized legal entity.
 """
-type MergeeLegalEntityMetadata {
+type ReorganizedLegalEntityMetadata {
   "Primary key identifier from the database."
   id: UUID!
   "full official name of legal entity."
@@ -135,7 +136,6 @@ type MergeeLegalEntityMetadata {
   "Legal entity edrpou."
   edrpou: String!
 }
-
 
 """
 A connection to a list of `LegalEntityReorganizationTask` values.
