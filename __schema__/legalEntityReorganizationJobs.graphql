@@ -30,10 +30,10 @@ Legal Entity Reorganization Types enum
 enum LegalEntityReorganizationJobType {
   "Type 'ACCESSION' of Legal Entity Reorganization"
   ACCESSION
+  "Type 'DIVIDING' of Legal Entity Reorganization"
+  DIVIDING  
   "Type 'MERGING' of Legal Entity Reorganization"
   MERGING
-  "Type 'DIVIDING' of Legal Entity Reorganization"
-  DIVIDING
   "Type 'SEPARATING' of Legal Entity Reorganization"
   SEPARATING
   "Type 'TRANSFORMATION' of Legal Entity Reorganization"
