@@ -88,7 +88,7 @@ type ReorganizeLegalEntityPayload {
 """
 An object for LegalEntityReorganizationJob.
 """
-type LegalEntityReorganizationJob implements Node & Job {
+type LegalEntityReorganizationJob implements Node {
   "The ID of an object"
   id: ID!
   "Primary key identifier from the database"
