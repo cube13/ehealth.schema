@@ -35,11 +35,13 @@ A connection to a list of `Immunization` values.
 """
 type ImmunizationConnection {
   "Information to aid in pagination."
-  pageInfo: FullPageInfo!
+  pageInfo: PageInfo!
   "A list of nodes."
   nodes: [Immunization]
   "A list of edges."
   edges: [ImmunizationEdge]
+  "Total entries found"
+  totalEntries: Int!
 }
 
 """
