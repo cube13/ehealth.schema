@@ -957,7 +957,7 @@ type Mutation {
   "Resend SMS for `Approval` with OTP auth method"
   resendSmsApproval(
     input: ResendSmsApprovalInput!
-  )
+  ): Boolean
 }
 
 """
