@@ -101,12 +101,12 @@ input CreateApprovalInput {
   personId: ID!
   "Access level to forbidden group"
   accessLevel: ApprovalAccessLevel!
-  "Reference on `ForbiddenGroup` resource"
-  forbiddenGroup: Reference!
-  "Reference on `Employee` resource who requests an access to the forbidden group"
-  grantedTo: Reference!
-  "Authorization method to verify approval"
-  authorizeWith: UUID
+  "Identifier of `ForbiddenGroup` to which approval requested"
+  forbiddenGroup: ID!
+  "Identifier of `Employee` who requests an access to the forbidden group"
+  grantedTo: ID!
+  "PersonAuthenticationMethod to verify approval"
+  authorizeWith: ID
 }
 
 """
