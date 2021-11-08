@@ -41,7 +41,10 @@
 # import * from "justifications.graphql"
 # import * from "encounters.graphql"
 # import * from "observations.graphql"
+<<<<<<< HEAD
 # import * from "conditions.graphql"
+=======
+>>>>>>> 789d07f00e2578200e3a7b358ce85c5bbf982de5
 # import * from "immunizations.graphql"
 
 """
