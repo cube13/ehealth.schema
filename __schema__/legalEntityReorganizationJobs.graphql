@@ -40,10 +40,10 @@ enum LegalEntityReorganizationJobType {
 }
 
 """
-Type for reorganized legal entities for filtration.
+Filter for reorganized legal entity.
 """
-type ReorganizedLegalEntityFilter {
-  "Legal entity edrpou."
+input ReorganizedLegalEntityFilter {
+  "A unique identification number of a legal entity in the State Register of Enterprises and Organizations of Ukraine."
   edrpou: String!
 }
 
