@@ -41,7 +41,10 @@
 # import * from "justifications.graphql"
 # import * from "encounters.graphql"
 # import * from "observations.graphql"
+<<<<<<< HEAD
 # import * from "conditions.graphql"
+=======
+>>>>>>> df208f0860e89886020860a050820563beca54ac
 # import * from "approvals.graphql"
 
 """
@@ -680,6 +683,22 @@ type Query {
 
   "Reads a single `Condition` using its globally unique ID and person's mpi id."
   condition(personId: ID!, id: ID!): Condition
+
+  "Reads and enables pagination through a set of `Approval`"
+  approvals(
+    "A condition to be used in determining which values should be returned by the collection."
+    filter: ApprovalFilter!
+    "The method to use when ordering collection items."
+    orderBy: ApprovalOrderBy
+    "Read all values in the set after (below) this cursor."
+    after: String
+    "Read all values in the set before (above) this cursor."
+    before: String
+    "Only read the first _n_ values of the set."
+    first: Int
+    "Only read the last _n_ values of the set."
+    last: Int
+  ): ApprovalConnection!
 }
 
 """

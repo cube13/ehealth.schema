@@ -24,14 +24,14 @@ input ApprovalFilter {
 Methods to use when ordering `Approval`.
 """
 enum ApprovalOrderBy {
-  "Orders by the object’s `insertedAt` field in the ascending order."
-  INSERTED_AT_ASC
-  "Orders by the object’s `insertedAt` field in the descending order."
-  INSERTED_AT_DESC
   "Orders by the object’s `expiresAt` field in the ascending order."
   EXPIRES_AT_ASC
   "Orders by the object’s `expiresAt` field in the descending order."
   EXPIRES_AT_DESC
+  "Orders by the object’s `insertedAt` field in the ascending order."
+  INSERTED_AT_ASC
+  "Orders by the object’s `insertedAt` field in the descending order."
+  INSERTED_AT_DESC
 }
 
 """
@@ -186,10 +186,10 @@ List of Approval statuses.
 enum ApprovalStatus {
   "Status `ACTIVE` for an approval"
   ACTIVE
-  "Status `NEW` for an approval"
-  NEW
   "Status `CANCELLED` for an approval"
   CANCELLED
+  "Status `NEW` for an approval"
+  NEW
 }
 
 """
@@ -222,10 +222,10 @@ type ApprovalAuthMethod {
 List of authorization method types allowed to verify approval.
 """
 enum ApprovalAuthMethodType {
-  "Auth method type `OTP` for an approval"
-  OTP
   "Auth method type `OFFLINE` for an approval"
   OFFLINE
+  "Auth method type `OTP` for an approval"
+  OTP
   "Auth method type `THIRD_PERSON` for an approval"
   THIRD_PERSON
 }
