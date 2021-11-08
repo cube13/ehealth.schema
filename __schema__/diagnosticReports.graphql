@@ -120,19 +120,19 @@ type DiagnosticReport implements Node {
 """
 Clinically relevant time/time-period for diagnostic report
 """
-union DiagnosticReportEffective = Period | DateTime
+union DiagnosticReportEffective = Period | ValueDateTime
 
 """
 The union is represent employee that can be as reference on Employee resource, or as text description if employee is not present in the system.
 """
-union ResponsibleEmployee = Reference | String
+union ResponsibleEmployee = Reference | ValueString
 
 """
 List of Diagnostic report statuses
 """
 enum DiagnosticReportStatus {
-  "Status `FINAL` for an encounter"
-  FINAL
   "Status `ENTERED_IN_ERROR` for an encounter"
   ENTERED_IN_ERROR
+  "Status `FINAL` for an encounter"
+  FINAL
 }
