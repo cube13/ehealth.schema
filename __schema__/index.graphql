@@ -680,6 +680,25 @@ type Query {
 
   "Reads a single `Condition` using its globally unique ID and person's mpi id."
   condition(personId: ID!, id: ID!): Condition
+
+  "Reads and enables pagination through a set of `DiagnosticReport`"
+  diagnosticReports(
+    "A condition to be used in determining which values should be returned by the collection."
+    filter: DiagnosticReportFilter!
+    "The method to use when ordering collection items."
+    orderBy: DiagnosticReportOrderBy
+    "Read all values in the set after (below) this cursor."
+    after: String
+    "Read all values in the set before (above) this cursor."
+    before: String
+    "Only read the first _n_ values of the set."
+    first: Int
+    "Only read the last _n_ values of the set."
+    last: Int
+  ): DiagnosticReportConnection!
+
+  "Reads a single `DiagnosticReport` using its globally unique ID and person's mpi id."
+  diagnosticReport(personId: ID!, id: ID!): DiagnosticReport
 }
 
 """

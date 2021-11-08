@@ -41,11 +41,13 @@ A connection to a list of `DiagnosticReport` values.
 """
 type DiagnosticReportConnection {
   "Information to aid in pagination."
-  pageInfo: FullPageInfo!
+  pageInfo: PageInfo!
   "A list of nodes."
   nodes: [DiagnosticReport]
   "A list of edges."
   edges: [DiagnosticReportEdge]
+  "Total entries found"
+  totalEntries: Int!
 }
 
 """
