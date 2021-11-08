@@ -176,11 +176,6 @@ input ResendSmsApprovalInput {
 }
 
 """
-Return type for `resendSmsApproval` mutation.
-"""
-type ResendSmsApprovalPayload {}
-
-"""
 List of Approval statuses.
 """
 enum ApprovalStatus {
