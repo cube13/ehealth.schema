@@ -680,7 +680,6 @@ type Query {
 
   "Reads a single `Condition` using its globally unique ID and person's mpi id."
   condition(personId: ID!, id: ID!): Condition
-}
 
   "Reads and enables pagination through a set of `LegalEntityReorganizationJob`."
   legalEntityReorganizationJobs(
@@ -700,6 +699,8 @@ type Query {
 
   "Reads a single `LegalEntityReorganizationJob` using its globally unique ID."
   legalEntityReorganizationJob(id: ID!): LegalEntityReorganizationJob
+
+}
 
 """
 The root query for implementing GraphQL mutations.
