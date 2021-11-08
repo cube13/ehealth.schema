@@ -69,8 +69,6 @@ type Approval implements Node {
   expiresAt: DateTime!
   "Access level to granted resource"
   accessLevel: ApprovalAccessLevel!
-  "Date anr time when approval expires"
-  expiresAt: DateTime!
   "Reference on `Person` resource by whom approval was granted"
   grantedBy: Reference!
   "Employee to whom the approval was granted to"
