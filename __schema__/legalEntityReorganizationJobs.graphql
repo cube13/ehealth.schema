@@ -9,7 +9,7 @@ input LegalEntityReorganizationJobFilter {
   "Legal entity reorganization job status filters."
   status: JobStatus
   "Legal entity reorganization job type filters."
-  type: LegalEntityReorganizationJobType
+  legalEntityReorganizationJobType: LegalEntityReorganizationJobType
   "Reorganized Legal entity data filters."
   reorganizedLegalEntity: ReorganizedLegalEntityFilter 
 }
