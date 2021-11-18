@@ -1,0 +1,152 @@
+# import CodeableConcept, Reference from "medicalEvents.graphql"
+
+"""
+Fields to filter AllergyIntolerance in the system.
+"""
+input AllergyIntoleranceFilter {
+  "Person identifier from MPI database"
+  personId: ID!
+  "Encounter identifier from allergy intolerance context"
+  encounterId: ID
+  "The interval to search when allergy intolerance has been onset"
+  onsetDateTime: DateInterval
+  "Allergy intolerance code"
+  code: String
+}
+
+"""
+Methods to use when ordering `AllergyIntolerance`.
+"""
+enum AllergyIntoleranceOrderBy {
+  "Sort by inserted_at in ascending order."
+  INSERTED_AT_ASC
+  "Sort by inserted_at in descending order."
+  INSERTED_AT_DESC
+}
+
+"""
+A connection to a list of `AllergyIntolerance` values.
+"""
+type AllergyIntoleranceConnection {
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "A list of nodes."
+  nodes: [AllergyIntolerance]
+  "A list of edges."
+  edges: [AllergyIntoleranceEdge]
+  "Total entries found"
+  totalEntries: Int!
+}
+
+"""
+An edge in a connection of `AllergyIntolerance`.
+"""
+type AllergyIntoleranceEdge {
+  "The item at the end of the edge."
+  node: AllergyIntolerance!
+  "A cursor for use in pagination."
+  cursor: String!
+}
+
+"""
+AllergyIntolerance data contains all information about patient's allergy intolerance. Described by https://www.hl7.org/fhir/allergyintolerance.html
+In order to obtain this data user must have a scopes: **allergy_intolerance:practical_monitor**, **allergy_intolerance:clinical_monitor**
+"""
+type AllergyIntolerance implements Node {
+  "The ID of an object."
+  id: ID!
+  "Primary key identifier from the database."
+  databaseId: UUID!
+  "Clinical status of the allergy intolerance."
+  clinicalStatus: AllergyIntoleranceClinicalStatus!
+  "Verification status of the allergy intolerance."
+  verificationStatus: AllergyIntoleranceVerificationStatus!
+  "Type of the allergy intolerance."
+  type: AllergyIntoleranceType!
+  "Category of the allergy intolerance."
+  category: AllergyIntoleranceCategory!
+  "Criticality of the allergy intolerance."
+  criticality: AllergyIntoleranceCriticality!
+  "Code that identifies the allergy or intolerance."
+  code: CodeableConcept!
+  "When allergy or intolerance was identified."
+  onsetDateTime: DateTime!
+  "Date record was believed accurate."
+  assertedDate: DateTime!
+  "Source of allergy intolerance information. It is `true` if the allergy intolerance is done by current doctor or `false` if according to someone"
+  primarySource: Boolean!
+  "Allergy intolerance report origin. Fills if primary_source=false"
+  reportOrigin: CodeableConcept
+  "Reference on Employee resource who is source of the allergy intolerance information. Fills if primary_source=true"
+  asserter: Reference
+  "Date of last known occurrence of a reaction."
+  lastOccurrence: DateTime
+  "Reference on Encounter resource"
+  context: Reference!
+  "Date and time when record was inserted"
+  insertedAt: DateTime!
+  "Date and time when record was updated"
+  updatedAt: DateTime!
+}
+
+"""
+Clinical status of an allergy intolerance. According to `eHealth/allergy_intolerance_clinical_statuses` dictionary
+"""
+enum AllergyIntoleranceClinicalStatus {
+  "Status `ACTIVE` for an allergy intolerance"
+  ACTIVE
+  "Status `INACTIVE` for an allergy intolerance"
+  INACTIVE
+  "Status `RESOLVED` for an allergy intolerance"
+  RESOLVED
+}
+
+"""
+Verification status of an allergy intolerance. According to `eHealth/allergy_intolerance_verification_statuses` dictionary
+"""
+enum AllergyIntoleranceVerificationStatus {
+  "Status `CONFIRMED` for an allergy intolerance"
+  CONFIRMED
+  "Status `ENTERED_IN_ERROR` for an allergy intolerance"
+  ENTERED_IN_ERROR
+  "Status `REFUTED` for an allergy intolerance"
+  REFUTED
+  "Status `UNCONFIRMED` for an allergy intolerance"
+  UNCONFIRMED
+}
+
+"""
+Type of an allergy intolerance. According to `Health/allergy_intolerance_types` dictionary
+"""
+enum AllergyIntoleranceType {
+  "Type `ALLERGY` for an allergy intolerance"
+  ALLERGY
+  "Type `INTOLERANCE` for an allergy intolerance"
+  INTOLERANCE
+}
+
+"""
+Category of an allergy intolerance. According to `eHealth/allergy_intolerance_categories` dictionary
+"""
+enum AllergyIntoleranceCategory {
+  "Category `ENVIRONMENTAL` for an allergy intolerance"
+  ENVIRONMENTAL
+  "Category `FOOD` for an allergy intolerance"
+  FOOD
+  "Category `MEDICATION` for an allergy intolerance"
+  MEDICATION
+  "Category `OCCUPATIONAL` for an allergy intolerance"
+  OCCUPATIONAL
+}
+
+"""
+Criticality of an allergy intolerance. According to `eHealth/allergy_intolerance_criticalities` dictionary
+"""
+enum AllergyIntoleranceCriticality {
+  "Criticality `HIGH` for an allergy intolerance"
+  HIGH
+  "Criticality `LOW` for an allergy intolerance"
+  LOW
+  "Criticality `UNABLE_TO_ASSESS` for an allergy intolerance"
+  UNABLE_TO_ASSESS
+}
