@@ -70,7 +70,9 @@ type Observation implements Node {
   "Classification of type of observation"
   categories: [CodeableConcept!]!
   "Reference on Encounter resource"
-  context: Reference!
+  context: Reference
+  "Reference on DiagnosticReport resource"
+  diagnosticReport: Reference
   "Observation effective time in DateTime or Period format"
   effective: Effective!
   "Date and time observation was made available"
@@ -109,8 +111,8 @@ List of observation statuses. According to `eHealth/observation_statuses` dictio
 enum ObservationStatus {
   "Status `ENTERED_IN_ERROR` for an observation"
   ENTERED_IN_ERROR
-  "Status `FINISHED` for an observation"
-  FINISHED
+  "Status `VALID` for an observation"
+  VALID
 }
 
 """
