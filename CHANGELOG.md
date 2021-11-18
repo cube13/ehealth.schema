@@ -2,6 +2,48 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.21.0](https://github.com/edenlabllc/ehealth.schema/compare/v4.19.1...v4.21.0) (2021-11-18)
+
+
+### Features
+
+* base ME types added ([c5d3bf1](https://github.com/edenlabllc/ehealth.schema/commit/c5d3bf18a3c1467e3164dfaefa5227cba0645b31))
+* Conditions described ([#180](https://github.com/edenlabllc/ehealth.schema/issues/180)) ([7e0e6d3](https://github.com/edenlabllc/ehealth.schema/commit/7e0e6d317746364e57f605f5d025130ae8cec50a)), closes [#186](https://github.com/edenlabllc/ehealth.schema/issues/186) [#193](https://github.com/edenlabllc/ehealth.schema/issues/193)
+* Encounter added ([df0a549](https://github.com/edenlabllc/ehealth.schema/commit/df0a5498480f6518289e904169b61e20e3cfb649))
+* Episodes added ([7893437](https://github.com/edenlabllc/ehealth.schema/commit/789343729aff49b11f13f324ac99459cb6451a82))
+* Justification added ([5aaaf27](https://github.com/edenlabllc/ehealth.schema/commit/5aaaf27db5f6b8ba56e13af579a71f354f3ac0ba))
+* manual merge candidates assigh and query ([4de7c83](https://github.com/edenlabllc/ehealth.schema/commit/4de7c8350607b3f6b56d7233740192093216f483))
+* ME base types added. Episode structure described ([#173](https://github.com/edenlabllc/ehealth.schema/issues/173)) ([6d32108](https://github.com/edenlabllc/ehealth.schema/commit/6d32108835f480307ad974c5b80cc63b6e4b0479))
+* new type for pagination created ([#191](https://github.com/edenlabllc/ehealth.schema/issues/191)) ([400d884](https://github.com/edenlabllc/ehealth.schema/commit/400d884b9b238e0e1a96e2cbbdda283746d07c0a))
+* Observation added ([93cf6f7](https://github.com/edenlabllc/ehealth.schema/commit/93cf6f76bfe887466225bba43f383f00b8734056))
+* query for ManualMergeCandidate added, assign MergeRequest changed  ([#186](https://github.com/edenlabllc/ehealth.schema/issues/186)) ([3f877c4](https://github.com/edenlabllc/ehealth.schema/commit/3f877c4afea398a82f9750bad061d201e5dad6fa))
+
+
+### Bug Fixes
+
+* another unused ME base types removed ([4c8eee4](https://github.com/edenlabllc/ehealth.schema/commit/4c8eee48113b960eee0fe5588392b78143555c84))
+* components attr added to Observation ([20384fb](https://github.com/edenlabllc/ehealth.schema/commit/20384fbc379bec5a8098c94fd8d4de88dc543b55))
+* conflicts fixed in master ([ba1d34e](https://github.com/edenlabllc/ehealth.schema/commit/ba1d34ee2e8c967606f258919140eb0cc4d0d266))
+* diagnosis array in Episode can be empty ([#193](https://github.com/edenlabllc/ehealth.schema/issues/193)) ([79b49e7](https://github.com/edenlabllc/ehealth.schema/commit/79b49e7fc29b690db4e1bb04004b38a2aa20e959))
+* effective attr added to Observation ([1c140d1](https://github.com/edenlabllc/ehealth.schema/commit/1c140d19a84ee1acc67ed4a659fc3edc4138bb75))
+* episode connection ([d44bec7](https://github.com/edenlabllc/ehealth.schema/commit/d44bec7929dbbe4da38d8e319e8f55ecbe21eb96))
+* episodeId is not required in encounter filter ([fb57c8f](https://github.com/edenlabllc/ehealth.schema/commit/fb57c8f587c69883de77420bbc3ec95eb8146f4a))
+* FullPageInfo removed ([a7c9ff5](https://github.com/edenlabllc/ehealth.schema/commit/a7c9ff5560b2ff08b961bd158df5512d0f717aaf))
+* justification reason type added to input ([776367a](https://github.com/edenlabllc/ehealth.schema/commit/776367a170b730e525c4ef67e43b3f2b46f29dac))
+* Justification ReasonTypeInput modified ([9731b43](https://github.com/edenlabllc/ehealth.schema/commit/9731b43284f6cdac29b604963723a9eee192393d))
+* JustificationInput modified ([3e229dd](https://github.com/edenlabllc/ehealth.schema/commit/3e229dd729be8b9a0076d958f0db262a87bf9206))
+* ManualMergeCandidateDecision values stored alphabetically ([c2fba0a](https://github.com/edenlabllc/ehealth.schema/commit/c2fba0ad6a191020e294116fdb90b388373544c2))
+* ManualMergeCandidateFilter type ([4e3b4ee](https://github.com/edenlabllc/ehealth.schema/commit/4e3b4ee5c501109a89e6800ed693d0e906c78ed6))
+* More reduction in Observation ([e0e0bb1](https://github.com/edenlabllc/ehealth.schema/commit/e0e0bb1942c251aa6b192908a6deddb7476e5ec5))
+* not used base ME types removed ([9a2dfa3](https://github.com/edenlabllc/ehealth.schema/commit/9a2dfa34661900e7ca3ccb27c38311ea153088c1))
+* Observation edited ([#198](https://github.com/edenlabllc/ehealth.schema/issues/198)) ([fd70617](https://github.com/edenlabllc/ehealth.schema/commit/fd706178b7b4f14a2f255739a88b14b87096f55c))
+* observation schema edited ([34690a6](https://github.com/edenlabllc/ehealth.schema/commit/34690a6f7e0668e707a2e00f5c4a06f06b543737))
+* Observation temporary reduced ([fb39f18](https://github.com/edenlabllc/ehealth.schema/commit/fb39f184065ee3a52d025c5a8e96fdb65b3480c2))
+* referenceRanges attr added to Observation ([5411605](https://github.com/edenlabllc/ehealth.schema/commit/5411605b98d2c4dfda43e21ec170bed7e85c2327))
+* travis, minor FG changes ([fd43092](https://github.com/edenlabllc/ehealth.schema/commit/fd43092a284587a348d2ed0c9e046f0d2ec34d44))
+* unused modules removed from index ([a258ebe](https://github.com/edenlabllc/ehealth.schema/commit/a258ebe9e42c3477bde51601681df6c115e788da))
+* value attr added to Observation ([a59b9e6](https://github.com/edenlabllc/ehealth.schema/commit/a59b9e604a020b87775e068fa4025264f1ea650a))
+
 ## [4.20.0](https://github.com/edenlabllc/ehealth.schema/compare/v4.19.1...v4.20.0) (2021-11-05)
 
 
