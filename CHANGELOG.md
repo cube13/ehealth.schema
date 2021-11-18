@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.22.0](https://github.com/edenlabllc/ehealth.schema/compare/v4.21.0...v4.22.0) (2021-11-18)
+
+
+### Features
+
+* Allergy Intolerance described ([#185](https://github.com/edenlabllc/ehealth.schema/issues/185)) ([596a1f3](https://github.com/edenlabllc/ehealth.schema/commit/596a1f310c1fa3f527bf7b45fefbe36f7f67dac2))
+
 ## [4.21.0](https://github.com/edenlabllc/ehealth.schema/compare/v4.19.1...v4.21.0) (2021-11-18)
 
 
