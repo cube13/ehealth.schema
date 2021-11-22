@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.23.0](https://github.com/edenlabllc/ehealth.schema/compare/v4.22.0...v4.23.0) (2021-11-22)
+
+
+### Features
+
+* signedContentLinks removed from Encounter ([#199](https://github.com/edenlabllc/ehealth.schema/issues/199)) ([3606077](https://github.com/edenlabllc/ehealth.schema/commit/3606077c95b741c2d2d9ae56da0d12cce3989edf))
+
 ## [4.22.0](https://github.com/edenlabllc/ehealth.schema/compare/v4.21.0...v4.22.0) (2021-11-18)
 
 
