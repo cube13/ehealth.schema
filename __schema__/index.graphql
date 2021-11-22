@@ -37,6 +37,7 @@
 # import * from "declarationsTerminationJobs.graphql"
 # import * from "divisions.graphql"
 # import * from "forbiddenGroups.graphql"
+# import * from "bucketsDocuments.graphql"
 
 """
 The query root of e-Health GraphQL interface.
@@ -566,6 +567,18 @@ type Query {
 
   "Reads a single `ForbiddenGroup` using its globally unique ID."
   forbiddenGroup(id: ID!): ForbiddenGroup
+
+  "Returns list of scan documents stored in Buckets. Without pagination."
+  personBucketsDocuments(
+    "A condition to be used in determining which values should be returned by the collection."
+    filter: personBucketsDocumentsFilter
+    "The method to use when ordering collection items."
+    orderBy: personBucketsDocumentsOrderBy
+    "Only read the first _n_ values of the set."
+    first: Int
+    "Only read the last _n_ values of the set."
+    last: Int
+  ): personBucketsDocumentsList
 }
 
 """

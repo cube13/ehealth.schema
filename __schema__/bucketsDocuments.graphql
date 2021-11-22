@@ -1,0 +1,96 @@
+"""
+Fields to filter Buckets and Documents within Buckets.
+"""
+input personBucketsDocumentsFilter {
+  "Primary key identifier from the database of a Person"
+  databaseId: UUID
+  "Request Type"
+  type: requestType
+  "NHS or MIS channel"
+  channel: String
+  "Whether include empty buckets or not."
+  includeEmptyBuckets: Boolean
+}
+
+"""
+Methods to use when ordering `Buckets`.
+"""
+enum personBucketsDocumentsOrderBy {
+  "Sort Person by inserted at in ascending order."
+  INSERTED_AT_ASC
+  "Sort Person by inserted at in descending order."
+  INSERTED_AT_DESC
+}
+
+"""
+Request Type
+"""
+enum requestType {
+  "Person request type is used for create or update Persons."
+  PERSON_REQUEST
+  "Authentication method request type is used for create or update authentication methods."
+  AUTHENTICATION_METHOD_REQUEST
+}
+
+"""
+Return type for `createPersonRequest` mutation.
+"""
+type personBucketsDocumentsList {
+"Scan files of Person's documents, located in Bucket, where name = latest Person_request.ID identifier. person_documents:read scope is needed to get this parameter"
+ requestAttachedDocuments: {
+    "The ID of an object, base64 coded"
+    id: ID!
+    "Primary key identifier from the database"
+    databaseId: UUID!
+    "Type of request: PersonRequest, AuthMethodRequest"
+    type: String
+    "Channel, which was used for creation of a latest Person Request"
+    channel: String!
+    "Whether Bucket is empty or not"
+    emptyBucket: Boolean!
+    "Technical information when the AuthMethod or Person Request was inserted into the DB."
+    insertedAt: DateTime!
+    "List of scan copies of Person's documents"
+    documents: [requestAttachedDocument]
+    "List of scan copies of documents, related to Confidant persons"
+    confidantPersons: [confidantPersonAttachedDocuments] 
+    thirdPerson: [thirdPersonAttachedDocument] 
+    
+    }
+}
+
+"""
+     Scan files of documents, located in Bucket
+ """
+ type requestAttachedDocument {
+ "The type of document."
+ type: String!
+ "Person's scan files of documents, located in Bucket, in latest Person_request.id folder."
+ url: String!
+ }
+
+"""
+     Scan files of Confidant persons' documents, located in Bucket
+"""
+"Scan files of Person's documents, located in Bucket, where name = latest Person_request.ID identifier"
+type confidantPersonAttachedDocuments {
+  "Priority of persons. The value is present in the `CONFIDANT_PERSON_TYPE` dictionary."
+  relationType: String!
+  "ConfidantPerson identification documents."
+  documents: [requestAttachedDocument]!
+  "Documents which prove relationship with the patient"
+  relationshipDocuments: [requestAttachedDocument]!
+}
+
+"""
+     Scan files of documents, located in Bucket
+ """
+ type thirdPersonAttachedDocument {
+ "The type of document."
+ type: String!
+ "Person's scan files of documents, located in Bucket, in latest Person_request.id folder."
+ url: String!
+ }
+
+
+  
