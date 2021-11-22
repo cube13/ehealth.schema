@@ -128,7 +128,7 @@ Reaction on immunization
 """
 type Reaction {
   "Detail about the reaction as reference on Observation resource"
-  detail: Reference
+  detail: Reference!
 }
 
 """
