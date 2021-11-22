@@ -186,40 +186,45 @@ type Timing {
   "When the event occurs"
   event: [DateTime]
   "When the event is to occur"
-  repeat: {
-    "Number of times to repeat"
-    count: Int
-    "Maximum number of times to repeat"
-    countMax: Int
-    "How long when it happens"
-    duration: Float
-    "How long when it happens (Max)"
-    durationMax: Float
-    "A unit of time (units from UCUM)."
-    durationUnit: String
-    "Event occurs frequency times per period"
-    frequency: Int
-    "Event occurs up to frequencyMax times per period"
-    frequencyMax: Int
-    "Event occurs frequency times per period"
-    period: Float
-    "Upper limit of period (3-4 hours)"
-    periodMax: Float
-    "A unit of time (units from UCUM)."
-    periodUnit: String
-    "Days of week the event occurs"
-    dayOfWeek: [String]
-    "Time of day for action"
-    timeOfDay: [String]
-    "Code for time period of occurrence"
-    when: EventTiming
-    "Minutes from event (before or after)"
-    offset: Int
-    "Length/Range of lengths, or (Start and/or end) limits"
-    bounds: TimingBounds
-  }
+  repeat: Repeat
   "Code for a known/defined timing pattern."
   code: CodeableConcept
+}
+
+"""
+Type describes repeated event
+"""
+type Repeat {
+  "Number of times to repeat"
+  count: Int
+  "Maximum number of times to repeat"
+  countMax: Int
+  "How long when it happens"
+  duration: Float
+  "How long when it happens (Max)"
+  durationMax: Float
+  "A unit of time (units from UCUM)."
+  durationUnit: String
+  "Event occurs frequency times per period"
+  frequency: Int
+  "Event occurs up to frequencyMax times per period"
+  frequencyMax: Int
+  "Event occurs frequency times per period"
+  period: Float
+  "Upper limit of period (3-4 hours)"
+  periodMax: Float
+  "A unit of time (units from UCUM)."
+  periodUnit: String
+  "Days of week the event occurs"
+  dayOfWeek: [String]
+  "Time of day for action"
+  timeOfDay: [String]
+  "Code for time period of occurrence"
+  when: EventTiming
+  "Minutes from event (before or after)"
+  offset: Int
+  "Length/Range of lengths, or (Start and/or end) limits"
+  bounds: TimingBounds
 }
 
 """
