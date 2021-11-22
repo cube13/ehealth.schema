@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.24.0](https://github.com/edenlabllc/ehealth.schema/compare/v4.23.0...v4.24.0) (2021-11-22)
+
+
+### Features
+
+* Procedure schema and queries described ([#181](https://github.com/edenlabllc/ehealth.schema/issues/181)) ([42cb052](https://github.com/edenlabllc/ehealth.schema/commit/42cb052d204e0aa92f858a499f6379c83536c741))
+
 ## [4.23.0](https://github.com/edenlabllc/ehealth.schema/compare/v4.22.0...v4.23.0) (2021-11-22)
 
 
