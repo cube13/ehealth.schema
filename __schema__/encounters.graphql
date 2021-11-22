@@ -103,8 +103,6 @@ type Encounter implements Node {
   cancellationReason: CodeableConcept
   "Reference on supporting Observation, DiagnosticReport or Condition resources"
   supportingInfo: [Reference]
-  "Path to signed content of the Encounter package in storage"
-  signedContentLinks: [String]!
   "Date and time when record was inserted"
   insertedAt: DateTime!
   "Date and time when record was updated"
