@@ -130,10 +130,10 @@ List of activity statuses
 enum ActivityStatus {
   "Status `CANCELLED` for an activity"
   CANCELLED
-  "Status `IN_PROGRESS` for an activity"
-  IN_PROGRESS
   "Status `COMPLETED` for an activity"
   COMPLETED
+  "Status `IN_PROGRESS` for an activity"
+  IN_PROGRESS
   "Status `SCHEDULED` for an activity"
   SCHEDULED
 }
