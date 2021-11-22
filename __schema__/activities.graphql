@@ -1,4 +1,5 @@
 # import CodeableConcept, Reference, SimpleQuantity, Timing, Period from "medicalEvents.graphql"
+# import ValueString from "observations.graphql"
 
 """
 Fields to filter `Activity` in the system.
@@ -33,11 +34,13 @@ A connection to a list of `Activity` values.
 """
 type ActivityConnection {
   "Information to aid in pagination."
-  pageInfo: FullPageInfo!
+  pageInfo: PageInfo!
   "A list of nodes."
   nodes: [Activity]
   "A list of edges."
   edges: [ActivityEdge]
+  "Total entries found"
+  totalEntries: Int!
 }
 
 """
@@ -67,8 +70,6 @@ type Activity implements Node {
   outcomeCodeableConcept: [CodeableConcept]
   "In-line definition of activity"
   detail: Detail!
-  "Path to signed content of the Activity in storage"
-  signedContentLinks: [String]!
   "Date and time when record was inserted"
   insertedAt: DateTime!
   "Date and time when record was updated"
@@ -129,15 +130,15 @@ List of activity statuses
 enum ActivityStatus {
   "Status `CANCELLED` for an activity"
   CANCELLED
+  "Status `IN_PROGRESS` for an activity"
+  IN_PROGRESS
   "Status `COMPLETED` for an activity"
   COMPLETED
   "Status `SCHEDULED` for an activity"
   SCHEDULED
-  "Status `IN_PROGRESS` for an activity"
-  IN_PROGRESS
 }
 
 """
 This union represents when activity is to occur
 """
-union ActivityScheduled = Timing | Period | String
+union ActivityScheduled = Timing | Period | ValueString

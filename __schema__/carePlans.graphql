@@ -35,11 +35,13 @@ A connection to a list of `CarePlan` values.
 """
 type CarePlanConnection {
   "Information to aid in pagination."
-  pageInfo: FullPageInfo!
+  pageInfo: PageInfo!
   "A list of nodes."
   nodes: [CarePlan]
   "A list of edges."
   edges: [CarePlanEdge]
+  "Total entries found"
+  totalEntries: Int!
 }
 
 """
@@ -97,8 +99,6 @@ type CarePlan implements Node {
   contributor: [Reference]
   "Care plan providing conditions"
   termsOfService: CodeableConcept!
-  "Path to signed content of the Care plan in storage"
-  signedContentLinks: [String]!
   "Date and time when record was inserted"
   insertedAt: DateTime!
   "Date and time when record was updated"
@@ -106,17 +106,17 @@ type CarePlan implements Node {
 }
 
 """
-List of care plan statuses. According to 'eHealth/care_plan_statuses' dictionary
+List of care plan statuses. According to `eHealth/care_plan_statuses` dictionary
 """
 enum CarePlanStatus {
-  "Status `NEW` for a care plan"
-  NEW
   "Status `ACTIVE` for a care plan"
   ACTIVE
-  "Status `COMPLETED` for a care plan"
-  COMPLETED
   "Status `CANCELLED` for a care plan"
   CANCELLED
+  "Status `COMPLETED` for a care plan"
+  COMPLETED
+  "Status `NEW` for a care plan"
+  NEW
   "Status `TERMINATED` for a care plan"
   TERMINATED
 }
