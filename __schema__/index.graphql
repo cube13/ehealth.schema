@@ -43,6 +43,7 @@
 # import * from "observations.graphql"
 # import * from "conditions.graphql"
 # import * from "allergyIntolerances.graphql"
+# import * from "procedures.graphql"
 
 """
 The query root of e-Health GraphQL interface.
@@ -699,6 +700,25 @@ type Query {
 
   "Reads a single `AllergyIntolerance` using its globally unique ID and person's mpi id."
   allergyIntolerance(personId: ID!, id: ID!): AllergyIntolerance
+
+  "Reads and enables pagination through a set of `Procedure`"
+  procedures(
+    "A condition to be used in determining which values should be returned by the collection."
+    filter: ProcedureFilter!
+    "The method to use when ordering collection items."
+    orderBy: ProcedureOrderBy
+    "Read all values in the set after (below) this cursor."
+    after: String
+    "Read all values in the set before (above) this cursor."
+    before: String
+    "Only read the first _n_ values of the set."
+    first: Int
+    "Only read the last _n_ values of the set."
+    last: Int
+  ): ProcedureConnection!
+
+  "Reads a single `Procedure` using its globally unique ID and person's mpi id."
+  procedure(personId: ID!, id: ID!): Procedure
 }
 
 """

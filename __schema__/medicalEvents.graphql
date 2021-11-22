@@ -136,3 +136,21 @@ type Ratio {
   "Denominator value"
   denominator: Quantity!
 }
+
+"""
+Service Request representation in paper form
+"""
+type PaperReferral {
+    "Some notes"
+    note: String
+    "Requester employee name"
+    requesterEmployeeName: String!
+    "Requester legal entity edrpou"
+    requesterLegalEntityEdrpou: String!
+    "Requester legal entity name"
+    requesterLegalEntityName: String
+    "Service request number"
+    requisition: String
+    "Service request date"
+    serviceRequestDate: String!
+}

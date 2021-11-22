@@ -1,4 +1,4 @@
-# import Coding, CodeableConcept, Reference, Diagnosis from "medicalEvents.graphql"
+# import Coding, CodeableConcept, Reference, Diagnosis, PaperReferral from "medicalEvents.graphql"
 
 """
 Fields to filter Encounter in the system.
@@ -120,25 +120,7 @@ enum EncounterStatus {
 }
 
 """
-Service Request representation in paper form
-"""
-type PaperReferral {
-    "Some notes"
-    note: String
-    "Requester employee name"
-    requesterEmployeeName: String!
-    "Requester legal entity edrpou"
-    requesterLegalEntityEdrpou: String!
-    "Requester legal entity name"
-    requesterLegalEntityName: String
-    "Service request number"
-    requisition: String
-    "Service request date"
-    serviceRequestDate: String!
-}
-
-"""
-Represents data about patient hospitalization
+Represents data about patient's hospitalization
 """
 type Hospitalization {
     "From where patient was admitted (physician referral, transfer). According to `eHealth/encounter_admit_source` dictionary"

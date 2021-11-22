@@ -1,0 +1,124 @@
+# import CodeableConcept, Reference, PaperReferral from "medicalEvents.graphql"
+
+"""
+Fields to filter Procedure in the system.
+"""
+input ProcedureFilter {
+  "Person identifier from MPI database"
+  personId: ID!
+  "Procedure code. Represents service identifier"
+  code: ID
+  "Service request identifier on which procedure is based on"
+  basedOn: ID
+  "Procedure status"
+  status: ProcedureStatus
+  "Encounter identifier related to procedure"
+  encounterId: ID
+  "Legal entity identifier"
+  managingOrganizationId: ID
+  "Origin episode identifier"
+  originEpisodeId: ID
+}
+
+"""
+Methods to use when ordering `Procedure`.
+"""
+enum ProcedureOrderBy {
+  "Sort by inserted_at in ascending order."
+  INSERTED_AT_ASC
+  "Sort by inserted_at in descending order."
+  INSERTED_AT_DESC
+  "Sort by status in ascending order."
+  STATUS_ASC
+  "Sort by status in descending order."
+  STATUS_DESC
+}
+
+"""
+A connection to a list of `Procedure` values.
+"""
+type ProcedureConnection {
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "A list of nodes."
+  nodes: [Procedure]
+  "A list of edges."
+  edges: [ProcedureEdge]
+  "Total entries found"
+  totalEntries: Int!
+}
+
+"""
+An edge in a connection of `Procedure`.
+"""
+type ProcedureEdge {
+  "The item at the end of the edge."
+  node: Procedure!
+  "A cursor for use in pagination."
+  cursor: String!
+}
+
+"""
+Procedure data contains all information about the procedure. Described by https://www.hl7.org/fhir/procedure.html
+In order to obtain this data user must have a scopes: **procedure:practical_monitor**, **procedure:clinical_monitor**
+"""
+type Procedure implements Node {
+  "The ID of an object."
+  id: ID!
+  "Primary key identifier from the database."
+  databaseId: UUID!
+  "Reference on ServiceRequest resource"
+  basedOn: Reference
+  "ServiceRequest representation if it has paper form"
+  paperReferral: PaperReferral
+  "Procedure status"
+  status: ProcedureStatus!
+  "Reason for current status. According to `eHealth/procedure_status_reasons` dictionary"
+  statusReason: CodeableConcept
+  "Classification of the procedure. According to `eHealth/procedure_categories` dictionary"
+  category: CodeableConcept
+  "Procedure explanatory letter on cancel"
+  explanatoryLetter: String
+  "Identification of the procedure as reference on Service resource"
+  code: Reference!
+  "Reference on Encounter resource"
+  encounter: Reference
+  "When the procedure was performed"
+  performedDateTime: DateTime!
+  "Who recorded the procedure. Reference on Employee resource"
+  recordedBy: Reference!
+  "Source of procedure information. True - the procedure is done by current doctor, false - according to someone"
+  primarySource: Boolean!
+  "Procedure report origin. Fills according to `eHealth/report_origins` dictionary if primary_source=false"
+  reportOrigin: CodeableConcept
+  "Reference on Employee resource who performed the procedure"
+  performer: Reference
+  "Reference on Division resource where the procedure happened"
+  division: Reference
+  "Reference on Legal entity resource where the procedure happened"
+  managingOrganization: Reference!
+  "List of Condition resources. The justification that the procedure was performed"
+  reasonReferences: [Reference]
+  "The result of procedure. Fills according to `eHealth/procedure_outcomes` dictionary"
+  outcome: CodeableConcept
+  "List of references on Condition resources that is a result of the procedure"
+  complicationDetails: [Reference]
+  "Additional information about the procedure"
+  note: String
+  "Reference on origin episode resource that relates to service request the procedure based on"
+  originEpisode: Reference
+  "Date and time when record was inserted"
+  insertedAt: DateTime!
+  "Date and time when record was updated"
+  updatedAt: DateTime!
+}
+
+"""
+Procedure status according to `eHealth/procedure_statuses` dictionary
+"""
+enum ProcedureStatus {
+  "Status `COMPLETED` for a procedure"
+  COMPLETED
+  "Status `ENTERED_IN_ERROR` for a procedure"
+  ENTERED_IN_ERROR
+}
