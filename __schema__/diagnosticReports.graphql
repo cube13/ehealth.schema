@@ -109,8 +109,6 @@ type DiagnosticReport implements Node {
   reportOrigin: CodeableConcept
   "Diagnostic report status"
   status: DiagnosticReportStatus!
-  "Path to signed content of the DiagnosticReport package in storage"
-  signedContentLinks: [String]
   "Date and time when record was inserted"
   insertedAt: DateTime!
   "Date and time when record was updated"
