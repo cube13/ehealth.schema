@@ -6,8 +6,8 @@ Fields to filter DiagnosticReport in the system.
 input DiagnosticReportFilter {
   "Person identifier from MPI database"
   personId: ID!
-  "Diagnostic report code. Represents service code"
-  code: String
+  "Diagnostic report code. Represents service identifier"
+  code: ID
   "Encounter identifier related to the diagnostic report"
   encounterId: ID
   "Episode related to diagnostic report"
