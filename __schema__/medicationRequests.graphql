@@ -89,7 +89,7 @@ type MedicationRequest implements Node {
   "Prescripted medication"
   medication: INNMDosage!
   "Quantity of the prescripted medication"
-  medicationQty: Int!
+  medicationQty: Float!
   "Medication request status that describes the lifecycle of the prescription."
   status: MedicationRequestStatus!
   "System identifier if medication request is considered to be deleted"
