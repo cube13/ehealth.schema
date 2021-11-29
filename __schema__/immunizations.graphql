@@ -71,7 +71,7 @@ type Immunization implements Node {
   context: Reference!
   "Immunization date"
   date: DateTime!
-  "Source of immunization information. True - the immunization is done by current doctor, false - according to someone"
+  "Source of immunization information. True - the immunization is done by current doctor OR false - according to someone"
   primarySource: Boolean!
   "Reference on Employee resource who performed the Immunization.  Fills if primary_source=true"
   performer: Reference
