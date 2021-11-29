@@ -6,8 +6,6 @@ Fields to filter Immunization in the system.
 input ImmunizationFilter {
   "Person identifier from MPI database"
   personId: ID!
-  "Immunization status"
-  status: ImmunizationStatus
   "Encounter identifier from Immunization context"
   encounterId: ID
   "The interval to search by Immunization date"
