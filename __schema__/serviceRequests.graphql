@@ -98,7 +98,7 @@ type ServiceRequest implements Node {
   "Requested location as reference on Division resource"
   locationReference: Reference
   "Explanation/Justification for service as list of references on Observation or Condition resources"
-  reasonReferences: [Reference]
+  reasonReference: [Reference]
   "Reference on supporting Observation, DiagnosticReport, Condition, Episode, AllergyIntolerance or Immunization resources"
   supportingInfo: [Reference]
   "Comments"
