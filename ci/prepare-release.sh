@@ -11,4 +11,5 @@ git checkout master
 export CONVENTIONAL_GITHUB_RELEASER_TOKEN="$GITHUB_TOKEN"
 
 # Setup npm credentials
-#echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > $HOME/.npmrc
+echo ${NPM_TOKEN}
+echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > $HOME/.npmrc
