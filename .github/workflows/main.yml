@@ -10,6 +10,7 @@ on:
 env:
   SLACK_CHANNEL: "#ci"
   SLACK_URL: ${{secrets.SLACK_URL}}
+  CONVENTIONAL_GITHUB_RELEASER_TOKEN: ${{secrets.GITHUB_TOKEN}}
   
 
 jobs:
@@ -31,7 +32,6 @@ jobs:
           ./ci/prepare-release.sh
           npm run release 
           git push --follow-tags 
-          echo $GITHUB_TOKEN
           npm run github-release 
           npm publish 
 
