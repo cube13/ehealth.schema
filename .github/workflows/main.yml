@@ -10,29 +10,24 @@ on:
 env:
   SLACK_CHANNEL: "#ci"
   SLACK_URL: ${{secrets.SLACK_URL}}
+  
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [ 10.x ]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
     steps:
       - uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+      - uses: actions/setup-node@v2
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: '10'
           cache: 'npm'
-      - run: npm ci
+          cache-dependency-path: package-lock.json
+      - run: npm install
+      - run: npm test
       - name: lint
         run: npm run lint
-      - run: npm ci
       - name: release
         run: |
-          npm install -g conventional-gitlab-releaser
           ./ci/prepare-release.sh
           npm run release 
           git push --follow-tags 
