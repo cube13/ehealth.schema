@@ -26,11 +26,11 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      - run: npm ci
       - name: lint
         run: npm run lint
       - name: release
         run: |
+          npm ci
           ./ci/prepare-release.sh
           npm run release 
           git push --follow-tags 
