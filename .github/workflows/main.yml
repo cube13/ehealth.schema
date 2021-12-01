@@ -12,6 +12,7 @@ env:
   SLACK_URL: ${{secrets.SLACK_URL}}
   CONVENTIONAL_GITHUB_RELEASER_TOKEN: ${{ secrets.CONVENTIONAL_GITHUB_RELEASER_TOKEN }}
   #GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+  DEBUG: conventional-github-releaser
   
 
 jobs:
@@ -29,8 +30,6 @@ jobs:
         run: npm run lint
       - name: release
         run: |
-          echo $CONVENTIONAL_GITHUB_RELEASER_TOKEN > 1.txt
-          cat 1.txt
           ./ci/prepare-release.sh
           npm run release 
           git push --follow-tags 
