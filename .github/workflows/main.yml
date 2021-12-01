@@ -1,36 +1,55 @@
-# This is a basic workflow to help you get started with Actions
+name: Ehealth Schema
 
-name: CI
-
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the master branch
   push:
     branches: [ master ]
   pull_request:
     branches: [ master ]
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+env:
+  SLACK_CHANNEL: "#ci"
+  SLACK_URL: ${{secrets.SLACK_URL}}
+
 jobs:
-  # This workflow contains a single job called "build"
   build:
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [ 10.x ]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run build --if-present
+      - run: npm test
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
 
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
+      - name: lint
+        run: npm run lint
+      - name: release
         run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+          source ./ci/prepare-release.sh || travis_terminate 1
+          npm run release || travis_terminate 1
+          git push --follow-tags origin $TRAVIS_BRANCH || travis_terminate 1
+          npm run github-release || travis_terminate 1
+          npm publish || travis_terminate 1
+
+      # - name: On failure
+      #   if: failure()
+      #   run: |
+      #     curl -X POST --data-urlencode "payload={\"channel\": \"$SLACK_CHANNEL\",\"username\": \"Github Actions\",\"icon_emoji\": \":github:\",\"attachments\": [{\"color\": \"danger\",\"fields\": [{\"title\": \"Build failed\",\"value\": \"for <https://github.com/edenlabllc/ehealth.charts/actions|ehealth.charts/${GITHUB_REF##*/}> (<https://github.com/edenlabllc/ehealth.charts/commit/$GITHUB_SHA|${GITHUB_SHA:0:7}>) by *$GITHUB_ACTOR*\",\"short\": false}]}]}" $SLACK_URL
+      # - name: On success
+      #   if: success()
+      #   run: |
+      #     curl -X POST --data-urlencode "payload={\"channel\": \"$SLACK_CHANNEL\",\"username\": \"Github Actions\",\"icon_emoji\": \":github:\",\"attachments\": [{\"color\": \"good\",\"fields\": [{\"title\": \"Build success\",\"value\": \"for <https://github.com/edenlabllc/ehealth.charts/actions|ehealth.charts/${GITHUB_REF##*/}> (<https://github.com/edenlabllc/ehealth.charts/commit/$GITHUB_SHA|${GITHUB_SHA:0:7}>) by *$GITHUB_ACTOR*\",\"short\": false}]}]}" $SLACK_URL
+      # - name: Skipped
+      #   if: "contains(github.event.head_commit.message, '[ci skip]')"
+      #   run: |
+      #     curl -X POST --data-urlencode "payload={\"channel\": \"$SLACK_CHANNEL\",\"username\": \"Github Actions\",\"icon_emoji\": \":github:\",\"attachments\": [{\"color\": \"warning\",\"fields\": [{\"title\": \"Build skipped\",\"value\"
