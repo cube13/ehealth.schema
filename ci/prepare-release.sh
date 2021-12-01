@@ -8,7 +8,7 @@ git config --global credential.helper "store"
 git checkout master
 
 # Setup conventional-github-releaser credentials
-export CONVENTIONAL_GITHUB_RELEASER_TOKEN="$GITHUB_TOKEN"
+#export CONVENTIONAL_GITHUB_RELEASER_TOKEN="$GITHUB_TOKEN"
 
 # Setup npm credentials
 echo ${NPM_TOKEN}
