@@ -29,6 +29,7 @@ jobs:
         run: npm run lint
       - name: release
         run: |
+          echo $CONVENTIONAL_GITHUB_RELEASER_TOKEN
           ./ci/prepare-release.sh
           npm run release 
           git push --follow-tags 
