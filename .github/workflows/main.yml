@@ -13,6 +13,7 @@ env:
   CONVENTIONAL_GITHUB_RELEASER_TOKEN: ${{ secrets.CONVENTIONAL_GITHUB_RELEASER_TOKEN }}
   #GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
   DEBUG: conventional-github-releaser
+  NPM_TOKEN: ${{secrets.NPM_TOKEN}}
   
 
 jobs:
