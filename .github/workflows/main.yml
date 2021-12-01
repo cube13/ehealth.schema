@@ -10,8 +10,8 @@ on:
 env:
   SLACK_CHANNEL: "#ci"
   SLACK_URL: ${{secrets.SLACK_URL}}
-  #CONVENTIONAL_GITHUB_RELEASER_TOKEN: ${{ secrets.CONVENTIONAL_GITHUB_RELEASER_TOKEN }}
-  GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+  CONVENTIONAL_GITHUB_RELEASER_TOKEN: ${{ secrets.CONVENTIONAL_GITHUB_RELEASER_TOKEN }}
+  #GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
   
 
 jobs:
@@ -25,7 +25,6 @@ jobs:
           cache: 'npm'
           cache-dependency-path: package-lock.json
       - run: npm install
-      - run: npm test
       - name: lint
         run: npm run lint
       - name: release
