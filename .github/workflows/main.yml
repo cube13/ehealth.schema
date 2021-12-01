@@ -35,7 +35,7 @@ jobs:
           npm run release 
           git push --follow-tags 
           npm run github-release 
-          npm publish 
+          #npm publish 
 
       # - name: On failure
       #   if: failure()
