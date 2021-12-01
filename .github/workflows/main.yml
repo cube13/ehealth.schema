@@ -27,19 +27,14 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
       - run: npm ci
-      - run: npm run build --if-present
-      - run: npm test
-
-
       - name: lint
         run: npm run lint
       - name: release
         run: |
-          source ./ci/prepare-release.sh || travis_terminate 1
-          npm run release || travis_terminate 1
-          git push --follow-tags origin $TRAVIS_BRANCH || travis_terminate 1
-          npm run github-release || travis_terminate 1
-          npm publish || travis_terminate 1
+          npm run release 
+          git push --follow-tags 
+          npm run github-release 
+          npm publish 
 
       # - name: On failure
       #   if: failure()
