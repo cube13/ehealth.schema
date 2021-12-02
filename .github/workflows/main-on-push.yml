@@ -23,6 +23,8 @@ jobs:
           cache-dependency-path: package-lock.json
       - run: npm ci
       - name: release
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
         run: |
           ./ci/prepare-release.sh
           npm run release 
