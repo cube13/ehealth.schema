@@ -8,7 +8,7 @@ env:
   SLACK_CHANNEL: "#ci"
   SLACK_URL: ${{secrets.SLACK_URL}}
   DEBUG: conventional-github-releaser
-  NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
   
 jobs:
   build:
