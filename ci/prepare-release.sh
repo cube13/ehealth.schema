@@ -14,3 +14,4 @@ echo "https://${GITHUB_TOKEN}:@github.com" > $HOME/.git-credentials
 #echo ${NODE_AUTH_TOKEN}
 #echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" > $HOME/.npmrc\
 echo "//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}" > $HOME/.npmrc
+cat $HOME/.npmrc
