@@ -1,9 +1,9 @@
 #!/bin/sh
 
 # Setup git
-#git config --global user.email "cub4lt@gmail.com"
-#git config --global user.name "Volodymyr Shvaiko"
-#git config --global credential.helper "store"
+git config --global user.email "cub4lt@gmail.com"
+git config --global user.name "Volodymyr Shvaiko"
+git config --global credential.helper "store"
 # echo "https://${GITHUB_TOKEN}:@github.com" > $HOME/.git-credentials
 # git checkout master
 
