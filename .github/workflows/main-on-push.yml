@@ -9,7 +9,7 @@ env:
   SLACK_URL: ${{secrets.SLACK_URL}}
   DEBUG: conventional-github-releaser
   NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
-  
+  CONVENTIONAL_GITHUB_RELEASER_TOKEN: ${{secrets.GITHUB_TOKEN}}
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -23,15 +23,14 @@ jobs:
           cache-dependency-path: package-lock.json
       - run: npm ci
       - name: release
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.CONVENTIONAL_GITHUB_RELEASER_TOKEN}}
         run: |
           ./ci/prepare-release.sh
           npm run release 
           git push --follow-tags 
           npm run github-release 
           #npm publish   
-      - run: npm publish
+      - name: publish
+        run: npm publish
       
       # - name: On failure
       #   if: failure()
