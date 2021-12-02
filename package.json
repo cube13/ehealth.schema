@@ -1,6 +1,6 @@
 {
   "name": "@edenlabllc/ehealth.schema",
-  "version": "4.24.25",
+  "version": "4.24.26",
   "description": "Type definitions of the eHealth GraphQL API",
   "main": "index.js",
   "scripts": {
