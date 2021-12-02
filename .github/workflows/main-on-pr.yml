@@ -4,18 +4,14 @@ on:
   pull_request:
     branches: [ master ]
 
-
 env:
   SLACK_CHANNEL: "#ci"
   SLACK_URL: ${{secrets.SLACK_URL}}
-  #CONVENTIONAL_GITHUB_RELEASER_TOKEN: ${{ secrets.CONVENTIONAL_GITHUB_RELEASER_TOKEN }}
-  CONVENTIONAL_GITHUB_RELEASER_TOKEN: ${{secrets.GITHUB_TOKEN}}
+  #CONVENTIONAL_GITHUB_RELEASER_TOKEN: ${{secrets.GITHUB_TOKEN}}
   DEBUG: conventional-github-releaser
-  #NPM_TOKEN: ${{secrets.NPM_TOKEN}}
   
-
 jobs:
-  build:
+  lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -27,6 +23,12 @@ jobs:
       - run: npm install
       - name: lint
         run: npm run lint
-      - name: commitlint
-        run: commitlint
-      
+  commitlint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: wagoid/commitlint-github-action@v4
+        with: 
+          configFile: 'commitlint.config.js'

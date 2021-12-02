@@ -7,12 +7,9 @@ on:
 env:
   SLACK_CHANNEL: "#ci"
   SLACK_URL: ${{secrets.SLACK_URL}}
-  #CONVENTIONAL_GITHUB_RELEASER_TOKEN: ${{ secrets.CONVENTIONAL_GITHUB_RELEASER_TOKEN }}
-  CONVENTIONAL_GITHUB_RELEASER_TOKEN: ${{secrets.GITHUB_TOKEN}}
   DEBUG: conventional-github-releaser
-  #NPM_TOKEN: ${{secrets.NPM_TOKEN}}
+  NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -22,6 +19,7 @@ jobs:
         with:
           node-version: '10'
           cache: 'npm'
+          registry-url: 'https://npm.pkg.github.com'
           cache-dependency-path: package-lock.json
       - run: npm ci
       - name: release
@@ -30,8 +28,9 @@ jobs:
           npm run release 
           git push --follow-tags 
           npm run github-release 
-          #npm publish 
-
+          #npm publish   
+      - run: npm publish
+      
       # - name: On failure
       #   if: failure()
       #   run: |
