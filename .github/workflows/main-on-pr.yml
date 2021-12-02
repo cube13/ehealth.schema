@@ -13,9 +13,8 @@ env:
   DEBUG: conventional-github-releaser
   #NPM_TOKEN: ${{secrets.NPM_TOKEN}}
   
-
 jobs:
-  build:
+  lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
