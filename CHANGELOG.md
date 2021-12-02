@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 4.24.37 (2021-12-02)
+
+
+### Bug Fixes
+
+* fix vars ([de0897e](https://github.com/cube13/ehealth.schema/commit/de0897e7bb1bc8d111f39a06a9bbce1a60a67cfb))
+
 ### 4.24.36 (2021-12-02)
 
 
