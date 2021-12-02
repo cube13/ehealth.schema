@@ -27,4 +27,6 @@ jobs:
       - run: npm install
       - name: lint
         run: npm run lint
+      - name: commitlint
+        run: commitlint
       
