@@ -13,9 +13,8 @@ env:
   DEBUG: conventional-github-releaser
   #NPM_TOKEN: ${{secrets.NPM_TOKEN}}
   
-
 jobs:
-  build:
+  lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -27,6 +26,10 @@ jobs:
       - run: npm install
       - name: lint
         run: npm run lint
-      - name: commitlint
-        run: commitlint
-      
+  commitlint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: wagoid/commitlint-github-action@v4
